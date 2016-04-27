@@ -5,6 +5,7 @@ import AreaRegistry from "./AreaRegistry";
 import {injectable, INewable} from "inversify";
 import IViewModel from "../viewmodels/IViewModel";
 import ViewModelContext from "../registry/ViewModelContext";
+import * as Rx from "rx";
 
 @injectable()
 class ViewModelRegistry implements IViewModelRegistry {
@@ -12,15 +13,15 @@ class ViewModelRegistry implements IViewModelRegistry {
     private registry: AreaRegistry[] = []; // Better than a Dictionary implementation since I can easy track case sensitive names
     private unregisteredEntries: RegistryEntry<any>[] = [];
 
-    root<T>(constructor: INewable<IViewModel<T>>, observable?: (context: ViewModelContext) => Rx.IObservable<T>, parameters?: string): AreaRegistry {
-        return this.add(constructor, observable, parameters).forArea("Index");
+    root<T>(construct: INewable<IViewModel<T>>, observable?: (context: ViewModelContext) => Rx.IObservable<T>, parameters?: string): AreaRegistry {
+        return this.add(construct, observable, parameters).forArea("Index");
     }
 
-    add<T>(constructor: INewable<IViewModel<T>>, observable?: (context: ViewModelContext) => Rx.IObservable<T>, parameters?: string): IViewModelRegistry {
-        let id = Reflect.getMetadata("ninjagoat:viewmodel", constructor);
+    add<T>(construct: INewable<IViewModel<T>>, observable?: (context: ViewModelContext) => Rx.IObservable<T>, parameters?: string): IViewModelRegistry {
+        let id = Reflect.getMetadata("ninjagoat:viewmodel", construct);
         if (!id)
             throw new Error("Missing ViewModel decorator");
-        this.unregisteredEntries.push(new RegistryEntry<T>(constructor, id, observable, parameters));
+        this.unregisteredEntries.push(new RegistryEntry<T>(construct, id, observable, parameters));
         return this;
     }
 

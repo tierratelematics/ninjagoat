@@ -6,8 +6,8 @@ import {INewable} from "inversify";
 import * as Rx from "rx";
 
 interface IViewModelRegistry {
-    root<T>(constructor: INewable<IViewModel<T>>, observable?: (context: ViewModelContext) => Rx.IObservable<T>, parameters?: string): AreaRegistry;
-    add<T>(constructor: INewable<IViewModel<T>>, observable?: (context: ViewModelContext) => Rx.IObservable<T>, parameters?: string): IViewModelRegistry;
+    root<T>(construct: INewable<IViewModel<T>>, observable?: (context: ViewModelContext) => Rx.IObservable<T>, parameters?: string): AreaRegistry;
+    add<T>(construct: INewable<IViewModel<T>>, observable?: (context: ViewModelContext) => Rx.IObservable<T>, parameters?: string): IViewModelRegistry;
     forArea(area: string): AreaRegistry;
     getArea(areaId: string): AreaRegistry;
     getAreas(): AreaRegistry[];

@@ -1,5 +1,6 @@
 import IObservableFactory from "./IObservableFactory";
 import {injectable} from "inversify";
+import * as Rx from "rx";
 
 @injectable()
 class ObservableFactory implements IObservableFactory {
