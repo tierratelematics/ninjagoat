@@ -33,7 +33,6 @@ class NinjaGoatModule implements IModule {
         kernel.bind<IPageComponentFactory>("IPageComponentFactory").to(PageComponentFactory).inSingletonScope();
         kernel.bind<IRoutingAdapter>("IRoutingAdapter").to(RoutingAdapter).inSingletonScope();
         kernel.bind<IViewModelFactory>("IViewModelFactory").to(ViewModelFactory).inSingletonScope();
-        kernel.bind<{}>("Views").toValue(require(process.env.EXPORT_VIEWS_PATH));
     };
 
     register(registry: IViewModelRegistry, overrides?: any): void {

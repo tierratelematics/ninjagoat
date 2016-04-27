@@ -1,13 +1,15 @@
 {
     "compilerOptions": {
-        "jsx": "react",
         "target": "es5",
+        "jsx": "react",
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true
     },
     "exclude": [
         "node_modules",
-        "typings/main.d.ts",
-        "typings/main"
+        "typings",
+        "test",
+        "ninjagoat.d.ts",
+        "targets"
     ]
 }

@@ -22,5 +22,6 @@
         "transform": [
             "envify"
         ]
-    }
+    },
+    "main": "dist/main/js/main.js"
 }
