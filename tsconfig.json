@@ -9,7 +9,7 @@
         "node_modules",
         "typings",
         "test",
-        "ninjagoat.d.ts",
+        "dts/ninjagoat.d.ts",
         "targets"
     ]
 }
