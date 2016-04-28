@@ -14,6 +14,9 @@ export default function(contextFactory: IContextFactory): React.ClassicComponent
             this.viewmodel = context.viewmodel;
             this.setState(this.viewmodel);
             context.viewmodel.subscribe(() => this.setState(context.viewmodel));
+        },
+        componentWillUnmount() {
+            if (this.viewmodel) this.viewmodel.dispose();
         }
     });
 };
