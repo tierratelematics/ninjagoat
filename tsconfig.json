@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "target": "es5",
+        "jsx": "react",
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "module": "commonjs"
+    },
+    "exclude": [
+        "node_modules",
+        "typings",
+        "test",
+        "dts/ninjagoat.d.ts"
+    ]
+}

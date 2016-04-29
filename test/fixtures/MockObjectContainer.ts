@@ -1,0 +1,18 @@
+import IObjectContainer from "../../scripts/components/IObjectContainer";
+import INewable = inversify.INewable;
+
+export default class MockObjectContainer implements IObjectContainer {
+    private dictionary: { [id: string]: INewable<any> } = {};
+
+    get<T>(key: string): T {
+        return new this.dictionary[key]();
+    }
+
+    set<T>(key: string, object: INewable<T>) {
+        this.dictionary[key] = object;
+    }
+
+    contains(key: string): boolean {
+        return this.dictionary.hasOwnProperty(key);
+    }
+}
