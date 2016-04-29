@@ -45,7 +45,7 @@ describe("ContextFactory", () => {
 
         observableFactory.register<number>("Bar", (context: ViewModelContext) => Rx.Observable.just(context.parameters.id));
 
-        registry.root(RootViewModel);
+        registry.index(RootViewModel);
         registry
             .add(BarViewModel, parameters => observableFactory.get<number>("Bar", parameters), ":id")
             .add(FooIndexViewModel)

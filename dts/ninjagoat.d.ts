@@ -8,7 +8,6 @@ declare module ninjagoat {
 
     export class Application {
         run(overrides?:any);
-
         register(module:IModule);
     }
 
@@ -18,7 +17,8 @@ declare module ninjagoat {
     }
 
     export interface IViewModelRegistry {
-        root<T>(constructor:INewable<IViewModel<T>>, observable?:(context:ViewModelContext) => Rx.IObservable<T>, parameters?:string):AreaRegistry;
+        root<T>(constructor:INewable<IViewModel<T>>, observable?:(context:ViewModelContext) => Rx.IObservable<T>):AreaRegistry;
+        index<T>(constructor:INewable<IViewModel<T>>, observable?:(context:ViewModelContext) => Rx.IObservable<T>):AreaRegistry;
         add<T>(constructor:INewable<IViewModel<T>>, observable?:(context:ViewModelContext) => Rx.IObservable<T>, parameters?:string):IViewModelRegistry;
         forArea(area:string):AreaRegistry;
         getArea(areaId:string):AreaRegistry;

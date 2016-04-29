@@ -39,7 +39,7 @@ describe("ViewModelRegistry, given a list of ViewModel identifiers", () => {
 
     context("when the root viewmodel have to be registered", () => {
         it("should be registered as a default in the registry", () => {
-            registry.root(BarViewModel);
+            registry.index(BarViewModel);
 
             expect(registry.getArea("Index").entries[0].id).to.eql("Bar");
         });
@@ -101,7 +101,7 @@ describe("ViewModelRegistry, given a list of ViewModel identifiers", () => {
         });
 
         it("should register the root viewmodel", () => {
-            registry.root(RootViewModel, parameters => Rx.Observable.just(10));
+            registry.index(RootViewModel, parameters => Rx.Observable.just(10));
             let id = registry.getEntry("Index", "Root").id;
 
             expect(id).to.be("Root");

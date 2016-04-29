@@ -4,23 +4,23 @@ import IViewModelRegistry from "../scripts/registry/IViewModelRegistry";
 import IRoutingAdapter from "../scripts/navigation/IRoutingAdapter";
 import ViewModelRegistry from "../scripts/registry/ViewModelRegistry";
 import RoutingAdapter from "../scripts/navigation/RoutingAdapter";
-import IPageComponentFactory from "../scripts/components/IPageComponentFactory";
-import MockPageComponentFactory from "./fixtures/MockPageComponentFactory";
+import IPageComponentFactory from "../scripts/components/IComponentFactory";
 import RootViewModel from "./fixtures/viewmodels/RootViewModel";
 import FooIndexViewModel from "./fixtures/viewmodels/FooIndexViewModel";
 import BarViewModel from "./fixtures/viewmodels/BarViewModel";
+import MockComponentFactory from "./fixtures/MockComponentFactory";
 
 describe("RoutingAdapter, given a list of registry entries", () => {
 
     let registry: IViewModelRegistry;
     let subject: IRoutingAdapter;
-    let pageComponentFactory: IPageComponentFactory;
+    let componentFactory: IPageComponentFactory;
 
     beforeEach(() => {
         registry = new ViewModelRegistry();
-        pageComponentFactory = new MockPageComponentFactory();
-        subject = new RoutingAdapter(registry, pageComponentFactory);
-        registry.root(RootViewModel);
+        componentFactory = new MockComponentFactory();
+        subject = new RoutingAdapter(registry, componentFactory);
+        registry.index(RootViewModel);
     });
 
     context("when the area is the index page", () => {
@@ -29,6 +29,7 @@ describe("RoutingAdapter, given a list of registry entries", () => {
             expect(subject.routes()).to.eql({
                 path: "/",
                 component: null,
+                indexRoute: { component: null},
                 childRoutes: []
             });
         });
@@ -42,6 +43,7 @@ describe("RoutingAdapter, given a list of registry entries", () => {
                 expect(subject.routes()).to.eql({
                     path: "/",
                     component: null,
+                    indexRoute: { component: null},
                     childRoutes: [{
                         path: "foo",
                         component: null
@@ -57,6 +59,7 @@ describe("RoutingAdapter, given a list of registry entries", () => {
                 expect(subject.routes()).to.eql({
                     path: "/",
                     component: null,
+                    indexRoute: { component: null},
                     childRoutes: [
                         {
                             path: "foo",
@@ -77,6 +80,7 @@ describe("RoutingAdapter, given a list of registry entries", () => {
                 expect(subject.routes()).to.eql({
                     path: "/",
                     component: null,
+                    indexRoute: { component: null},
                     childRoutes: [
                         {
                             path: "foo",

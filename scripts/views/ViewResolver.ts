@@ -11,8 +11,8 @@ class ViewResolver implements IViewResolver {
     }
 
     resolve<T extends IViewModel<T>>(area: string, viewmodelId?: string): View<T> {
-        if (area === Area.Index)
-            return this.views[Area.Index];
+        if (area === Area.Index || area === Area.Master)
+            return this.views[area];
         if (!viewmodelId)
             return this.views[area].Index || this.views[area][`${area}${Area.Index}`];
         else

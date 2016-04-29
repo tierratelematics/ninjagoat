@@ -19,7 +19,7 @@ describe("ViewResolver,given a viewmodel identifier", () => {
     beforeEach(() => {
         registry = new ViewModelRegistry();
         subject = new ViewResolver(require("./fixtures/views/export"));
-        registry.root(IndexViewModel);
+        registry.index(IndexViewModel);
         registry.add(BarViewModel).add(FooIndexViewModel).forArea("Foo");
     });
 

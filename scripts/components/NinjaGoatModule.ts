@@ -11,14 +11,14 @@ import IViewResolver from "../views/IViewResolver";
 import ViewResolver from "../views/ViewResolver";
 import IContextFactory from "./IContextFactory";
 import ContextFactory from "./ContextFactory";
-import IPageComponentFactory from "./IPageComponentFactory";
-import PageComponentFactory from "./PageComponentFactory";
 import IRoutingAdapter from "../navigation/IRoutingAdapter";
 import RoutingAdapter from "../navigation/RoutingAdapter";
 import IViewModelFactory from "../viewmodels/IViewModelFactory";
 import ViewModelFactory from "../viewmodels/ViewModelFactory";
 import IObjectContainer from "../components/IObjectContainer";
 import ObjectContainer from "../components/ObjectContainer";
+import IComponentFactory from "./IComponentFactory";
+import ComponentFactory from "./ComponentFactory";
 
 class NinjaGoatModule implements IModule {
 
@@ -30,7 +30,7 @@ class NinjaGoatModule implements IModule {
         kernel.bind<IUriResolver>("IUriResolver").to(UriResolver).inSingletonScope();
         kernel.bind<IViewResolver>("IViewResolver").to(ViewResolver).inSingletonScope();
         kernel.bind<IContextFactory>("IContextFactory").to(ContextFactory).inSingletonScope();
-        kernel.bind<IPageComponentFactory>("IPageComponentFactory").to(PageComponentFactory).inSingletonScope();
+        kernel.bind<IComponentFactory>("IComponentFactory").to(ComponentFactory).inSingletonScope();
         kernel.bind<IRoutingAdapter>("IRoutingAdapter").to(RoutingAdapter).inSingletonScope();
         kernel.bind<IViewModelFactory>("IViewModelFactory").to(ViewModelFactory).inSingletonScope();
     };

@@ -6,6 +6,7 @@ import {injectable, INewable} from "inversify";
 import IViewModel from "../viewmodels/IViewModel";
 import ViewModelContext from "../registry/ViewModelContext";
 import * as Rx from "rx";
+import * as Area from "../constants/Area";
 
 @injectable()
 class ViewModelRegistry implements IViewModelRegistry {
@@ -13,8 +14,12 @@ class ViewModelRegistry implements IViewModelRegistry {
     private registry: AreaRegistry[] = []; // Better than a Dictionary implementation since I can easy track case sensitive names
     private unregisteredEntries: RegistryEntry<any>[] = [];
 
-    root<T>(construct: INewable<IViewModel<T>>, observable?: (context: ViewModelContext) => Rx.IObservable<T>, parameters?: string): AreaRegistry {
-        return this.add(construct, observable, parameters).forArea("Index");
+    master<T>(construct: INewable<IViewModel<T>>, observable?: (context: ViewModelContext) => Rx.IObservable<T>): AreaRegistry {
+        return this.add(construct, observable).forArea(Area.Master);
+    }
+
+    index<T>(construct:inversify.INewable<IViewModel<T>>, observable?:(context:ViewModelContext)=>Rx.IObservable<T>):AreaRegistry {
+        return this.add(construct, observable).forArea(Area.Index);
     }
 
     add<T>(construct: INewable<IViewModel<T>>, observable?: (context: ViewModelContext) => Rx.IObservable<T>, parameters?: string): IViewModelRegistry {

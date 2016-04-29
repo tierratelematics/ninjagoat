@@ -79,7 +79,7 @@ describe("UriResolver, given an URI", () => {
         context("when it's registered with the standard Index name", () => {
 
             beforeEach(() => {
-                registry.root(IndexViewModel);
+                registry.index(IndexViewModel);
             });
 
             it("should return the Index viewmodel identifier", () => {
@@ -93,7 +93,7 @@ describe("UriResolver, given an URI", () => {
         context("when it's registered with a name different than index", () => {
 
             beforeEach(() => {
-                registry.root(RootViewModel);
+                registry.index(RootViewModel);
             });
 
             it("should return the Index viewmodel identifier", () => {

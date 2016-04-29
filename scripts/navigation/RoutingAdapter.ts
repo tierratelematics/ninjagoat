@@ -3,23 +3,24 @@ import IViewModelRegistry from "../registry/IViewModelRegistry";
 import AreaRegistry from "../registry/AreaRegistry";
 import * as _ from "lodash";
 import * as path from "path";
-import IPageComponentFactory from "../components/IPageComponentFactory";
 import {RouteConfig, PlainRoute} from "react-router";
 import {inject, injectable} from "inversify";
 import * as Area from "../constants/Area";
+import IComponentFactory from "../components/IComponentFactory";
 
 @injectable()
 class RoutingAdapter implements IRoutingAdapter {
 
     constructor(@inject("IViewModelRegistry") private registry:IViewModelRegistry,
-                @inject("IPageComponentFactory") private pageComponentFactory:IPageComponentFactory) {
+                @inject("IComponentFactory") private componentFactory:IComponentFactory) {
     }
 
     routes():RouteConfig {
         let areas = this.registry.getAreas();
         return {
             childRoutes: this.getRoutes(areas),
-            component: this.pageComponentFactory.componentForUri("/"),
+            component: this.componentFactory.componentForMaster(),
+            indexRoute: {component: this.componentFactory.componentForUri("/")},
             path: "/"
         };
     }
@@ -30,7 +31,7 @@ class RoutingAdapter implements IRoutingAdapter {
             .reduce((routes, area) => {
                 let route = area.area.toLowerCase();
                 routes.push({
-                    component: this.pageComponentFactory.componentForUri(route),
+                    component: this.componentFactory.componentForUri(route),
                     path: route
                 });
                 routes.push(this.getRoutesForArea(area));
@@ -45,7 +46,7 @@ class RoutingAdapter implements IRoutingAdapter {
             .reduce((routes, entry) => {
                 let route = path.join(area.area.toLowerCase(), entry.id.toLowerCase(), entry.parameters || "");
                 routes.push({
-                    component: this.pageComponentFactory.componentForUri(route),
+                    component: this.componentFactory.componentForUri(route),
                     path: route
                 });
                 return routes;

@@ -22,7 +22,7 @@ class UriResolver implements IUriResolver {
         area = _.capitalize(area);
         let viewmodel: RegistryEntry<T> = null;
         if (!viewmodelId) {
-            if (area === Area.Index)
+            if (area === Area.Index || area === Area.Master)
                 viewmodel = <RegistryEntry<any>>this.registry.getArea(area).entries[0];
             else {
                 let specificIndexEntry = this.registry.getEntry<T>(area, `${area}${Area.Index}`);
