@@ -20,6 +20,7 @@ describe("RoutingAdapter, given a list of registry entries", () => {
         registry = new ViewModelRegistry();
         componentFactory = new MockComponentFactory();
         subject = new RoutingAdapter(registry, componentFactory);
+        registry.master(RootViewModel);
         registry.index(RootViewModel);
     });
 
