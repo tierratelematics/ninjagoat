@@ -7,9 +7,11 @@ import ViewModelRegistry from "../scripts/registry/ViewModelRegistry";
 import Bar from "./fixtures/views/foo/Bar";
 import FooIndex from "./fixtures/views/foo/FooIndex";
 import RootIndex from "./fixtures/views/Index";
+import MasterView from "./fixtures/views/Master";
 import IndexViewModel from "./fixtures/viewmodels/IndexViewModel";
 import BarViewModel from "./fixtures/viewmodels/BarViewModel";
 import FooIndexViewModel from "./fixtures/viewmodels/FooIndexViewModel";
+import * as Area from "../scripts/constants/Area";
 
 describe("ViewResolver,given a viewmodel identifier", () => {
 
@@ -44,6 +46,14 @@ describe("ViewResolver,given a viewmodel identifier", () => {
             let view = subject.resolve<any>("Index");
 
             expect(view).to.be(RootIndex);
+        });
+    });
+
+    context("when it's the master application container", () => {
+        it("should return the master view", () => {
+            let view = subject.resolve<any>(Area.Master);
+
+            expect(view).to.be(MasterView);
         });
     });
 });

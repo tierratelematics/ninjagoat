@@ -45,6 +45,14 @@ describe("ViewModelRegistry, given a list of ViewModel identifiers", () => {
         });
     });
 
+    context("when the master application container viewmodel have to be registered", () => {
+        it("should be registered as a default in the registry", () => {
+            registry.master(BarViewModel);
+
+            expect(registry.getArea("Master").entries[0].id).to.eql("Bar");
+        });
+    });
+
     context("when a registration is overridden", () => {
         it("should not duplicate the entry", () => {
             registry.add(FooViewModel).add(BarViewModel).forArea("Admin");

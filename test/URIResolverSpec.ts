@@ -8,6 +8,7 @@ import BarViewModel from "./fixtures/viewmodels/BarViewModel";
 import FooIndexViewModel from "./fixtures/viewmodels/FooIndexViewModel";
 import IndexViewModel from "./fixtures/viewmodels/IndexViewModel";
 import RootViewModel from "./fixtures/viewmodels/RootViewModel";
+import * as Area from "../scripts/constants/Area";
 
 describe("UriResolver, given an URI", () => {
 
@@ -103,5 +104,15 @@ describe("UriResolver, given an URI", () => {
                 expect(resource.viewmodel.id).to.be("Root");
             });
         });
+    });
+
+    context("when it's the master application container", () => {
+        it("should return the master viewmodel identifier", () => {
+            registry.master(RootViewModel);
+            let resource = subject.resolve(Area.Master);
+
+            expect(resource.area).to.be(Area.Master);
+            expect(resource.viewmodel.id).to.be("Root");
+        })
     });
 });

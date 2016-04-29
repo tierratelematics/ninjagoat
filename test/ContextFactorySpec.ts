@@ -23,16 +23,20 @@ import ViewModelFactory from "../scripts/viewmodels/ViewModelFactory";
 import IViewModelFactory from "../scripts/viewmodels/IViewModelFactory";
 import ViewModelContext from "../scripts/registry/ViewModelContext";
 import MockObjectContainer from "./fixtures/MockObjectContainer";
+import IndexViewModel from "./fixtures/viewmodels/IndexViewModel";
+import {Index} from "../scripts/constants/Area";
+import * as Area from "../scripts/constants/Area";
+import MasterView from "./fixtures/views/Master";
 
 describe("ContextFactory", () => {
 
-    let subject: IContextFactory;
-    let registry: IViewModelRegistry;
-    let factory: IViewModelFactory;
-    let observableFactory: IObservableFactory;
-    let uriResolver: IUriResolver;
-    let viewResolver: IViewResolver;
-    let container: MockObjectContainer;
+    let subject:IContextFactory;
+    let registry:IViewModelRegistry;
+    let factory:IViewModelFactory;
+    let observableFactory:IObservableFactory;
+    let uriResolver:IUriResolver;
+    let viewResolver:IViewResolver;
+    let container:MockObjectContainer;
 
     beforeEach(() => {
         container = new MockObjectContainer();
@@ -43,9 +47,10 @@ describe("ContextFactory", () => {
         viewResolver = new ViewResolver(require("./fixtures/views/export"));
         subject = new ContextFactory(uriResolver, viewResolver, factory);
 
-        observableFactory.register<number>("Bar", (context: ViewModelContext) => Rx.Observable.just(context.parameters.id));
+        observableFactory.register<number>("Bar", (context:ViewModelContext) => Rx.Observable.just(context.parameters.id));
 
-        registry.index(RootViewModel);
+        registry.master(RootViewModel);
+        registry.index(IndexViewModel);
         registry
             .add(BarViewModel, parameters => observableFactory.get<number>("Bar", parameters), ":id")
             .add(FooIndexViewModel)
@@ -55,7 +60,7 @@ describe("ContextFactory", () => {
     describe("given an URI", () => {
         context("when it's composed by an area and a viewmodel", () => {
             it("should return the correct view and associated viewmodel", () => {
-                let context = subject.contextFor<BarViewModel>("/foo/bar/25", { id: 25 });
+                let context = subject.contextFor<BarViewModel>("/foo/bar/25", {id: 25});
 
                 expect(context.view).to.be(BarView);
                 expect(context.viewmodel.models).to.eql([25]);
@@ -77,8 +82,17 @@ describe("ContextFactory", () => {
                     let context = subject.contextFor("/");
 
                     expect(context.view).to.be(RootView);
-                    expect(context.viewmodel instanceof RootViewModel).to.be(true);
+                    expect(context.viewmodel instanceof IndexViewModel).to.be(true);
                 });
+            });
+        });
+
+        context("when it's composed by the master application container", () => {
+            it("should return the master context", () => {
+                let context = subject.contextFor(Area.Master);
+
+                expect(context.view).to.be(MasterView);
+                expect(context.viewmodel instanceof RootViewModel).to.be(true);
             });
         });
     });
