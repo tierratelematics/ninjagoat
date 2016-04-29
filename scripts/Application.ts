@@ -10,7 +10,7 @@ import {render} from "react-dom";
 import {Router, browserHistory} from "react-router"
 import NinjaGoatModule from "./components/NinjaGoatModule";
 
-class Bootstrapper {
+class Application {
 
     private kernel = new Kernel();
     private modules: IModule[] = [];
@@ -35,4 +35,4 @@ class Bootstrapper {
     }
 }
 
-export default Bootstrapper;
+export default Application;

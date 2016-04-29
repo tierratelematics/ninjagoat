@@ -6,7 +6,7 @@ import * as React from "react";
 
 declare module ninjagoat {
 
-    export class Bootstrapper {
+    export class Application {
         run(overrides?:any);
 
         register(module:IModule);
