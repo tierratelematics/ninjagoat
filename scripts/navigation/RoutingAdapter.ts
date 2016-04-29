@@ -6,15 +6,16 @@ import * as path from "path";
 import IPageComponentFactory from "../components/IPageComponentFactory";
 import {RouteConfig, PlainRoute} from "react-router";
 import {inject, injectable} from "inversify";
+import * as Area from "../constants/Area";
 
 @injectable()
 class RoutingAdapter implements IRoutingAdapter {
 
-    constructor( @inject("IViewModelRegistry") private registry: IViewModelRegistry,
-        @inject("IPageComponentFactory") private pageComponentFactory: IPageComponentFactory) {
+    constructor(@inject("IViewModelRegistry") private registry:IViewModelRegistry,
+                @inject("IPageComponentFactory") private pageComponentFactory:IPageComponentFactory) {
     }
 
-    routes(): RouteConfig {
+    routes():RouteConfig {
         let areas = this.registry.getAreas();
         return {
             childRoutes: this.getRoutes(areas),
@@ -23,9 +24,9 @@ class RoutingAdapter implements IRoutingAdapter {
         };
     }
 
-    private getRoutes(areas: AreaRegistry[]): PlainRoute[] {
+    private getRoutes(areas:AreaRegistry[]):PlainRoute[] {
         return <PlainRoute[]>_(areas)
-            .filter(area => area.area !== "Index")
+            .filter(area => area.area !== Area.Index)
             .reduce((routes, area) => {
                 let route = area.area.toLowerCase();
                 routes.push({
@@ -38,9 +39,9 @@ class RoutingAdapter implements IRoutingAdapter {
             .valueOf();
     }
 
-    private getRoutesForArea(area: AreaRegistry): PlainRoute[] {
+    private getRoutesForArea(area:AreaRegistry):PlainRoute[] {
         return <PlainRoute[]>_(area.entries)
-            .filter(entry => entry.id !== "Index" && entry.id !== (area.area + "Index"))
+            .filter(entry => entry.id !== Area.Index && entry.id !== (area.area + Area.Index))
             .reduce((routes, entry) => {
                 let route = path.join(area.area.toLowerCase(), entry.id.toLowerCase(), entry.parameters || "");
                 routes.push({

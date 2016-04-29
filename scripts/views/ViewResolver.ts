@@ -2,6 +2,7 @@ import IViewResolver from "./IViewResolver";
 import View from "./View";
 import IViewModel from "../viewmodels/IViewModel";
 import {inject, injectable} from "inversify";
+import * as Area from "../constants/Area";
 
 @injectable()
 class ViewResolver implements IViewResolver {
@@ -10,10 +11,10 @@ class ViewResolver implements IViewResolver {
     }
 
     resolve<T extends IViewModel<T>>(area: string, viewmodelId?: string): View<T> {
-        if (area === "Index")
-            return this.views["Index"];
+        if (area === Area.Index)
+            return this.views[Area.Index];
         if (!viewmodelId)
-            return this.views[area].Index || this.views[area][`${area}Index`];
+            return this.views[area].Index || this.views[area][`${area}${Area.Index}`];
         else
             return this.views[area][viewmodelId];
     }

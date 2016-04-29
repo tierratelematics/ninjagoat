@@ -3,6 +3,7 @@ import ILocationHandler from "./ILocationHandler";
 import IViewModelRegistry from "../registry/IViewModelRegistry";
 import * as _ from "lodash";
 import Dictionary = _.Dictionary;
+import * as Area from "../constants/Area";
 
 class NavigationManager implements INavigationManager {
 
@@ -10,9 +11,9 @@ class NavigationManager implements INavigationManager {
     }
 
     navigate(area: string, viewmodelId?: string, parameters?: {}): void {
+        if (area === Area.Index) area = "";
         area = area.toLowerCase();
         if (!viewmodelId) {
-            if (area === "index") area = "";
             this.locationHandler.changeLocation(`/${area}`);
         } else {
             viewmodelId = viewmodelId.toLowerCase();
