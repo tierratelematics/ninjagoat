@@ -9,16 +9,16 @@ import IUriResolver from "../navigation/IUriResolver";
 import UriResolver from "../navigation/UriResolver";
 import IViewResolver from "../views/IViewResolver";
 import ViewResolver from "../views/ViewResolver";
-import IContextFactory from "./IContextFactory";
-import ContextFactory from "./ContextFactory";
+import IContextFactory from "../components/IContextFactory";
+import ContextFactory from "../components/ContextFactory";
 import IRoutingAdapter from "../navigation/IRoutingAdapter";
 import RoutingAdapter from "../navigation/RoutingAdapter";
 import IViewModelFactory from "../viewmodels/IViewModelFactory";
 import ViewModelFactory from "../viewmodels/ViewModelFactory";
-import IObjectContainer from "../components/IObjectContainer";
-import ObjectContainer from "../components/ObjectContainer";
-import IComponentFactory from "./IComponentFactory";
-import ComponentFactory from "./ComponentFactory";
+import IObjectContainer from "./IObjectContainer";
+import ObjectContainer from "./ObjectContainer";
+import IComponentFactory from "../components/IComponentFactory";
+import ComponentFactory from "../components/ComponentFactory";
 
 class NinjaGoatModule implements IModule {
 

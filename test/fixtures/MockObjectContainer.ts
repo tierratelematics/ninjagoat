@@ -1,4 +1,4 @@
-import IObjectContainer from "../../scripts/components/IObjectContainer";
+import IObjectContainer from "../../scripts/bootstrap/IObjectContainer";
 import INewable = inversify.INewable;
 
 export default class MockObjectContainer implements IObjectContainer {

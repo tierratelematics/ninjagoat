@@ -1,6 +1,6 @@
 import IViewModelFactory from "./IViewModelFactory";
 import {injectable, inject} from "inversify";
-import IObjectContainer from "../components/IObjectContainer";
+import IObjectContainer from "../bootstrap/IObjectContainer";
 import ObservableViewModel from "./ObservableViewModel";
 import RegistryEntry from "../registry/RegistryEntry";
 import ViewModelContext from "../registry/ViewModelContext";

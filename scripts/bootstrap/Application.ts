@@ -1,14 +1,14 @@
 import "bluebird";
 import "reflect-metadata";
 import {Kernel} from "inversify";
-import IModule from "./components/IModule";
-import IViewModelRegistry from "./registry/IViewModelRegistry";
+import IModule from "./IModule";
+import IViewModelRegistry from "../registry/IViewModelRegistry";
 import * as _ from "lodash";
-import IRoutingAdapter from "./navigation/IRoutingAdapter";
+import IRoutingAdapter from "../navigation/IRoutingAdapter";
 import * as React from "react";
 import {render} from "react-dom";
 import {Router, browserHistory} from "react-router"
-import NinjaGoatModule from "./components/NinjaGoatModule";
+import NinjaGoatModule from "./NinjaGoatModule";
 
 class Application {
 
