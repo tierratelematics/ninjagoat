@@ -23,7 +23,7 @@ import ComponentFactory from "../components/ComponentFactory";
 class NinjaGoatModule implements IModule {
 
     modules: IKernelModule = (kernel: IKernel) => {
-        kernel.bind<IKernel>("IKernel").toValue(kernel);
+        kernel.bind<IKernel>("IKernel").toConstantValue(kernel);
         kernel.bind<IObjectContainer>("IObjectContainer").to(ObjectContainer).inSingletonScope();
         kernel.bind<IViewModelRegistry>("IViewModelRegistry").to(ViewModelRegistry).inSingletonScope();
         kernel.bind<IObservableFactory>("IObservableFactory").to(ObservableFactory).inSingletonScope();
