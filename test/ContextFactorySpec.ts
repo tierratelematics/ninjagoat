@@ -28,7 +28,7 @@ import {Index} from "../scripts/constants/Area";
 import * as Area from "../scripts/constants/Area";
 import MasterView from "./fixtures/views/Master";
 
-describe("ContextFactory", () => {
+describe("ContextFactory, given an URI", () => {
 
     let subject:IContextFactory;
     let registry:IViewModelRegistry;
@@ -57,43 +57,41 @@ describe("ContextFactory", () => {
             .forArea("Foo");
     });
 
-    describe("given an URI", () => {
-        context("when it's composed by an area and a viewmodel", () => {
-            it("should return the correct view and associated viewmodel", () => {
-                let context = subject.contextFor<BarViewModel>("/foo/bar/25", {id: 25});
+    context("when it's composed by an area and a viewmodel", () => {
+        it("should return the correct view and associated viewmodel", () => {
+            let context = subject.contextFor<BarViewModel>("/foo/bar/25", {id: 25});
 
-                expect(context.view).to.be(BarView);
-                expect(context.viewmodel.models).to.eql([25]);
+            expect(context.view).to.be(BarView);
+            expect(context.viewmodel.models).to.eql([25]);
+        });
+    });
+
+    context("when it's composed by only an area", () => {
+        it("should return the correct area view and the associated viewmodel", () => {
+            let context = subject.contextFor("/foo");
+
+            expect(context.view).to.be(FooIndex);
+            expect(context.viewmodel instanceof FooIndexViewModel).to.be(true);
+        });
+    });
+
+    context("when it's composed by only the application root", () => {
+        context("but a factory function was not supplied to the viewmodel registration", () => {
+            it("should not construct the dependencies", () => {
+                let context = subject.contextFor("/");
+
+                expect(context.view).to.be(RootView);
+                expect(context.viewmodel instanceof IndexViewModel).to.be(true);
             });
         });
+    });
 
-        context("when it's composed by only an area", () => {
-            it("should return the correct area view and the associated viewmodel", () => {
-                let context = subject.contextFor("/foo");
+    context("when it's composed by the master application container", () => {
+        it("should return the master context", () => {
+            let context = subject.contextFor(Area.Master);
 
-                expect(context.view).to.be(FooIndex);
-                expect(context.viewmodel instanceof FooIndexViewModel).to.be(true);
-            });
-        });
-
-        context("when it's composed by only the application root", () => {
-            context("but a factory function was not supplied to the viewmodel registration", () => {
-                it("should not construct the dependencies", () => {
-                    let context = subject.contextFor("/");
-
-                    expect(context.view).to.be(RootView);
-                    expect(context.viewmodel instanceof IndexViewModel).to.be(true);
-                });
-            });
-        });
-
-        context("when it's composed by the master application container", () => {
-            it("should return the master context", () => {
-                let context = subject.contextFor(Area.Master);
-
-                expect(context.view).to.be(MasterView);
-                expect(context.viewmodel instanceof RootViewModel).to.be(true);
-            });
+            expect(context.view).to.be(MasterView);
+            expect(context.viewmodel instanceof RootViewModel).to.be(true);
         });
     });
 });
