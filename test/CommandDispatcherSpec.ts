@@ -13,7 +13,7 @@ import MockWSCommandDispatcher from "./fixtures/commands/MockWSCommandDispatcher
 import MockAuthCommandDispatcher from "./fixtures/commands/MockAuthCommandDispatcher";
 import SinonSpy = Sinon.SinonSpy;
 
-describe("Command dispatcher", () => {
+describe("Command dispatcher, given a command", () => {
 
     let sandbox:SinonSandbox;
     let subject:CommandDispatcher;
@@ -39,41 +39,39 @@ describe("Command dispatcher", () => {
         sandbox.restore();
     });
 
-    describe("given a command", () => {
-        context("when it's not decorated with path, transport or authentication", () => {
-            it("should be sent with the first dispatcher available", () => {
-                subject.dispatch(new MockCommands.DefaultCommand());
-                expect(subjectSpy.called).to.be(true);
-                expect(commandDispatcherWSSpy.called).to.be(false);
-            });
+    context("when it's not decorated with path, transport or authentication", () => {
+        it("should be sent with the first dispatcher available", () => {
+            subject.dispatch(new MockCommands.DefaultCommand());
+            expect(subjectSpy.called).to.be(true);
+            expect(commandDispatcherWSSpy.called).to.be(false);
         });
+    });
 
-        context("when it's decorated using a different endpoint", () => {
-            it("should route the command correctly", () => {
-                subject.dispatch(new MockCommands.EndpointCommand());
-                expect(subjectSpy.called).to.be(true);
-                expect(commandDispatcherWSSpy.called).to.be(false);
-                expect(commandDispatcherAuthSpy.called).to.be(false);
-            });
+    context("when it's decorated using a different endpoint", () => {
+        it("should route the command correctly", () => {
+            subject.dispatch(new MockCommands.EndpointCommand());
+            expect(subjectSpy.called).to.be(true);
+            expect(commandDispatcherWSSpy.called).to.be(false);
+            expect(commandDispatcherAuthSpy.called).to.be(false);
         });
+    });
 
-        context("when it's decorated using a different transport", () => {
-            it("should use those transport", () => {
-                subject.dispatch(new MockCommands.TransportCommand());
-                expect(subjectSpy.called).to.be(true);
-                expect(commandDispatcherWSSpy.called).to.be(true);
-                expect(commandDispatcherAuthSpy.called).to.be(false);
-            });
+    context("when it's decorated using a different transport", () => {
+        it("should use those transport", () => {
+            subject.dispatch(new MockCommands.TransportCommand());
+            expect(subjectSpy.called).to.be(true);
+            expect(commandDispatcherWSSpy.called).to.be(true);
+            expect(commandDispatcherAuthSpy.called).to.be(false);
         });
+    });
 
-        context("when it's decorated using a different authentication strategy", () => {
-            it("should authenticate correctly", () => {
-                subject.dispatch(new MockCommands.AuthenticationCommand());
-                expect(subjectSpy.called).to.be(true);
-                expect(commandDispatcherWSSpy.called).to.be(true);
-                expect(commandDispatcherAuthSpy.called).to.be(true);
-                expect(commandDispatcherAuthSpy.returnValues[0]).to.be(true);
-            });
+    context("when it's decorated using a different authentication strategy", () => {
+        it("should authenticate correctly", () => {
+            subject.dispatch(new MockCommands.AuthenticationCommand());
+            expect(subjectSpy.called).to.be(true);
+            expect(commandDispatcherWSSpy.called).to.be(true);
+            expect(commandDispatcherAuthSpy.called).to.be(true);
+            expect(commandDispatcherAuthSpy.returnValues[0]).to.be(true);
         });
     });
 });
