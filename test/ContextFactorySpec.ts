@@ -53,7 +53,7 @@ describe("ContextFactory, given an URI", () => {
         registry.index(IndexViewModel);
         registry
             .add(BarViewModel, parameters => observableFactory.get<number>("Bar", parameters), ":id")
-            .add(FooIndexViewModel)
+            .add(FooIndexViewModel, parameters => observableFactory.get<number>("Bar", parameters))
             .forArea("Foo");
     });
 
@@ -64,11 +64,18 @@ describe("ContextFactory, given an URI", () => {
             expect(context.view).to.be(BarView);
             expect(context.viewmodel.models).to.eql([25]);
         });
+
+        context("and there are some parameters in the query string", () => {
+            it("should forward those parameters to the viewmodel", () => {
+                let context = subject.contextFor<FooIndexViewModel>("/foo?id=30");
+                expect(context.viewmodel.models).to.eql([30]);
+            });
+        });
     });
 
     context("when it's composed by only an area", () => {
         it("should return the correct area view and the associated viewmodel", () => {
-            let context = subject.contextFor("/foo");
+            let context = subject.contextFor("/foo", {});
 
             expect(context.view).to.be(FooIndex);
             expect(context.viewmodel instanceof FooIndexViewModel).to.be(true);

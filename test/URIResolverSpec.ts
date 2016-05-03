@@ -12,8 +12,8 @@ import * as Area from "../scripts/constants/Area";
 
 describe("UriResolver, given an URI", () => {
 
-    let registry: IViewModelRegistry;
-    let subject: IUriResolver;
+    let registry:IViewModelRegistry;
+    let subject:IUriResolver;
 
     beforeEach(() => {
         registry = new ViewModelRegistry();
@@ -114,5 +114,14 @@ describe("UriResolver, given an URI", () => {
             expect(resource.area).to.be(Area.Master);
             expect(resource.viewmodel.id).to.be("Root");
         })
+    });
+
+    context("when the uri contains some query string parameters", () => {
+        it("should ignore those parameters during the uri resolution", () => {
+            registry.add(FooIndexViewModel).forArea("Foo");
+            let resource = subject.resolve("/foo?id=20");
+
+            expect(resource.viewmodel.id).to.be("FooIndex");
+        });
     });
 });

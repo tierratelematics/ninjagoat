@@ -7,7 +7,10 @@ export default React.createClass({
         return <View viewmodel={ViewModel}/>
     },
     componentWillMount() {
-        let context = this.props.contextFactory.contextFor(window.location.pathname, this.props.params);
+        let context = this.props.contextFactory.contextFor(
+            window.location.pathname + window.location.search,
+            this.props.params
+        );
         this.view = context.view;
         this.viewmodel = context.viewmodel;
         this.setState(this.viewmodel);
