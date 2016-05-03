@@ -6,6 +6,7 @@ import IViewResolver from "../views/IViewResolver";
 import {inject, injectable} from "inversify";
 import IViewModelFactory from "../viewmodels/IViewModelFactory";
 import * as _ from "lodash";
+import QueryDeserializer from "../io/QueryDeserializer";
 
 @injectable()
 class ContextFactory implements IContextFactory {
@@ -19,23 +20,8 @@ class ContextFactory implements IContextFactory {
     contextFor<T extends IViewModel<any>>(uri: string, parameters?: any): { view: View<T>, viewmodel: T } {
         let context = this.uriResolver.resolve<T>(uri);
         let view = this.viewResolver.resolve<T>(context.area, context.viewmodel.id);
-        let contextParameters = _.assign({}, parameters, this.getQueryParams(uri));
+        let contextParameters = _.assign({}, parameters, QueryDeserializer.deserialize(uri.split("?")[1]));
         return { view: view, viewmodel: this.viewModelFactory.create<T>(context.viewmodel, contextParameters) };
-    }
-
-    protected getQueryParams(uri:string):{} {
-        let query = uri.split("?")[1];
-        if (!query)
-            return {};
-        let parameters = query.split("&"),
-            values = _.map(parameters, function (value) {
-                var parts = value.split("=");
-                return {
-                    key: parts[0],
-                    value: parts[1]
-                };
-            });
-        return _.zipObject(_.map(values, 'key'), _.map(values, 'value'));
     }
 }
 
