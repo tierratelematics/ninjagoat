@@ -6,7 +6,7 @@ class Item<T> {
     }
 
     static Loading<T>():Item<T> {
-        return new Item(ItemState.Loading);
+        return new Item<T>(ItemState.Loading);
     }
 
     static Data<T>(data:T):Item<T> {
