@@ -61,6 +61,54 @@ declare module ninjagoat {
     }
 
     export function ViewModel(name:string);
+
+    export class Item<T> {
+        state:ItemState;
+        data:T;
+
+        static Loading<T>(data:T):Item<T>;
+        static Data<T>(data:T):Item<T>;
+        static Error<T>(data:T):Item<T>;
+    }
+
+    export enum ItemState {
+        Loading,
+        Data,
+        Error
+    }
+
+    interface ICommandDispatcher {
+        dispatch(command:Command):void;
+    }
+
+    export class Command {
+
+    }
+
+    export interface CommandDecoratorsStatic {
+        Authentication(type:Authentication)
+        Endpoint(endpoint:string)
+        Transport(type:Transport)
+    }
+
+    export var CommandDecorators:CommandDecoratorsStatic;
+
+    export abstract class CommandDispatcher implements ICommandDispatcher {
+        dispatch(command:Command):void;
+        abstract internalExecute(command:Command):boolean;
+        setNext(dispatcher:ICommandDispatcher):void;
+    }
+
+    export enum Authentication {
+        Bearer,
+        Basic
+    }
+
+    export enum Transport {
+        HTTP_Post,
+        WebSocket
+    }
+
 }
 
 export = ninjagoat;
