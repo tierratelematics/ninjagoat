@@ -8,6 +8,7 @@ declare module ninjagoat {
 
     export class Application {
         run(overrides?:any);
+
         register(module:IModule);
     }
 
@@ -65,10 +66,13 @@ declare module ninjagoat {
     export class Item<T> {
         state:ItemState;
         data:T;
+        rejection:any;
 
-        static Loading<T>(data:T):Item<T>;
+        static Loading<T>():Item<T>;
+
         static Data<T>(data:T):Item<T>;
-        static Error<T>(data:T):Item<T>;
+
+        static Error<T>(data:any):Item<T>;
     }
 
     export enum ItemState {
@@ -95,7 +99,9 @@ declare module ninjagoat {
 
     export abstract class CommandDispatcher implements ICommandDispatcher {
         dispatch(command:Command):void;
+
         abstract internalExecute(command:Command):boolean;
+
         setNext(dispatcher:ICommandDispatcher):void;
     }
 
