@@ -57,8 +57,9 @@ declare module ninjagoat {
         dispose():void
     }
 
-    export class View<T> extends React.Component<{ viewmodel:T }, {}> {
+    export abstract class View<T> extends React.Component<{ viewmodel:T }, {}> {
         public viewModel:T;
+        abstract render();
     }
 
     export function ViewModel(name:string);
