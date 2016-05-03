@@ -1,5 +1,6 @@
 enum Authentication {
-    BEARER
+    Bearer,
+    Basic
 }
 
 export default Authentication

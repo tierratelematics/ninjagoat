@@ -1,5 +1,6 @@
 enum Transport {
-    HTTP_POST
+    HTTP_Post,
+    WebSocket
 }
 
 export default Transport

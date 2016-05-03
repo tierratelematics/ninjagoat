@@ -8,16 +8,17 @@ class DefaultCommand extends Command {
 }
 
 @Decorators.Endpoint("/foo")
+@Decorators.Transport(Transport.HTTP_Post)
 class EndpointCommand extends Command {
     public foo:string = "bar";
 }
 
-@Decorators.Transport(Transport.HTTP_POST)
+@Decorators.Transport(Transport.WebSocket)
 class TransportCommand extends Command {
     public foo:string = "bar";
 }
 
-@Decorators.Authentication(Authentication.BEARER)
+@Decorators.Authentication(Authentication.Basic)
 class AuthenticationCommand extends Command {
     public foo:string = "bar";
 }
