@@ -1,7 +1,7 @@
-import Serializer from "./Serializer";
+import ISerializer from "./ISerializer";
 import * as _ from "lodash";
 
-class Gson<T> implements Serializer<T, any> {
+class Gson<T> implements ISerializer<T, any> {
 
     private types: any[] = [];
     private instances: any[] = [];
