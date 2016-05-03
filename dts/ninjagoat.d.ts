@@ -59,28 +59,30 @@ declare module ninjagoat {
 
     export abstract class View<T> extends React.Component<{ viewmodel:T }, {}> {
         public viewModel:T;
+
         abstract render();
     }
 
     export function ViewModel(name:string);
 
-    export class Item<T> {
-        state:ItemState;
-        data:T;
-        rejection:any;
+    export class ModelState<T> {
+        phase:ModelPhase;
+        model:T;
+        failure:any;
 
-        static Loading<T>():Item<T>;
+        static Loading<T>():ModelState<T>;
 
-        static Data<T>(data:T):Item<T>;
+        static Ready<T>(model:T):ModelState<T>;
 
-        static Error<T>(data:any):Item<T>;
+        static Failed<T>(failure:any):ModelState<T>;
     }
 
-    export enum ItemState {
+    export enum ModelPhase {
         Loading,
-        Data,
-        Error
+        Ready,
+        Failed
     }
+
 
     interface ICommandDispatcher {
         dispatch(command:Command):void;
