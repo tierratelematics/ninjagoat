@@ -12,7 +12,9 @@ import Authentication from "./constants/Authentication";
 import CommandDispatcher from "./commands/CommandDispatcher";
 import Command from "./commands/Command";
 import * as CommandDecorators from "./commands/CommandDecorators";
-
+import IHttpClient from "./net/IHttpClient";
+import HttpClient from "./net/HttpClient";
+import HttpResponse from "./net/HttpResponse";
 
 export {Application};
 export {IViewModel}
@@ -27,3 +29,6 @@ export {Authentication}
 export {CommandDecorators}
 export {Command}
 export {CommandDispatcher}
+export {IHttpClient}
+export {HttpClient}
+export {HttpResponse}
