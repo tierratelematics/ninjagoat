@@ -19,6 +19,8 @@ import IObjectContainer from "./IObjectContainer";
 import ObjectContainer from "./ObjectContainer";
 import IComponentFactory from "../components/IComponentFactory";
 import ComponentFactory from "../components/ComponentFactory";
+import IHttpClient from "../net/IHttpClient";
+import HttpClient from "../net/HttpClient";
 
 class NinjaGoatModule implements IModule {
 
@@ -33,6 +35,7 @@ class NinjaGoatModule implements IModule {
         kernel.bind<IComponentFactory>("IComponentFactory").to(ComponentFactory).inSingletonScope();
         kernel.bind<IRoutingAdapter>("IRoutingAdapter").to(RoutingAdapter).inSingletonScope();
         kernel.bind<IViewModelFactory>("IViewModelFactory").to(ViewModelFactory).inSingletonScope();
+        kernel.bind<IHttpClient>("IHttpClient").to(HttpClient).inSingletonScope();
     };
 
     register(registry: IViewModelRegistry, overrides?: any): void {
