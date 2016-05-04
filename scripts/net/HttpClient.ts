@@ -5,7 +5,7 @@ import HttpResponse from "./HttpResponse";
 import HttpHeaders from "./HttpHeaders";
 
 class HttpClient implements IHttpClient {
-    
+
     get(url:string, headers?:HttpHeaders):Rx.IObservable<HttpResponse> {
         return this.performNetworkCall(url, 'get', null, headers);
     }
@@ -31,7 +31,11 @@ class HttpClient implements IHttpClient {
                 body: body,
                 headers: headers
             }).then(response => {
-                return response.json().then(json => new HttpResponse(json, response.headers));
+                let headers:HttpHeaders = {};
+                response.headers.forEach((value, name) => {
+                    headers[name] = value;
+                });
+                return response.json().then(json => new HttpResponse(json, headers));
             })
         );
     }

@@ -1,5 +1,7 @@
+import HttpHeaders from "./HttpHeaders";
+
 class HttpResponse {
-    constructor(public response:any, public headers:{}) {
+    constructor(public response:any, public headers:HttpHeaders) {
 
     }
 }
