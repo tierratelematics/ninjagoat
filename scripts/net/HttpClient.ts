@@ -20,11 +20,14 @@ class HttpClient implements IHttpClient {
         return this.performNetworkCall(url, 'delete');
     }
 
-    private performNetworkCall(url:string, method:string, body:any):Rx.IObservable<any> {
-        return Rx.Observable.fromPromise(window.fetch(url, {
-            method: method,
-            body: body
-        }));
+    private performNetworkCall(url:string, method:string, body?:any):Rx.IObservable<any> {
+        let networkCall = window
+            .fetch(url, {
+                method: method,
+                body: body
+            })
+            .then(response =>[response.json(), response.headers])
+            .spread((json, headers) => new HttpResponse(json, headers));
+        return Rx.Observable.fromPromise(networkCall);
     }
 }
-
