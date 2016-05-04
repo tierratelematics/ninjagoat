@@ -130,6 +130,18 @@ declare module ninjagoat {
         headers:{};
     }
 
+    export interface IParser<T, T1> {
+        parse(data:T):T1;
+    }
+
+    export class GsonParser<T> implements IParser<any, T> {
+
+        private types:any | any[];
+
+        constructor(types?:any | any[]);
+
+        parse(data:any):T;
+    }
 }
 
 export = ninjagoat;

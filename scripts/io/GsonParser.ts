@@ -1,7 +1,7 @@
-import Parser from "./Parser";
+import IParser from "./IParser";
 import Gson from "./Gson";
 
-class GsonParser<T> implements Parser<any, T> {
+class GsonParser<T> implements IParser<any, T> {
 
     private types: any | any[];
 
