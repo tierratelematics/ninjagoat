@@ -2,7 +2,6 @@ import INavigationManager from "./INavigationManager";
 import ILocationHandler from "./ILocationHandler";
 import IViewModelRegistry from "../registry/IViewModelRegistry";
 import * as _ from "lodash";
-import Dictionary = _.Dictionary;
 import * as Area from "../constants/Area";
 
 class NavigationManager implements INavigationManager {
@@ -10,7 +9,7 @@ class NavigationManager implements INavigationManager {
     constructor(private locationHandler: ILocationHandler, private registry: IViewModelRegistry) {
     }
 
-    navigate(area: string, viewmodelId?: string, parameters?: {}): void {
+    navigate(area: string, viewmodelId?: string, parameters?: {[index:string]:any}): void {
         if (area === Area.Index) area = "";
         area = area.toLowerCase();
         if (!viewmodelId) {
@@ -27,9 +26,9 @@ class NavigationManager implements INavigationManager {
         }
     }
 
-    private substituteParamsForPath(entry, parameters: {}): string {
+    private substituteParamsForPath(entry, parameters: {[index:string]:any}): string {
         let path = entry.parameters;
-        _.forEach(<Dictionary<any>>parameters, (value, key) => {
+        _.forEach(parameters, (value, key) => {
             path = path.replace(":" + key, value);
         });
         return path;
