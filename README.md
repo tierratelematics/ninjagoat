@@ -1,6 +1,5 @@
 #Ninjagoat
 
-<<<<<<< HEAD
 The not so baaaaaaad MVVM framework.
 
 ![](https://img.shields.io/badge/release-0.2.2-blue.svg)
@@ -74,6 +73,3 @@ Ninjagoat aims at creating ViewModels that can be updated multiple times during 
 
 ### What about the view?
 To be continued...
-=======
-##The project is under active development, and APIs will change.
->>>>>>> 5f08660... Merged release/0.2.1 into master
