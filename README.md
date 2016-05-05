@@ -1,6 +1,5 @@
 #Ninjagoat
 The not so baaaaaaad MVVM framework.
-
 ![](https://img.shields.io/badge/release-0.2.2-blue.svg)
 ![](https://img.shields.io/badge/license-Apache 2.0-blue.svg)
 ![](https://img.shields.io/badge/goat-bikenjutsu-yellow.svg)
