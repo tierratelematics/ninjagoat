@@ -8,6 +8,7 @@ declare module ninjagoat {
 
     export class Application {
         run(overrides?:any);
+
         register(module:IModule);
     }
 
@@ -56,11 +57,91 @@ declare module ninjagoat {
         dispose():void
     }
 
-    export class View<T> extends React.Component<{ viewmodel:T }, {}> {
+    export abstract class View<T> extends React.Component<{ viewmodel:T }, {}> {
         public viewModel:T;
+
+        abstract render();
     }
 
     export function ViewModel(name:string);
+
+    export class ModelState<T> {
+        phase:ModelPhase;
+        model:T;
+        failure:any;
+
+        static Loading<T>():ModelState<T>;
+
+        static Ready<T>(model:T):ModelState<T>;
+
+        static Failed<T>(failure:any):ModelState<T>;
+    }
+
+    export enum ModelPhase {
+        Loading,
+        Ready,
+        Failed
+    }
+
+
+    interface ICommandDispatcher {
+        dispatch(command:Command):void;
+    }
+
+    export class Command {
+
+    }
+
+    export interface CommandDecoratorsStatic {
+        Authentication(type:Authentication)
+        Endpoint(endpoint:string)
+        Transport(type:Transport)
+    }
+
+    export var CommandDecorators:CommandDecoratorsStatic;
+
+    export abstract class CommandDispatcher implements ICommandDispatcher {
+        dispatch(command:Command):void;
+
+        abstract internalExecute(command:Command):boolean;
+
+        setNext(dispatcher:ICommandDispatcher):void;
+    }
+
+    export enum Authentication {
+        Bearer,
+        Basic
+    }
+
+    export enum Transport {
+        HTTP_Post,
+        WebSocket
+    }
+
+    export interface IHttpClient {
+        get(url:string, headers?:{}):Rx.IObservable<HttpResponse>
+        post(url:string, body:any, headers?:{}):Rx.IObservable<HttpResponse>
+        put(url:string, body:any, headers?:{}):Rx.IObservable<HttpResponse>
+        delete(url:string, headers?:{}):Rx.IObservable<HttpResponse>
+    }
+
+    export class HttpResponse {
+        response:any;
+        headers:{};
+    }
+
+    export interface IParser<T, T1> {
+        parse(data:T):T1;
+    }
+
+    export class GsonParser<T> implements IParser<any, T> {
+
+        private types:any | any[];
+
+        constructor(types?:any | any[]);
+
+        parse(data:any):T;
+    }
 }
 
 export = ninjagoat;

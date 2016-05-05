@@ -7,7 +7,7 @@ import * as Area from "../constants/Area";
 @injectable()
 class ViewResolver implements IViewResolver {
 
-    constructor( @inject("Views") private views: {}) {
+    constructor( @inject("Views") private views: {[index:string]:any}) {
     }
 
     resolve<T extends IViewModel<T>>(area: string, viewmodelId?: string): View<T> {

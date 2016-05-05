@@ -11,11 +11,12 @@
         "react-dom": "registry:dt/react-dom#0.14.0+20160316155526",
         "reflect-metadata": "npm:reflect-metadata/reflect-metadata.d.ts",
         "rx": "npm:rx/ts/rx.all.d.ts",
-        "socket.io-client": "registry:dt/socket.io-client#1.4.4+20160317120654"
+        "socket.io-client": "registry:dt/socket.io-client#1.4.4+20160317120654",
+        "whatwg-fetch": "registry:dt/whatwg-fetch#0.0.0+20160412133644"
     },
     "ambientDevDependencies": {
-        "mocha": "registry:dt/mocha#2.2.5+20160317120654",
         "expect.js": "registry:dt/expect.js#0.3.1+20160317120654",
+        "mocha": "registry:dt/mocha#2.2.5+20160317120654",
         "sinon": "registry:dt/sinon#1.16.0+20160317120654"
     }
 }

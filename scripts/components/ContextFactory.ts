@@ -5,6 +5,8 @@ import IUriResolver from "../navigation/IUriResolver";
 import IViewResolver from "../views/IViewResolver";
 import {inject, injectable} from "inversify";
 import IViewModelFactory from "../viewmodels/IViewModelFactory";
+import * as _ from "lodash";
+import QueryDeserializer from "../io/QueryDeserializer";
 
 @injectable()
 class ContextFactory implements IContextFactory {
@@ -18,7 +20,8 @@ class ContextFactory implements IContextFactory {
     contextFor<T extends IViewModel<any>>(uri: string, parameters?: any): { view: View<T>, viewmodel: T } {
         let context = this.uriResolver.resolve<T>(uri);
         let view = this.viewResolver.resolve<T>(context.area, context.viewmodel.id);
-        return { view: view, viewmodel: this.viewModelFactory.create<T>(context.viewmodel, parameters) };
+        let contextParameters = _.assign({}, parameters, QueryDeserializer.deserialize(uri.split("?")[1]));
+        return { view: view, viewmodel: this.viewModelFactory.create<T>(context.viewmodel, contextParameters) };
     }
 }
 

@@ -12,7 +12,7 @@ class UriResolver implements IUriResolver {
     }
 
     resolve<T>(uri: string): { area: string, viewmodel: RegistryEntry<T> } {
-        let uriParts: string[] = _.compact(uri.split("/"));
+        let uriParts: string[] = _.compact(uri.split("?")[0].split("/"));
         let area: string = uriParts[0];
         let viewmodelId: string = uriParts[1];
 
