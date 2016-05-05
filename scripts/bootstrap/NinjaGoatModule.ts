@@ -21,6 +21,8 @@ import IComponentFactory from "../components/IComponentFactory";
 import ComponentFactory from "../components/ComponentFactory";
 import IHttpClient from "../net/IHttpClient";
 import HttpClient from "../net/HttpClient";
+import ISerializer from "../io/ISerializer";
+import QuerySerializer from "../io/QuerySerializer";
 
 class NinjaGoatModule implements IModule {
 
@@ -36,6 +38,7 @@ class NinjaGoatModule implements IModule {
         kernel.bind<IRoutingAdapter>("IRoutingAdapter").to(RoutingAdapter).inSingletonScope();
         kernel.bind<IViewModelFactory>("IViewModelFactory").to(ViewModelFactory).inSingletonScope();
         kernel.bind<IHttpClient>("IHttpClient").to(HttpClient).inSingletonScope();
+        kernel.bind<ISerializer>("ISerializer").to(QuerySerializer).inSingletonScope().whenTargetNamed("Query");
     };
 
     register(registry: IViewModelRegistry, overrides?: any): void {
