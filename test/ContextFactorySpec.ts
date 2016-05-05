@@ -27,6 +27,7 @@ import IndexViewModel from "./fixtures/viewmodels/IndexViewModel";
 import {Index} from "../scripts/constants/Area";
 import * as Area from "../scripts/constants/Area";
 import MasterView from "./fixtures/views/Master";
+import QuerySerializer from "../scripts/io/QuerySerializer";
 
 describe("ContextFactory, given an URI", () => {
 
@@ -45,7 +46,7 @@ describe("ContextFactory, given an URI", () => {
         observableFactory = new ObservableFactory();
         uriResolver = new UriResolver(registry);
         viewResolver = new ViewResolver(require("./fixtures/views/export"));
-        subject = new ContextFactory(uriResolver, viewResolver, factory);
+        subject = new ContextFactory(uriResolver, viewResolver, factory, new QuerySerializer());
 
         observableFactory.register<number>("Bar", (context:ViewModelContext) => Rx.Observable.just(context.parameters.id));
 

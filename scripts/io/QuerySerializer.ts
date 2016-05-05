@@ -1,7 +1,13 @@
+import ISerializer from "./ISerializer";
 import * as _ from "lodash";
 
-class QueryDeserializer {
-    static deserialize(query:string):{} {
+class QuerySerializer implements ISerializer<{[index:string]:any}, string> {
+
+    serialize(data:{[index:string]:any}):string {
+        throw new Error("Not implemented");
+    }
+
+    deserialize(query:string):{[index:string]:any} {
         if (!query)
             return {};
         let parameters = query.split("&"),
@@ -16,4 +22,4 @@ class QueryDeserializer {
     }
 }
 
-export default QueryDeserializer
+export default QuerySerializer
