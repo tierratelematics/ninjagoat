@@ -5,6 +5,7 @@ The not so baaaaaaad MVVM framework.
 ![](https://img.shields.io/badge/release-0.2.2-blue.svg)
 ![](https://img.shields.io/badge/license-Apache 2.0-blue.svg)
 ![](https://img.shields.io/badge/goat-bikenjutsu-yellow.svg)
+![](https://travis-ci.org/tierratelematics/ninjagoat.svg?branch=develop)
 
 ## Introduction
 Ninjagoat is an attempt at writing a simple, lightweight, modular, reactive, convention-based, eventsource ready MVVM framework. Oh, and we are writing it in [Typescript](https://www.typescriptlang.org/), so we expect that you will use that, too! If this is not the case don't worry, you can use Ninjagoat anyway, but you will lose part of the fun.

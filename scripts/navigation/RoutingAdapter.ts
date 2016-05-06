@@ -3,10 +3,10 @@ import IViewModelRegistry from "../registry/IViewModelRegistry";
 import AreaRegistry from "../registry/AreaRegistry";
 import * as _ from "lodash";
 import * as path from "path";
-import {RouteConfig, PlainRoute} from "react-router";
 import {inject, injectable} from "inversify";
 import * as Area from "../constants/Area";
 import IComponentFactory from "../components/IComponentFactory";
+import {PlainRoute} from "react-router";
 
 @injectable()
 class RoutingAdapter implements IRoutingAdapter {
@@ -15,7 +15,7 @@ class RoutingAdapter implements IRoutingAdapter {
                 @inject("IComponentFactory") private componentFactory:IComponentFactory) {
     }
 
-    routes():RouteConfig {
+    routes():PlainRoute {
         let areas = this.registry.getAreas();
         return {
             childRoutes: this.getRoutes(areas),
@@ -40,7 +40,7 @@ class RoutingAdapter implements IRoutingAdapter {
             .valueOf();
     }
 
-    private getRoutesForArea(area:AreaRegistry):PlainRoute[] {
+    private getRoutesForArea(area:AreaRegistry):{}[] {
         return <PlainRoute[]>_(area.entries)
             .filter(entry => !_.includes([Area.Index, Area.Master, area.area + Area.Index], entry.id))
             .reduce((routes, entry) => {

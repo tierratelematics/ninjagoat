@@ -1,6 +1,6 @@
 {
     "name": "ninjagoat",
-    "version": "0.2.1",
+    "version": "0.2.2",
     "dependencies": {
         "inversify": "^2.0.0-beta.1",
         "rx": "^4.1.0",
@@ -10,7 +10,6 @@
         "whatwg-fetch": "^0.11.0"
     },
     "devDependencies": {
-        "smild": "^3.1.0",
         "expect.js": "^0.3.1",
         "sinon": "^1.17.3"
     },
@@ -20,7 +19,7 @@
         "react-router": "^2.1.1"
     },
     "scripts": {
-        "prepublish": "smild js"
+        "test": "smild test"
     },
     "main": "dist/ninjagoat.js"
 }
