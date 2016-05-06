@@ -1,8 +1,12 @@
 language: node_js
 node_js:
   - "6"
-install: "npm install smild -g && npm install"
-script: "smild js"
+install:
+  - npm install smild -g
+  - npm install typings -g
+  - typings install
+  - npm install
+script: smild js
 deploy:
   provider: npm
   email: sysadmin@tierratelematics.com
@@ -11,14 +15,3 @@ deploy:
   on:
     branch: master
     repo: tierratelematics/ninjagoat
-compiler: clang-3.6
-env:
-  - CXX=clang-3.6
-addons:
-  apt:
-    sources:
-      - llvm-toolchain-precise-3.6
-      - ubuntu-toolchain-r-test
-    packages:
-      - clang-3.6
-      - g++-4.8
