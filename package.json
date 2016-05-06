@@ -20,7 +20,8 @@
         "react-router": "^2.1.1"
     },
     "scripts": {
-        "prepublish": "smild js"
+        "prepublish": "smild js",
+        "test": "smild test"
     },
     "main": "dist/ninjagoat.js"
 }
