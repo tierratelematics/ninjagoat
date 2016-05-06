@@ -1,7 +1,7 @@
 #Ninjagoat
-
 The not so baaaaaaad MVVM framework.
 
+![](http://www.clker.com/cliparts/m/N/S/T/M/y/ninja-goat-md.png)
 ![](https://img.shields.io/badge/release-0.2.2-blue.svg)
 ![](https://img.shields.io/badge/license-Apache 2.0-blue.svg)
 ![](https://img.shields.io/badge/goat-bikenjutsu-yellow.svg)
@@ -34,7 +34,7 @@ If you are using Typescript you will have to add support for decorators in the `
 As Ninjagoat is written in Typescript you can find the type definitions here:
 
 ```ts
-/// <reference path="node_modules/ninjagoat/dts/ninjagoat.d.ts" />
+/// <reference path="node_modules/inversify/type_definitions/ninjagoat/ninjagoat.d.ts" />
 ```
 
 ## Architecture
