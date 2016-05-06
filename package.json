@@ -1,6 +1,6 @@
 {
     "name": "ninjagoat",
-    "version": "0.2.2",
+    "version": "0.2.3",
     "dependencies": {
         "inversify": "^2.0.0-beta.1",
         "rx": "^4.1.0",
