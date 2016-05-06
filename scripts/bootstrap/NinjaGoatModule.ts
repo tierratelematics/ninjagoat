@@ -38,7 +38,7 @@ class NinjaGoatModule implements IModule {
         kernel.bind<IRoutingAdapter>("IRoutingAdapter").to(RoutingAdapter).inSingletonScope();
         kernel.bind<IViewModelFactory>("IViewModelFactory").to(ViewModelFactory).inSingletonScope();
         kernel.bind<IHttpClient>("IHttpClient").to(HttpClient).inSingletonScope();
-        kernel.bind<ISerializer>("ISerializer").to(QuerySerializer).inSingletonScope().whenTargetNamed("Query");
+        kernel.bind<ISerializer<{[index:string]:string}, string>>("ISerializer").to(QuerySerializer).inSingletonScope();
     };
 
     register(registry: IViewModelRegistry, overrides?: any): void {
