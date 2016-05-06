@@ -1,8 +1,8 @@
 language: node_js
 node_js:
-  - '5.1'
-before_install: npm install smild -g
-script: smild js
+  - "6"
+install: "npm install smild -g && npm install"
+script: "smild js"
 deploy:
   provider: npm
   email: sysadmin@tierratelematics.com
