@@ -8,6 +8,7 @@ install:
   - typings install
 script: smild js
 deploy:
+  skip_cleanup: true
   provider: npm
   email: sysadmin@tierratelematics.com
   api_key:
