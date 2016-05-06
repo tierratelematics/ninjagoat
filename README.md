@@ -2,7 +2,7 @@
 The not so baaaaaaad MVVM framework.
 
 ![](http://www.clker.com/cliparts/m/N/S/T/M/y/ninja-goat-md.png)
-![](https://img.shields.io/badge/release-0.2.2-blue.svg)
+![](https://badge.fury.io/js/ninjagoat.svg)
 ![](https://img.shields.io/badge/license-Apache 2.0-blue.svg)
 ![](https://img.shields.io/badge/goat-bikenjutsu-yellow.svg)
 ![](https://travis-ci.org/tierratelematics/ninjagoat.svg?branch=develop)
