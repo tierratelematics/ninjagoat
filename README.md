@@ -34,7 +34,7 @@ If you are using Typescript you will have to add support for decorators in the `
 As Ninjagoat is written in Typescript you can find the type definitions here:
 
 ```ts
-/// <reference path="node_modules/inversify/type_definitions/ninjagoat/ninjagoat.d.ts" />
+/// <reference path="node_modules/ninjagoat/dts/ninjagoat.d.ts" />
 ```
 
 ## Architecture
