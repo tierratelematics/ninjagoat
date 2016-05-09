@@ -23,6 +23,10 @@ import IHttpClient from "../net/IHttpClient";
 import HttpClient from "../net/HttpClient";
 import ISerializer from "../io/ISerializer";
 import QuerySerializer from "../io/QuerySerializer";
+import IModelRetriever from "../net/IModelRetriever";
+import ModelRetriever from "../net/ModelRetriever";
+import INotificationManager from "../notifications/INotificationManager";
+import NotificationManager from "../notifications/NotificationManager";
 
 class NinjaGoatModule implements IModule {
 
@@ -39,6 +43,8 @@ class NinjaGoatModule implements IModule {
         kernel.bind<IViewModelFactory>("IViewModelFactory").to(ViewModelFactory).inSingletonScope();
         kernel.bind<IHttpClient>("IHttpClient").to(HttpClient).inSingletonScope();
         kernel.bind<ISerializer<{[index:string]:string}, string>>("ISerializer").to(QuerySerializer).inSingletonScope();
+        kernel.bind<IModelRetriever>("IModelRetriever").to(ModelRetriever).inSingletonScope();
+        kernel.bind<INotificationManager>("INotificationManager").to(NotificationManager).inSingletonScope();
     };
 
     register(registry: IViewModelRegistry, overrides?: any): void {
