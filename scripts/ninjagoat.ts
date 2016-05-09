@@ -15,8 +15,6 @@ import * as CommandDecorators from "./commands/CommandDecorators";
 import IHttpClient from "./net/IHttpClient";
 import HttpClient from "./net/HttpClient";
 import HttpResponse from "./net/HttpResponse";
-import IParser from "./io/IParser";
-import GsonParser from "./io/GsonParser";
 
 export {Application};
 export {IViewModel}
@@ -34,5 +32,3 @@ export {CommandDispatcher}
 export {IHttpClient}
 export {HttpClient}
 export {HttpResponse}
-export {IParser}
-export {GsonParser}
