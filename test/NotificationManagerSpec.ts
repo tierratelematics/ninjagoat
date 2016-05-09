@@ -23,8 +23,4 @@ describe("NotificationManager, given an area and a viewmodel id", () => {
     context("when a notifications is not needed anymore", () => {
         it("should dispose the subscription");
     });
-
-    context("when notifications are not needed anymore", () => {
-        it("should dispose all the subscriptions");
-    });
 });
