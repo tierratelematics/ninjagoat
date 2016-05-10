@@ -1,8 +1,9 @@
 /// <reference path="../typings/browser.d.ts" />
 
-import {IKernelModule, INewable} from "inversify";
+import {IKernelModule, INewable, IKernel} from "inversify";
 import * as Rx from "rx";
 import * as React from "react";
+import * as io from "socket.io-client";
 
 declare module ninjagoat {
 
@@ -14,7 +15,7 @@ declare module ninjagoat {
 
     export interface IModule {
         modules:IKernelModule;
-        register(registry:IViewModelRegistry, overrides?:any):void;
+        register(kernel:IKernel, registry:IViewModelRegistry, overrides?:any):void;
     }
 
     export interface IViewModelRegistry {
@@ -134,9 +135,12 @@ declare module ninjagoat {
         modelFor<T>(area:string, viewmodelId:string, parameters?:any):Rx.Observable<ModelState<T>>;
     }
 
-    export  interface INotificationManager {
+    export class ModelRetriever implements IModelRetriever {
+        modelFor<T>(area:string, viewmodelId:string, parameters?:any):Rx.Observable<ModelState<T>>;
+    }
+
+    export interface INotificationManager {
         notificationsFor(area:string, viewmodelId:string, parameters?:any):Rx.Observable<Notification>;
-        unsubscribeFromAll();
     }
 
     export interface Notification {
@@ -147,8 +151,6 @@ declare module ninjagoat {
         notificationsFor(area:string, viewmodelId:string, parameters?:any):Rx.Observable<Notification>;
 
         setClient(client:SocketIOClient.Socket);
-
-        unsubscribeFromAll();
     }
 }
 

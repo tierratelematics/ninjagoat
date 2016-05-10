@@ -1,7 +1,6 @@
 import IModule from "./IModule";
 import IViewModelRegistry from "../registry/IViewModelRegistry";
-import {IKernelModule} from "inversify";
-import IKernel = inversify.IKernel;
+import {IKernelModule, IKernel} from "inversify";
 import ViewModelRegistry from "../registry/ViewModelRegistry";
 import IObservableFactory from "../viewmodels/IObservableFactory";
 import ObservableFactory from "../viewmodels/ObservableFactory";
@@ -47,7 +46,7 @@ class NinjaGoatModule implements IModule {
         kernel.bind<INotificationManager>("INotificationManager").to(NotificationManager).inSingletonScope();
     };
 
-    register(registry: IViewModelRegistry, overrides?: any): void {
+    register(kernel: IKernel, registry: IViewModelRegistry, overrides?: any): void {
     }
 }
 

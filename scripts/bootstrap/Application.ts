@@ -9,6 +9,8 @@ import * as React from "react";
 import {render} from "react-dom";
 import {Router, browserHistory} from "react-router"
 import NinjaGoatModule from "./NinjaGoatModule";
+import NotificationManager from "../notifications/NotificationManager";
+import * as io from "socket.io-client";
 
 class Application {
 
@@ -26,8 +28,10 @@ class Application {
 
     run(overrides?: any) {
         let registry = this.kernel.get<IViewModelRegistry>("IViewModelRegistry"),
-            routingAdapter = this.kernel.get<IRoutingAdapter>("IRoutingAdapter");
-        _.forEach(this.modules, (module: IModule) => module.register(registry, overrides));
+            routingAdapter = this.kernel.get<IRoutingAdapter>("IRoutingAdapter"),
+            notificationManager = this.kernel.get<NotificationManager>("INotificationManager");
+        notificationManager.setClient(io.connect(overrides.websocketUrl));
+        _.forEach(this.modules, (module: IModule) => module.register(this.kernel, registry, overrides));
         render(React.createElement(Router, {
             history: browserHistory,
             routes: routingAdapter.routes()
