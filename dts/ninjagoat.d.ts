@@ -136,6 +136,7 @@ declare module ninjagoat {
 
     export  interface INotificationManager {
         notificationsFor(area:string, viewmodelId:string, parameters?:any):Rx.Observable<Notification>;
+        unsubscribeFromAll();
     }
 
     export interface Notification {
@@ -145,7 +146,9 @@ declare module ninjagoat {
     export class NotificationManager implements INotificationManager {
         notificationsFor(area:string, viewmodelId:string, parameters?:any):Rx.Observable<Notification>;
 
-        setConnectionUrl(url:string);
+        setClient(client:SocketIOClient.Socket);
+
+        unsubscribeFromAll();
     }
 }
 

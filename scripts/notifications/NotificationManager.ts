@@ -1,41 +1,43 @@
 import INotificationManager from "./INotificationManager";
 import Notification from "./Notification";
-import * as io from "socket.io-client";
 import * as Rx from "rx";
 import {injectable} from "inversify";
 
 @injectable()
 class NotificationManager implements INotificationManager {
 
-    private connectionUrl:string;
     private client:SocketIOClient.Socket;
+    private subscriptions:Rx.CompositeDisposable = new Rx.CompositeDisposable();
 
     notificationsFor(area:string, viewmodelId:string, parameters?:any):Rx.Observable<Notification> {
-        this.setupClient();
+        if (!this.client) return;
         this.subscribeToChannel(area, viewmodelId, parameters);
         let source = Rx.Observable.fromCallback<Notification, string>(this.client.on, this.client);
-        return source(`${area}:${viewmodelId}`).finally(() => this.unsubscribeFromChannel(area, viewmodelId, parameters));
+        let notifications = source(`${area}:${viewmodelId}`).finally(() => this.unsubscribeFromChannel(area, viewmodelId, parameters));
+        this.subscriptions.add(notifications.subscribe(() => {
+            //Fake subscription used just to dispose all running notifications
+        }));
+        return notifications;
     }
 
-    setConnectionUrl(url:string) {
-        this.connectionUrl = url;
+    unsubscribeFromAll() {
+        this.subscriptions.dispose();
     }
 
-    private setupClient() {
-        if (!this.client)
-            this.client = io.connect(this.connectionUrl);
+    setClient(client:SocketIOClient.Socket) {
+        this.client = client;
     }
 
     private subscribeToChannel(area:string, viewmodelId:string, parameters?:any):void {
-        this.client.emit('subscribe', {
-            area: area,
-            viewmodelId: viewmodelId,
-            parameters: parameters
-        });
+        this.operateOnChannel('subscribe', area, viewmodelId, parameters);
     }
 
     private unsubscribeFromChannel(area:string, viewmodelId:string, parameters?:any):void {
-        this.client.emit('unsubscribe', {
+        this.operateOnChannel('unsubscribe', area, viewmodelId, parameters);
+    }
+
+    private operateOnChannel(operation:string, area:string, viewmodelId:string, parameters?:any):void {
+        this.client.emit(operation, {
             area: area,
             viewmodelId: viewmodelId,
             parameters: parameters
