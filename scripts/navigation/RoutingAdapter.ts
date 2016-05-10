@@ -28,7 +28,10 @@ class RoutingAdapter implements IRoutingAdapter {
     private getRoutes(areas:AreaRegistry[]):PlainRoute[] {
         return <PlainRoute[]>_(areas)
             .filter(area => !_.includes([Area.Index, Area.Master], area.area))
-            .reduce((routes, area) => _.flatten(this.getRoutesForArea(area)), [])
+            .reduce((routes, area) => {
+                routes.push(this.getRoutesForArea(area));
+                return _.flatten(routes);
+            }, [])
             .valueOf();
     }
 

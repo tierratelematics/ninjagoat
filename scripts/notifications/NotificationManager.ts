@@ -11,8 +11,9 @@ class NotificationManager implements INotificationManager {
     notificationsFor(area:string, viewmodelId:string, parameters?:any):Rx.Observable<Notification> {
         if (!this.client) return;
         this.subscribeToChannel(area, viewmodelId, parameters);
-        let source = Rx.Observable.fromCallback<Notification, string>(this.client.on, this.client);
-        return source(`${area}:${viewmodelId}`).finally(() => this.unsubscribeFromChannel(area, viewmodelId, parameters));
+        return Rx.Observable
+            .fromEvent<Notification>(this.client, `${area}:${viewmodelId}`)
+            .finally(() => this.unsubscribeFromChannel(area, viewmodelId, parameters));
     }
 
     setClient(client:SocketIOClient.Socket) {
