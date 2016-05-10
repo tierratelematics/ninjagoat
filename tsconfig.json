@@ -10,6 +10,6 @@
         "node_modules",
         "typings",
         "test",
-        "dts/ninjagoat.d.ts"
+        "dts"
     ]
 }

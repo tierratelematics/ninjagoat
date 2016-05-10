@@ -1,8 +1,9 @@
 /// <reference path="../typings/browser.d.ts" />
 
-import {IKernelModule, INewable} from "inversify";
+import {IKernelModule, INewable, IKernel} from "inversify";
 import * as Rx from "rx";
 import * as React from "react";
+import * as io from "socket.io-client";
 
 declare module ninjagoat {
 
@@ -14,7 +15,7 @@ declare module ninjagoat {
 
     export interface IModule {
         modules:IKernelModule;
-        register(registry:IViewModelRegistry, overrides?:any):void;
+        register(kernel:IKernel, registry:IViewModelRegistry, overrides?:any):void;
     }
 
     export interface IViewModelRegistry {
@@ -130,17 +131,26 @@ declare module ninjagoat {
         headers:{};
     }
 
-    export interface IParser<T, T1> {
-        parse(data:T):T1;
+    export interface IModelRetriever {
+        modelFor<T>(area:string, viewmodelId:string, parameters?:any):Rx.Observable<ModelState<T>>;
     }
 
-    export class GsonParser<T> implements IParser<any, T> {
+    export class ModelRetriever implements IModelRetriever {
+        modelFor<T>(area:string, viewmodelId:string, parameters?:any):Rx.Observable<ModelState<T>>;
+    }
 
-        private types:any | any[];
+    export interface INotificationManager {
+        notificationsFor(area:string, viewmodelId:string, parameters?:any):Rx.Observable<Notification>;
+    }
 
-        constructor(types?:any | any[]);
+    export interface Notification {
+        url:string
+    }
 
-        parse(data:any):T;
+    export class NotificationManager implements INotificationManager {
+        notificationsFor(area:string, viewmodelId:string, parameters?:any):Rx.Observable<Notification>;
+
+        setClient(client:SocketIOClient.Socket);
     }
 }
 

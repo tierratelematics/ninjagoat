@@ -1,13 +1,17 @@
 #Ninjagoat
-
 The not so baaaaaaad MVVM framework.
 
 ![](http://www.clker.com/cliparts/m/N/S/T/M/y/ninja-goat-md.png)
 ![](https://badge.fury.io/js/ninjagoat.svg)
+<<<<<<< HEAD
 ![](https://travis-ci.org/tierratelematics/ninjagoat.svg?branch=develop)
 ![](https://travis-ci.org/tierratelematics/ninjagoat.svg?branch=master)
 ![](https://img.shields.io/badge/license-Apache%202.0-blue.svg)
+=======
+![](https://img.shields.io/badge/license-Apache 2.0-blue.svg)
+>>>>>>> f47c6eb84421bbb76299a8d9bb0e62cba4411a35
 ![](https://img.shields.io/badge/goat-bikenjutsu-yellow.svg)
+![](https://travis-ci.org/tierratelematics/ninjagoat.svg?branch=develop)
 
 ## Introduction
 
@@ -62,8 +66,13 @@ You may obtain a copy of the License at
 
 [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 
+<<<<<<< HEAD
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
+=======
+### What about the view?
+To be continued...
+>>>>>>> f47c6eb84421bbb76299a8d9bb0e62cba4411a35

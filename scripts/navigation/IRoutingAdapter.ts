@@ -1,7 +1,7 @@
-import {RouteConfig} from "react-router";
+import {PlainRoute} from "react-router";
 
 interface IRoutingAdapter {
-    routes(): RouteConfig;
+    routes(): PlainRoute;
 }
 
 export default IRoutingAdapter;

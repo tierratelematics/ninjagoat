@@ -3,7 +3,7 @@ import View from "../views/View";
 import IViewModel from "../viewmodels/IViewModel";
 import IUriResolver from "../navigation/IUriResolver";
 import IViewResolver from "../views/IViewResolver";
-import {inject, injectable, named} from "inversify";
+import {inject, injectable} from "inversify";
 import IViewModelFactory from "../viewmodels/IViewModelFactory";
 import * as _ from "lodash";
 import ISerializer from "../io/ISerializer";
@@ -15,7 +15,7 @@ class ContextFactory implements IContextFactory {
         @inject("IUriResolver") private uriResolver: IUriResolver,
         @inject("IViewResolver") private viewResolver: IViewResolver,
         @inject("IViewModelFactory") private viewModelFactory: IViewModelFactory,
-        @inject("ISerializer") @named("Query") private serializer:ISerializer<{[index:string]:any}, string>) {
+        @inject("ISerializer") private serializer:ISerializer<{[index:string]:string}, string>) {
     }
 
     contextFor<T extends IViewModel<any>>(uri: string, parameters?: any): { view: View<T>, viewmodel: T } {
