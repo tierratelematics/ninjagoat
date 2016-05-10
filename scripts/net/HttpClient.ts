@@ -3,7 +3,9 @@ import * as Rx from "rx";
 import "whatwg-fetch";
 import HttpResponse from "./HttpResponse";
 import HttpHeaders from "./HttpHeaders";
+import {injectable} from "inversify";
 
+@injectable()
 class HttpClient implements IHttpClient {
 
     get(url:string, headers?:HttpHeaders):Rx.IObservable<HttpResponse> {

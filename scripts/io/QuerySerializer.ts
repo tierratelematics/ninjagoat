@@ -1,13 +1,15 @@
 import ISerializer from "./ISerializer";
 import * as _ from "lodash";
+import {injectable} from "inversify";
 
-class QuerySerializer implements ISerializer<{[index:string]:any}, string> {
+@injectable()
+class QuerySerializer implements ISerializer<{[index:string]:string}, string> {
 
-    serialize(data:{[index:string]:any}):string {
+    serialize(data:{[index:string]:string}):string {
         throw new Error("Not implemented");
     }
 
-    deserialize(query:string):{[index:string]:any} {
+    deserialize(query:string):{[index:string]:string} {
         if (!query)
             return {};
         let parameters = query.split("&"),
@@ -18,7 +20,7 @@ class QuerySerializer implements ISerializer<{[index:string]:any}, string> {
                     value: parts[1]
                 };
             });
-        return _.zipObject(_.map(values, 'key'), _.map(values, 'value'));
+        return <{[index:string]:string}>_.zipObject(_.map(values, 'key'), _.map(values, 'value'));
     }
 }
 
