@@ -7,21 +7,12 @@ import {injectable} from "inversify";
 class NotificationManager implements INotificationManager {
 
     private client:SocketIOClient.Socket;
-    private subscriptions:Rx.CompositeDisposable = new Rx.CompositeDisposable();
 
     notificationsFor(area:string, viewmodelId:string, parameters?:any):Rx.Observable<Notification> {
         if (!this.client) return;
         this.subscribeToChannel(area, viewmodelId, parameters);
         let source = Rx.Observable.fromCallback<Notification, string>(this.client.on, this.client);
-        let notifications = source(`${area}:${viewmodelId}`).finally(() => this.unsubscribeFromChannel(area, viewmodelId, parameters));
-        this.subscriptions.add(notifications.subscribe(() => {
-            //Fake subscription used just to dispose all running notifications
-        }));
-        return notifications;
-    }
-
-    unsubscribeFromAll() {
-        this.subscriptions.dispose();
+        return source(`${area}:${viewmodelId}`).finally(() => this.unsubscribeFromChannel(area, viewmodelId, parameters));
     }
 
     setClient(client:SocketIOClient.Socket) {

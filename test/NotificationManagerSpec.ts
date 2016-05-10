@@ -56,47 +56,4 @@ describe("NotificationManager, given an area and a viewmodel id", () => {
             })).to.be(true);
         });
     });
-
-    context("when notifications are not needed anymore", () => {
-        it("should dispose them", () => {
-            subject.notificationsFor("Admin", "FakePage", {id: 60});
-            subject.notificationsFor("Map", "Devices");
-            subject.unsubscribeFromAll();
-            expect(emitStub.calledWith('unsubscribe', {
-                area: "Admin",
-                viewmodelId: "FakePage",
-                parameters: {id: 60}
-            })).to.be(true);
-            expect(emitStub.calledWith('unsubscribe', {
-                area: "Map",
-                viewmodelId: "Devices",
-                parameters: undefined
-            })).to.be(true);
-        });
-
-        context("and then some other subscriptions are added", () => {
-            it("should also dispose them", () => {
-                subject.notificationsFor("Admin", "FakePage", {id: 60});
-                subject.notificationsFor("Map", "Devices");
-                subject.unsubscribeFromAll();
-                expect(emitStub.calledWith('unsubscribe', {
-                    area: "Admin",
-                    viewmodelId: "FakePage",
-                    parameters: {id: 60}
-                })).to.be(true);
-                expect(emitStub.calledWith('unsubscribe', {
-                    area: "Map",
-                    viewmodelId: "Devices",
-                    parameters: undefined
-                })).to.be(true);
-                subject.notificationsFor("Test", "Foo");
-                subject.unsubscribeFromAll();
-                expect(emitStub.calledWith('unsubscribe', {
-                    area: "Test",
-                    viewmodelId: "Foo",
-                    parameters: undefined
-                })).to.be(true);
-            });
-        });
-    });
 });
