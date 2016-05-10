@@ -22,7 +22,9 @@ describe("Model retriever, given an area and a viewmodel id", () => {
     let sandbox:SinonSandbox;
 
     beforeEach(() => {
-        sandbox = sinon.sandbox.create();
+        sandbox = sinon.sandbox.create({
+            useFakeTimers: true
+        });
         httpClient = new HttpClient();
         notificationManager = new NotificationManager();
         subject = new ModelRetriever(httpClient, notificationManager);
@@ -30,51 +32,33 @@ describe("Model retriever, given an area and a viewmodel id", () => {
 
     context("when a viewmodel needs data to be loaded", () => {
 
-        beforeEach(() => {
-            sandbox.stub(notificationManager, "notificationsFor", () => {
-                return Rx.Observable.just(new HttpResponse({url: 'test'}));
-            });
-            sandbox.stub(httpClient, "get", (url:string)=> {
-                return Rx.Observable.just(new HttpResponse({count: 20}));
-            });
-        });
+        beforeEach(stubData);
 
-        it("should send a loading state to the viewmodel", (done) => {
-            subject.modelFor<TestCounter>("Admin", "Bar").take(1).subscribe(modelState => {
-                expect(modelState.phase).to.be(ModelPhase.Loading);
-                done();
-            });
+        it("should send a loading state to the viewmodel", () => {
+            let modelState:ModelState<TestCounter> = null;
+            subject.modelFor<TestCounter>("Admin", "Bar").take(1).subscribe(item => modelState = item);
+            sandbox.clock.tick(10);
+            expect(modelState.phase).to.be(ModelPhase.Loading);
         });
     });
 
     context("when a loading state has been sent to the viewmodel", () => {
 
-        beforeEach(() => {
-            sandbox.stub(notificationManager, "notificationsFor", (area:string, id:string, parameters?:any) => {
-                return Rx.Observable.just({url: 'http://testurl/' + (parameters ? parameters.id : "")});
-            });
-            sandbox.stub(httpClient, "get", (url:string)=> {
-                if (url === 'http://testurl/') {
-                    return Rx.Observable.just(new HttpResponse({count: 20}));
-                } else if (url === 'http://testurl/60') {
-                    return Rx.Observable.just(new HttpResponse({count: 60}));
-                }
-            });
-        });
+        beforeEach(stubData);
 
-        it("should load the data", (done) => {
-            subject.modelFor<TestCounter>("Admin", "Bar").skip(1).take(1).subscribe(modelState => {
-                expect(modelState.model.count).to.be(20);
-                done();
-            });
+        it("should load the data", () => {
+            let modelState:ModelState<TestCounter> = null;
+            subject.modelFor<TestCounter>("Admin", "Bar").skip(1).take(1).subscribe(item => modelState = item);
+            sandbox.clock.tick(10);
+            expect(modelState.model.count).to.be(20);
         });
 
         context("and some parameters are needed to construct the model", () => {
-            it("should append those parameters when requesting the model", (done) => {
-                subject.modelFor<TestCounter>("Admin", "Bar", {id: 60}).skip(1).take(1).subscribe(modelState => {
-                    expect(modelState.model.count).to.be(60);
-                    done();
-                });
+            it("should append those parameters when requesting the model", () => {
+                let modelState:ModelState<TestCounter> = null;
+                subject.modelFor<TestCounter>("Admin", "Bar", {id: 60}).skip(1).take(1).subscribe(item => modelState = item);
+                sandbox.clock.tick(10);
+                expect(modelState.model.count).to.be(60);
             });
         });
     });
@@ -88,13 +72,24 @@ describe("Model retriever, given an area and a viewmodel id", () => {
             sandbox.stub(httpClient, "get", (url:string) => Rx.Observable.throw({message: 'Something bad happened'}));
         });
 
-        it("should push a failed state to the viewmodel", (done) => {
-            subject.modelFor<TestCounter>("Admin", "Bar", {id: 60}).skip(1).take(1).subscribe(modelState => {
-                if (modelState.phase === ModelPhase.Failed) {
-                    expect(modelState.failure).to.eql({message: 'Something bad happened'});
-                    done();
-                }
-            });
+        it("should push a failed state to the viewmodel", () => {
+            let modelState:ModelState<TestCounter> = null;
+            subject.modelFor<TestCounter>("Admin", "Bar", {id: 60}).skip(1).take(1).subscribe(item => modelState = item);
+            sandbox.clock.tick(10);
+            expect(modelState.failure).to.eql({message: 'Something bad happened'});
         });
     });
+
+    function stubData() {
+        sandbox.stub(notificationManager, "notificationsFor", (area:string, id:string, parameters?:any) => {
+            return Rx.Observable.just({url: 'http://testurl/' + (parameters ? parameters.id : "")});
+        });
+        sandbox.stub(httpClient, "get", (url:string) => {
+            if (url === 'http://testurl/') {
+                return Rx.Observable.just(new HttpResponse({count: 20}));
+            } else if (url === 'http://testurl/60') {
+                return Rx.Observable.just(new HttpResponse({count: 60}));
+            }
+        });
+    }
 });
