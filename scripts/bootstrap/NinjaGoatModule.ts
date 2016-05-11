@@ -46,7 +46,7 @@ class NinjaGoatModule implements IModule {
         kernel.bind<INotificationManager>("INotificationManager").to(NotificationManager).inSingletonScope();
     };
 
-    register(kernel: IKernel, registry: IViewModelRegistry, overrides?: any): void {
+    register(registry:IViewModelRegistry, kernel?:IKernel, overrides?:any):void {
     }
 }
 

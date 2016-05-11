@@ -3,7 +3,6 @@
 import {IKernelModule, INewable, IKernel} from "inversify";
 import * as Rx from "rx";
 import * as React from "react";
-import * as io from "socket.io-client";
 
 declare module ninjagoat {
 
@@ -14,8 +13,8 @@ declare module ninjagoat {
     }
 
     export interface IModule {
-        modules:IKernelModule;
-        register(kernel:IKernel, registry:IViewModelRegistry, overrides?:any):void;
+        modules?:IKernelModule;
+        register(registry:IViewModelRegistry, kernel?:IKernel, overrides?:any):void;
     }
 
     export interface IViewModelRegistry {
