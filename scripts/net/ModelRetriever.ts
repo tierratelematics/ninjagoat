@@ -4,6 +4,7 @@ import IHttpClient from "./IHttpClient";
 import INotificationManager from "../notifications/INotificationManager";
 import ModelState from "../viewmodels/ModelState";
 import * as Rx from "rx";
+import ViewModelContext from "../registry/ViewModelContext";
 
 @injectable()
 class ModelRetriever implements IModelRetriever {
@@ -13,8 +14,8 @@ class ModelRetriever implements IModelRetriever {
 
     }
 
-    modelFor<T>(area:string, viewmodelId:string, parameters?:any):Rx.Observable<ModelState<T>> {
-        return this.notificationManager.notificationsFor(area, viewmodelId, parameters)
+    modelFor<T>(context:ViewModelContext):Rx.Observable<ModelState<T>> {
+        return this.notificationManager.notificationsFor(context)
             .selectMany(notification => this.httpClient.get(notification.url))
             .map(response => ModelState.Ready(<T>response.response))
             .catch(error => Rx.Observable.just(ModelState.Failed(error)))

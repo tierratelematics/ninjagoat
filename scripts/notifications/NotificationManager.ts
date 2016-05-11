@@ -2,6 +2,7 @@ import INotificationManager from "./INotificationManager";
 import Notification from "./Notification";
 import * as Rx from "rx";
 import {injectable, inject, IProvider} from "inversify";
+import ViewModelContext from "../registry/ViewModelContext";
 
 @injectable()
 class NotificationManager implements INotificationManager {
@@ -12,34 +13,34 @@ class NotificationManager implements INotificationManager {
 
     }
 
-    notificationsFor(area:string, viewmodelId:string, parameters?:any):Rx.Observable<Notification> {
+    notificationsFor(context:ViewModelContext):Rx.Observable<Notification> {
         return Rx.Observable
             .fromPromise<SocketIOClient.Socket>(this.clientProvider())
             .map(socket => {
                 this.client = socket;
-                this.subscribeToChannel(area, viewmodelId, parameters);
+                this.subscribeToChannel(context);
             })
-            .flatMap(_ => this.getNotificationStream(area, viewmodelId))
-            .finally(() => this.unsubscribeFromChannel(area, viewmodelId, parameters));
+            .flatMap(_ => this.getNotificationStream(context))
+            .finally(() => this.unsubscribeFromChannel(context));
     }
 
-    protected getNotificationStream(area:string, viewmodelId:string):Rx.Observable<Notification> {
-        return Rx.Observable.fromEvent<Notification>(this.client, `${area}:${viewmodelId}`);
+    protected getNotificationStream(context:ViewModelContext):Rx.Observable<Notification> {
+        return Rx.Observable.fromEvent<Notification>(this.client, `${context.area}:${context.viewmodelId}`);
     }
 
-    private subscribeToChannel(area:string, viewmodelId:string, parameters?:any):void {
-        this.operateOnChannel('subscribe', area, viewmodelId, parameters);
+    private subscribeToChannel(context:ViewModelContext):void {
+        this.operateOnChannel('subscribe', context);
     }
 
-    private unsubscribeFromChannel(area:string, viewmodelId:string, parameters?:any):void {
-        this.operateOnChannel('unsubscribe', area, viewmodelId, parameters);
+    private unsubscribeFromChannel(context:ViewModelContext):void {
+        this.operateOnChannel('unsubscribe', context);
     }
 
-    private operateOnChannel(operation:string, area:string, viewmodelId:string, parameters?:any):void {
+    private operateOnChannel(operation:string, context:ViewModelContext):void {
         this.client.emit(operation, {
-            area: area,
-            viewmodelId: viewmodelId,
-            parameters: parameters
+            area: context.area,
+            viewmodelId: context.viewmodelId,
+            parameters: context.parameters
         });
     }
 }

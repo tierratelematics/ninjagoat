@@ -41,7 +41,7 @@ declare module ninjagoat {
 
     export class ViewModelContext {
         area:string;
-        context:string;
+        viewmodelId:string;
         parameters:any;
     }
 
@@ -132,11 +132,11 @@ declare module ninjagoat {
     }
 
     export interface IModelRetriever {
-        modelFor<T>(area:string, viewmodelId:string, parameters?:any):Rx.Observable<ModelState<T>>;
+        modelFor<T>(context:ViewModelContext):Rx.Observable<ModelState<T>>;
     }
 
     export class ModelRetriever implements IModelRetriever {
-        modelFor<T>(area:string, viewmodelId:string, parameters?:any):Rx.Observable<ModelState<T>>;
+        modelFor<T>(context:ViewModelContext):Rx.Observable<ModelState<T>>;
     }
 }
 

@@ -6,6 +6,7 @@ import SinonStub = Sinon.SinonStub;
 import MockSocketClient from "./fixtures/MockSocketClient";
 import SinonFakeTimers = Sinon.SinonFakeTimers;
 import * as Rx from "rx";
+import ViewModelContext from "../scripts/registry/ViewModelContext";
 
 describe("NotificationManager, given an area and a viewmodel id", () => {
 
@@ -30,7 +31,7 @@ describe("NotificationManager, given an area and a viewmodel id", () => {
 
     context("when this viewmodel needs notifications about the model change", () => {
         it("should subscribe to the backend", (done) => {
-            subject.notificationsFor("Admin", "FakePage").subscribe(_ => {
+            subject.notificationsFor(new ViewModelContext("Admin", "FakePage")).subscribe(_ => {
                 expect(emitStub.calledWith('subscribe', {
                     area: "Admin",
                     viewmodelId: "FakePage",
@@ -42,7 +43,7 @@ describe("NotificationManager, given an area and a viewmodel id", () => {
 
         context("and custom parameters are needed on the backend side", () => {
             it("should also add these parameters to the subscription request", (done) => {
-                subject.notificationsFor("Admin", "FakePage", {id: 60}).subscribe(_ => {
+                subject.notificationsFor(new ViewModelContext("Admin", "FakePage", {id: 60})).subscribe(_ => {
                     expect(emitStub.calledWith('subscribe', {
                         area: "Admin",
                         viewmodelId: "FakePage",
@@ -56,7 +57,7 @@ describe("NotificationManager, given an area and a viewmodel id", () => {
 
     context("when a notifications is not needed anymore", () => {
         it("should dispose the subscription", (done) => {
-            let subscription = subject.notificationsFor("Admin", "FakePage", {id: 60}).subscribe(() => {
+            let subscription = subject.notificationsFor(new ViewModelContext("Admin", "FakePage", {id: 60})).subscribe(() => {
                 subscription.dispose();
                 expect(emitStub.calledWith('unsubscribe', {
                     area: "Admin",

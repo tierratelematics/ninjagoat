@@ -1,7 +1,8 @@
 import Notification from "./Notification";
+import ViewModelContext from "../registry/ViewModelContext";
 
 interface INotificationManager {
-    notificationsFor(area:string, viewmodelId:string, parameters?:any):Rx.Observable<Notification>;
+    notificationsFor(context:ViewModelContext):Rx.Observable<Notification>;
 }
 
 export default INotificationManager
