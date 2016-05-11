@@ -13,6 +13,7 @@ import NotificationManager from "../scripts/notifications/NotificationManager";
 import SinonSandbox = Sinon.SinonSandbox;
 import TestCounter from "./fixtures/viewmodels/TestCounter";
 import HttpResponse from "../scripts/net/HttpResponse";
+import MockSocketClient from "./fixtures/MockSocketClient";
 
 describe("Model retriever, given an area and a viewmodel id", () => {
 
@@ -20,13 +21,15 @@ describe("Model retriever, given an area and a viewmodel id", () => {
     let httpClient:IHttpClient;
     let notificationManager:INotificationManager;
     let sandbox:SinonSandbox;
+    let socketClient:SocketIOClient.Socket;
 
     beforeEach(() => {
         sandbox = sinon.sandbox.create({
             useFakeTimers: true
         });
+        socketClient = new MockSocketClient();
         httpClient = new HttpClient();
-        notificationManager = new NotificationManager();
+        notificationManager = new NotificationManager(() => Promise.resolve(socketClient));
         subject = new ModelRetriever(httpClient, notificationManager);
     });
 

@@ -138,20 +138,6 @@ declare module ninjagoat {
     export class ModelRetriever implements IModelRetriever {
         modelFor<T>(area:string, viewmodelId:string, parameters?:any):Rx.Observable<ModelState<T>>;
     }
-
-    export interface INotificationManager {
-        notificationsFor(area:string, viewmodelId:string, parameters?:any):Rx.Observable<Notification>;
-    }
-
-    export interface Notification {
-        url:string
-    }
-
-    export class NotificationManager implements INotificationManager {
-        notificationsFor(area:string, viewmodelId:string, parameters?:any):Rx.Observable<Notification>;
-
-        setClient(client:SocketIOClient.Socket);
-    }
 }
 
 export = ninjagoat;
