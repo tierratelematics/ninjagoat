@@ -41,6 +41,7 @@ declare module ninjagoat {
     }
 
     export class ViewModelContext {
+        area:string;
         context:string;
         parameters:any;
     }

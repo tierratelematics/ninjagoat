@@ -1,3 +1,4 @@
 export default class ViewModelContext {
-    constructor(public context: string, public parameters?: any) {}
+    constructor(public area:string, public context:string, public parameters?:any) {
+    }
 }

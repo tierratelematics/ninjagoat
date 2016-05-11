@@ -22,7 +22,7 @@ class ContextFactory implements IContextFactory {
         let context = this.uriResolver.resolve<T>(uri);
         let view = this.viewResolver.resolve<T>(context.area, context.viewmodel.id);
         let contextParameters = _.assign({}, parameters, this.serializer.deserialize(uri.split("?")[1]));
-        return { view: view, viewmodel: this.viewModelFactory.create<T>(context.viewmodel, contextParameters) };
+        return { view: view, viewmodel: this.viewModelFactory.create<T>(context, contextParameters) };
     }
 }
 
