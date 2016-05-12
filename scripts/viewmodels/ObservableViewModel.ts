@@ -38,6 +38,10 @@ abstract class ObservableViewModel<T> implements IViewModel<T> {
         if (this.subscription) this.subscription.dispose();
         this.subject.onCompleted();
     }
+
+    private notifyChanged() {
+        this.subject.onNext(undefined);
+    }
 }
 
 function isObserver<T>(observerOrOnNext: (Rx.IObserver<T>) | ((value: T) => void)): observerOrOnNext is Rx.IObserver<T> {

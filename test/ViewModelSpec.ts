@@ -8,10 +8,10 @@ import BarViewModel from "./fixtures/viewmodels/BarViewModel";
 
 describe("Given an ObservableViewModel", () => {
 
-    let subject: BarViewModel;
+    let subject:BarViewModel;
     let modelSubject;
-    let notifications: void[];
-    let notificationError: any;
+    let notifications:void[];
+    let notificationError:any;
     let notificationsCompleted;
 
     beforeEach(() => {
@@ -41,7 +41,7 @@ describe("Given an ObservableViewModel", () => {
 
         context("and there is an error while processing it", () => {
 
-            let stub: SinonStub;
+            let stub:SinonStub;
 
             beforeEach(() => {
                 notifications = [];
@@ -68,7 +68,7 @@ describe("Given an ObservableViewModel", () => {
 
     context("when it receives the completion for the model", () => {
 
-        let disposeSpy: SinonSpy;
+        let disposeSpy:SinonSpy;
 
         beforeEach(() => {
             disposeSpy = sinon.spy(subject, "dispose");
@@ -103,6 +103,14 @@ describe("Given an ObservableViewModel", () => {
             modelSubject.onError(new Error());
 
             expect(notificationError).not.to.be(null);
+        });
+    });
+
+    context("when a method is marked with a refresh annotation", () => {
+        it("should notify that the model has been changed", () => {
+            subject.operateOnData();
+            
+            expect(notifications).to.have.length(1);
         });
     });
 });

@@ -70,6 +70,8 @@ declare module ninjagoat {
 
     export function ViewModel(name:string);
 
+    export function Refresh(target:any, propertyKey:string, descriptor:TypedPropertyDescriptor<any>);
+
     export class ModelState<T> {
         phase:ModelPhase;
         model:T;

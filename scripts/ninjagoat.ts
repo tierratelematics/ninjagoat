@@ -17,6 +17,7 @@ import HttpClient from "./net/HttpClient";
 import HttpResponse from "./net/HttpResponse";
 import ModelRetriever from "./net/ModelRetriever";
 import IModelRetriever from "./net/IModelRetriever";
+import Refresh from "./viewmodels/RefreshDecorator";
 
 export {Application};
 export {IViewModel}
@@ -24,6 +25,7 @@ export {IModule}
 export {ObservableViewModel}
 export {View}
 export {ViewModel}
+export {Refresh}
 export {ModelState}
 export {Transport}
 export {ModelPhase}
