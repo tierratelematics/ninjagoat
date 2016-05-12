@@ -120,10 +120,10 @@ declare module ninjagoat {
     }
 
     export interface IHttpClient {
-        get(url:string, headers?:{}):Rx.IObservable<HttpResponse>
-        post(url:string, body:any, headers?:{}):Rx.IObservable<HttpResponse>
-        put(url:string, body:any, headers?:{}):Rx.IObservable<HttpResponse>
-        delete(url:string, headers?:{}):Rx.IObservable<HttpResponse>
+        get(url:string, headers?:{}):Rx.Observable<HttpResponse>
+        post(url:string, body:any, headers?:{}):Rx.Observable<HttpResponse>
+        put(url:string, body:any, headers?:{}):Rx.Observable<HttpResponse>
+        delete(url:string, headers?:{}):Rx.Observable<HttpResponse>
     }
 
     export class HttpResponse {
