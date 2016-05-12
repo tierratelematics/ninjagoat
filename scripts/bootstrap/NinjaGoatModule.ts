@@ -26,6 +26,7 @@ import IModelRetriever from "../net/IModelRetriever";
 import ModelRetriever from "../net/ModelRetriever";
 import INotificationManager from "../notifications/INotificationManager";
 import NotificationManager from "../notifications/NotificationManager";
+import IServiceLocator from "./IServiceLocator";
 
 class NinjaGoatModule implements IModule {
 
@@ -46,7 +47,7 @@ class NinjaGoatModule implements IModule {
         kernel.bind<INotificationManager>("INotificationManager").to(NotificationManager).inSingletonScope();
     };
 
-    register(registry:IViewModelRegistry, kernel?:IKernel, overrides?:any):void {
+    register(registry:IViewModelRegistry, serviceLocator?:IServiceLocator, overrides?:any):void {
     }
 }
 

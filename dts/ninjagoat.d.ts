@@ -14,9 +14,13 @@ declare module ninjagoat {
 
     export interface IModule {
         modules?:IKernelModule;
-        register(registry:IViewModelRegistry, kernel?:IKernel, overrides?:any):void;
+        register(registry:IViewModelRegistry, serviceLocator?:IServiceLocator, overrides?:any):void;
     }
 
+    export interface IServiceLocator {
+        get<T>(key: string): T;
+    }
+    
     export interface IViewModelRegistry {
         master<T>(constructor:INewable<IViewModel<T>>, observable?:(context:ViewModelContext) => Rx.IObservable<T>):AreaRegistry;
         index<T>(constructor:INewable<IViewModel<T>>, observable?:(context:ViewModelContext) => Rx.IObservable<T>):AreaRegistry;

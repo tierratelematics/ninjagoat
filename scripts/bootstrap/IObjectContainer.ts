@@ -2,7 +2,7 @@ import {INewable} from "inversify";
 import IServiceLocator from "./IServiceLocator";
 
 interface IObjectContainer extends IServiceLocator {
-    set<T>(key:string, object:INewable<T>, parent?:string);
+    set<T>(key:string, object:INewable<T>|T, parent?:string);
     contains(key:string):boolean;
     remove(key:string):void;
 }
