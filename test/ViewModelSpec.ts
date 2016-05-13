@@ -12,7 +12,6 @@ describe("Given an ObservableViewModel", () => {
     let modelSubject;
     let notifications:void[];
     let notificationError:any;
-    let notificationsCompleted;
 
     beforeEach(() => {
         modelSubject = new Rx.Subject<number>();
@@ -21,8 +20,7 @@ describe("Given an ObservableViewModel", () => {
 
         notifications = [];
         notificationError = null;
-        notificationsCompleted = false;
-        subject.subscribe(_ => notifications.push(null), error => notificationError = error, () => notificationsCompleted = true);
+        subject.subscribe(_ => notifications.push(null), error => notificationError = error);
     });
 
     context("when it receives a new model", () => {
@@ -78,10 +76,6 @@ describe("Given an ObservableViewModel", () => {
 
         afterEach(() => {
             disposeSpy.restore();
-        });
-
-        it("should complete itself as well", () => {
-            expect(notificationsCompleted).to.be(true);
         });
 
         it("should dispose itself", () => {
