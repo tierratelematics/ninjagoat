@@ -2,7 +2,7 @@ function Refresh(target:any, propertyKey:string, descriptor:TypedPropertyDescrip
     let originalMethod = descriptor.value;
     descriptor.value = function (...args:any[]) {
         let result = originalMethod.apply(this, args);
-        this.notifyChanged();
+        if (this.notifyChanged) this.notifyChanged();
         return result;
     };
 
