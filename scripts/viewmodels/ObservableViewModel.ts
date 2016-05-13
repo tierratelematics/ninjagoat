@@ -36,6 +36,7 @@ abstract class ObservableViewModel<T> implements IViewModel<T> {
 
     dispose(): void {
         if (this.subscription) this.subscription.dispose();
+        this.subject.onCompleted();
     }
 
     private notifyChanged() {
