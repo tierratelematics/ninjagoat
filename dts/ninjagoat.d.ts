@@ -103,6 +103,7 @@ declare module ninjagoat {
         Authentication(type:string)
         Endpoint(endpoint:string)
         Transport(type:string)
+        Type(type:string)
     }
 
     export var CommandDecorators:CommandDecoratorsStatic;
