@@ -66,26 +66,15 @@ describe("Given an ObservableViewModel", () => {
         });
     });
 
-    context("when it receives the completion for the model", () => {
-
-        let disposeSpy:SinonSpy;
+    context("when it is not needed anymore", () => {
 
         beforeEach(() => {
-            disposeSpy = sinon.spy(subject, "dispose");
             modelSubject.onNext(10);
-            modelSubject.onCompleted();
+            subject.dispose();
         });
 
-        afterEach(() => {
-            disposeSpy.restore();
-        });
-
-        it("should complete itself as well", () => {
+        it("should dispose all the resources", () => {
             expect(notificationsCompleted).to.be(true);
-        });
-
-        it("should dispose itself", () => {
-            expect(disposeSpy.calledOnce).to.be(true);
         });
 
         context("and subsequent notifications are sent", () => {

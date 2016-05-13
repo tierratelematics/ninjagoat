@@ -13,8 +13,7 @@ abstract class ObservableViewModel<T> implements IViewModel<T> {
                 this.onData(model);
                 this.subject.onNext(undefined);
             },
-            error => this.onError(error),
-            () => this.dispose()
+            error => this.onError(error)
         );
     }
 
