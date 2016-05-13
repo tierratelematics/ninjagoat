@@ -1,7 +1,4 @@
-import TransportEnum from "../constants/Transport";
-import AuthenticationEnum from "../constants/Authentication";
-
-function Transport(type:TransportEnum) {
+function Transport(type:string) {
     return function (target:any) {
         Reflect.defineMetadata("Transport", type, target);
         return target;
@@ -15,7 +12,7 @@ function Endpoint(endpoint:string) {
     };
 }
 
-function Authentication(type:AuthenticationEnum) {
+function Authentication(type:string) {
     return function (target:any) {
         Reflect.defineMetadata("Authentication", type, target);
         return target;

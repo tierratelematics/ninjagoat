@@ -1,6 +1,2 @@
-enum Authentication {
-    Bearer,
-    Basic
-}
-
-export default Authentication
+export const Bearer = "Bearer";
+export const Basic = "Basic";

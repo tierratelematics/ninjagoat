@@ -1,12 +1,11 @@
 import CommandDispatcher from "../../../scripts/commands/CommandDispatcher";
 import Command from "../../../scripts/commands/Command";
-import Transport from "../../../scripts/constants/Transport";
+import * as Transport from "../../../scripts/constants/Transport";
 
 class MockWSCommandDispatcher extends CommandDispatcher {
 
     internalExecute(command:Command):boolean {
-        let transport = Reflect.getMetadata("Transport", command.constructor);
-        return transport === Transport.WebSocket;
+        return this.transport === Transport.WebSocket;
     }
 
 }

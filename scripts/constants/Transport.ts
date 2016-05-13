@@ -1,6 +1,2 @@
-enum Transport {
-    HTTP_Post,
-    WebSocket
-}
-
-export default Transport
+export const HTTP_Post = "HTTP_Post";
+export const WebSocket = "WebSocket";

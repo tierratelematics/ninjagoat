@@ -18,9 +18,9 @@ declare module ninjagoat {
     }
 
     export interface IServiceLocator {
-        get<T>(key: string): T;
+        get<T>(key:string):T;
     }
-    
+
     export interface IViewModelRegistry {
         master<T>(constructor:INewable<IViewModel<T>>, observable?:(context:ViewModelContext) => Rx.IObservable<T>):AreaRegistry;
         index<T>(constructor:INewable<IViewModel<T>>, observable?:(context:ViewModelContext) => Rx.IObservable<T>):AreaRegistry;
@@ -100,9 +100,9 @@ declare module ninjagoat {
     }
 
     export interface CommandDecoratorsStatic {
-        Authentication(type:Authentication)
+        Authentication(type:string)
         Endpoint(endpoint:string)
-        Transport(type:Transport)
+        Transport(type:string)
     }
 
     export var CommandDecorators:CommandDecoratorsStatic;
@@ -115,15 +115,19 @@ declare module ninjagoat {
         setNext(dispatcher:ICommandDispatcher):void;
     }
 
-    export enum Authentication {
-        Bearer,
-        Basic
+    export interface AuthenticationStatic {
+        Bearer:string;
+        Basic:string;
     }
 
-    export enum Transport {
-        HTTP_Post,
-        WebSocket
+    export var Authentication:AuthenticationStatic;
+
+    export interface TransportStatic {
+        HTTP_Post:string,
+        WebSocket:string
     }
+
+    export var Transport:TransportStatic;
 
     export interface IHttpClient {
         get(url:string, headers?:{}):Rx.Observable<HttpResponse>

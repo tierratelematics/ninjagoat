@@ -1,7 +1,7 @@
 import Command from "../../../scripts/commands/Command";
 import * as Decorators from "../../../scripts/commands/CommandDecorators";
-import Transport from "../../../scripts/constants/Transport";
-import Authentication from "../../../scripts/constants/Authentication";
+import * as Authentication from "../../../scripts/constants/Authentication";
+import * as Transport from "../../../scripts/constants/Transport";
 
 class DefaultCommand extends Command {
     public foo:string = "bar";
