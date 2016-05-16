@@ -56,6 +56,8 @@ declare module ninjagoat {
     export abstract class ObservableViewModel<T> implements IViewModel<T> {
         "force nominal type for IViewModel":T;
 
+        observe(observable:Rx.IObservable<T>);
+
         subscribe(observer:Rx.IObserver<void>):Rx.IDisposable
         subscribe(onNext?:(value:void) => void, onError?:(exception:any) => void, onCompleted?:() => void):Rx.IDisposable;
 
