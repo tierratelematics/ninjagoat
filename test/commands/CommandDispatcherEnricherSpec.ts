@@ -13,6 +13,8 @@ import ICommandDispatcher from "../../scripts/commands/ICommandDispatcher";
 import MockAuthCommandDispatcher from "../fixtures/commands/MockAuthCommandDispatcher";
 import MockMetadataEnricher from "../fixtures/commands/MockMetadataEnricher";
 import MockDateEnricher from "../fixtures/commands/MockDateEnricher";
+import MockDateRetriever from "../fixtures/MockDateRetriever";
+import MockGuidGenerator from "../fixtures/MockGuidGenerator";
 
 describe("Command dispatcher enricher, given a list of enrichers", () => {
 
@@ -21,7 +23,7 @@ describe("Command dispatcher enricher, given a list of enrichers", () => {
     let dispatchSpy:SinonSpy;
 
     beforeEach(() => {
-        commandDispatcher = new MockAuthCommandDispatcher();
+        commandDispatcher = new MockAuthCommandDispatcher(new MockDateRetriever(), new MockGuidGenerator());
         subject = new CommandDispatcherEnricher(commandDispatcher, [new MockMetadataEnricher(), new MockDateEnricher()]);
         dispatchSpy = sinon.spy(commandDispatcher, "dispatch");
     });
