@@ -28,9 +28,9 @@ describe("Command dispatcher, given a command", () => {
         subject = new MockPostCommandDispatcher();
         commandDispatcherWS = new MockWSCommandDispatcher();
         commandDispatcherAuth = new MockAuthCommandDispatcher();
-        subjectSpy = sandbox.spy(subject, "internalExecute");
-        commandDispatcherWSSpy = sandbox.spy(commandDispatcherWS, "internalExecute");
-        commandDispatcherAuthSpy = sandbox.spy(commandDispatcherAuth, "internalExecute");
+        subjectSpy = sandbox.spy(subject, "executeCommand");
+        commandDispatcherWSSpy = sandbox.spy(commandDispatcherWS, "executeCommand");
+        commandDispatcherAuthSpy = sandbox.spy(commandDispatcherAuth, "executeCommand");
         subject.setNext(commandDispatcherWS);
         commandDispatcherWS.setNext(commandDispatcherAuth);
     });
@@ -59,7 +59,7 @@ describe("Command dispatcher, given a command", () => {
     context("when it's decorated using a different transport", () => {
         it("should use those transport", () => {
             subject.dispatch(new MockCommands.TransportCommand());
-            expect(subjectSpy.called).to.be(true);
+            expect(subjectSpy.called).to.be(false);
             expect(commandDispatcherWSSpy.called).to.be(true);
             expect(commandDispatcherAuthSpy.called).to.be(false);
         });
@@ -68,10 +68,9 @@ describe("Command dispatcher, given a command", () => {
     context("when it's decorated using a different authentication strategy", () => {
         it("should authenticate correctly", () => {
             subject.dispatch(new MockCommands.AuthenticationCommand());
-            expect(subjectSpy.called).to.be(true);
-            expect(commandDispatcherWSSpy.called).to.be(true);
+            expect(subjectSpy.called).to.be(false);
+            expect(commandDispatcherWSSpy.called).to.be(false);
             expect(commandDispatcherAuthSpy.called).to.be(true);
-            expect(commandDispatcherAuthSpy.returnValues[0]).to.be(true);
         });
     });
 });

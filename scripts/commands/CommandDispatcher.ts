@@ -1,5 +1,6 @@
 import ICommandDispatcher from "./ICommandDispatcher";
 import Command from "./Command";
+import CommandResponse from "./CommandResponse";
 
 abstract class CommandDispatcher implements ICommandDispatcher {
 
@@ -8,14 +9,17 @@ abstract class CommandDispatcher implements ICommandDispatcher {
     protected endpoint:string;
     protected authentication:string;
 
-    dispatch(command:Command):void {
+    dispatch(command:Command):Rx.Observable<CommandResponse> {
         this.extractCommandMetadata(command);
         if (!this.transport && !this.endpoint && !this.authentication) {
-            this.internalExecute(command);
-            return;
+            return this.executeCommand(command);
         }
-        if (!this.internalExecute(command) && this.nextDispatcher)
-            this.nextDispatcher.dispatch(command);
+        if (!this.canExecuteCommand(command)) {
+            if (this.nextDispatcher)
+                return this.nextDispatcher.dispatch(command);
+        } else {
+            return this.executeCommand(command);
+        }
     }
 
     private extractCommandMetadata(command:Command):void {
@@ -24,7 +28,9 @@ abstract class CommandDispatcher implements ICommandDispatcher {
         this.authentication = Reflect.getMetadata("Authentication", command.constructor);
     }
 
-    abstract internalExecute(command:Command):boolean;
+    abstract canExecuteCommand(command:Command);
+
+    abstract executeCommand(command:Command):Rx.Observable<CommandResponse>;
 
     setNext(dispatcher:ICommandDispatcher):void {
         this.nextDispatcher = dispatcher;
