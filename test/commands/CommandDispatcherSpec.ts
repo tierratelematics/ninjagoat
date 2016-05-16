@@ -12,6 +12,7 @@ import * as MockCommands from "../fixtures/commands/MockCommands";
 import MockWSCommandDispatcher from "../fixtures/commands/MockWSCommandDispatcher";
 import MockAuthCommandDispatcher from "../fixtures/commands/MockAuthCommandDispatcher";
 import SinonSpy = Sinon.SinonSpy;
+import CommandEnvelope from "../../scripts/commands/CommandEnvelope";
 
 describe("Command dispatcher, given a command", () => {
 
