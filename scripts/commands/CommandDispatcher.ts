@@ -9,7 +9,7 @@ abstract class CommandDispatcher implements ICommandDispatcher {
     protected endpoint:string;
     protected authentication:string;
 
-    dispatch(command:Command):Rx.Observable<CommandResponse> {
+    dispatch(command:Command, metadata?:{[index:string]:any}):Rx.Observable<CommandResponse> {
         this.extractCommandMetadata(command);
         if (!this.transport && !this.endpoint && !this.authentication) {
             return this.executeCommand(command);

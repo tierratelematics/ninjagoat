@@ -8,7 +8,7 @@ import SinonSandboxStatic = Sinon.SinonSandboxStatic;
 import SinonSandbox = Sinon.SinonSandbox;
 import * as MockCommands from "../fixtures/commands/MockCommands";
 import SinonSpy = Sinon.SinonSpy;
-import CommandDispatcherEnriched from "../../scripts/commands/CommandDispatcherEnricher";
+import CommandDispatcherEnricher from "../../scripts/commands/CommandDispatcherEnricher";
 import ICommandDispatcher from "../../scripts/commands/ICommandDispatcher";
 import MockAuthCommandDispatcher from "../fixtures/commands/MockAuthCommandDispatcher";
 import MockMetadataEnricher from "../fixtures/commands/MockMetadataEnricher";
@@ -22,7 +22,7 @@ describe("Command dispatcher enricher, given a list of enrichers", () => {
 
     beforeEach(() => {
         commandDispatcher = new MockAuthCommandDispatcher();
-        subject = new CommandDispatcherEnriched(commandDispatcher, [new MockMetadataEnricher(), new MockDateEnricher()]);
+        subject = new CommandDispatcherEnricher(commandDispatcher, [new MockMetadataEnricher(), new MockDateEnricher()]);
         dispatchSpy = sinon.spy(commandDispatcher, "dispatch");
     });
 

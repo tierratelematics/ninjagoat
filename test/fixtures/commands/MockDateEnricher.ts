@@ -1,4 +1,5 @@
 import IMetadataEnricher from "../../../scripts/commands/IMetadataEnricher";
+import * as _ from "lodash";
 
 class MockDateEnricher implements IMetadataEnricher {
 
