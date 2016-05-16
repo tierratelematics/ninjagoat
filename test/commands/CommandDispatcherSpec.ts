@@ -1,16 +1,16 @@
-/// <reference path="../typings/browser.d.ts" />
+/// <reference path="../../typings/browser.d.ts" />
 import "reflect-metadata";
 import "bluebird";
 import expect = require("expect.js");
 import Rx = require("rx");
 import sinon = require("sinon");
-import CommandDispatcher from "../scripts/commands/CommandDispatcher";
-import MockPostCommandDispatcher from "./fixtures/commands/MockPostCommandDispatcher";
+import CommandDispatcher from "../../scripts/commands/CommandDispatcher";
+import MockPostCommandDispatcher from "../fixtures/commands/MockPostCommandDispatcher";
 import SinonSandboxStatic = Sinon.SinonSandboxStatic;
 import SinonSandbox = Sinon.SinonSandbox;
-import * as MockCommands from "./fixtures/commands/MockCommands";
-import MockWSCommandDispatcher from "./fixtures/commands/MockWSCommandDispatcher";
-import MockAuthCommandDispatcher from "./fixtures/commands/MockAuthCommandDispatcher";
+import * as MockCommands from "../fixtures/commands/MockCommands";
+import MockWSCommandDispatcher from "../fixtures/commands/MockWSCommandDispatcher";
+import MockAuthCommandDispatcher from "../fixtures/commands/MockAuthCommandDispatcher";
 import SinonSpy = Sinon.SinonSpy;
 
 describe("Command dispatcher, given a command", () => {

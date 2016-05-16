@@ -1,12 +1,12 @@
-/// <reference path="../typings/browser.d.ts" />
+/// <reference path="../../typings/browser.d.ts" />
 import expect = require("expect.js");
 import * as Rx from "rx";
-import IViewModelRegistry from "../scripts/registry/IViewModelRegistry";
-import ViewModelRegistry from "../scripts/registry/ViewModelRegistry";
-import FooViewModel from "./fixtures/viewmodels/FooViewModel";
-import BarViewModel from "./fixtures/viewmodels/BarViewModel";
-import RootViewModel from "./fixtures/viewmodels/RootViewModel";
-import UnregisteredViewModel from './fixtures/viewmodels/UnregisteredViewModel';
+import IViewModelRegistry from "../../scripts/registry/IViewModelRegistry";
+import ViewModelRegistry from "../../scripts/registry/ViewModelRegistry";
+import FooViewModel from "../fixtures/viewmodels/FooViewModel";
+import BarViewModel from "../fixtures/viewmodels/BarViewModel";
+import RootViewModel from "../fixtures/viewmodels/RootViewModel";
+import UnregisteredViewModel from '../fixtures/viewmodels/UnregisteredViewModel';
 
 describe("ViewModelRegistry, given a list of ViewModel identifiers", () => {
 

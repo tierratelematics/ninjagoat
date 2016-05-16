@@ -1,13 +1,13 @@
-/// <reference path="../typings/browser.d.ts" />
+/// <reference path="../../typings/browser.d.ts" />
 import "reflect-metadata";
 import "bluebird";
 import expect = require("expect.js");
 import Rx = require("rx");
 import sinon = require("sinon");
-import * as Commands from "./fixtures/commands/MockCommands";
-import ICommandEnricher from "../scripts/commands/ICommandEnricher";
-import MockCommandEnricher from "./fixtures/commands/MockCommandEnricher";
-import CommandEnvelope from "../scripts/commands/CommandEnvelope";
+import * as Commands from "../fixtures/commands/MockCommands";
+import ICommandEnricher from "../../scripts/commands/ICommandEnricher";
+import MockCommandEnricher from "../fixtures/commands/MockCommandEnricher";
+import CommandEnvelope from "../../scripts/commands/CommandEnvelope";
 
 describe("Command enricher, given a list of enrichers", () => {
 

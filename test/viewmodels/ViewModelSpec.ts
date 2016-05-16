@@ -1,10 +1,10 @@
-/// <reference path="../typings/browser.d.ts" />
+/// <reference path="../../typings/browser.d.ts" />
 import expect = require("expect.js");
 import * as sinon from "sinon";
 import * as Rx from "rx";
 import SinonStub = Sinon.SinonStub;
 import SinonSpy = Sinon.SinonSpy;
-import BarViewModel from "./fixtures/viewmodels/BarViewModel";
+import BarViewModel from "../fixtures/viewmodels/BarViewModel";
 
 describe("Given an ObservableViewModel", () => {
 
