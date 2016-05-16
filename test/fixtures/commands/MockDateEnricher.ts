@@ -1,11 +1,9 @@
-import ICommandEnricher from "../../../scripts/commands/ICommandEnricher";
-import CommandEnvelope from "../../../scripts/commands/CommandEnvelope";
+import IMetadataEnricher from "../../../scripts/commands/IMetadataEnricher";
 
-class MockDateEnricher implements ICommandEnricher {
+class MockDateEnricher implements IMetadataEnricher {
 
-    enrich<T>(envelope:CommandEnvelope<T>):CommandEnvelope<T> {
-        envelope.metadata = _.merge(envelope.metadata, {"date": "2016-05-16T09:52:18Z"});
-        return envelope;
+    enrich<T>(metadata?:{[index:string]:any}):{[index:string]:any} {
+        return _.merge({}, metadata, {"date": "2016-05-16T09:52:18Z"});
     }
 }
 

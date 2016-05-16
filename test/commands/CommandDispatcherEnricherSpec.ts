@@ -8,14 +8,13 @@ import SinonSandboxStatic = Sinon.SinonSandboxStatic;
 import SinonSandbox = Sinon.SinonSandbox;
 import * as MockCommands from "../fixtures/commands/MockCommands";
 import SinonSpy = Sinon.SinonSpy;
-import CommandDispatcherEnriched from "../../scripts/commands/CommandDispatcherEnriched";
+import CommandDispatcherEnriched from "../../scripts/commands/CommandDispatcherEnricher";
 import ICommandDispatcher from "../../scripts/commands/ICommandDispatcher";
 import MockAuthCommandDispatcher from "../fixtures/commands/MockAuthCommandDispatcher";
-import CommandEnvelope from "../../scripts/commands/CommandEnvelope";
-import MockCommandEnricher from "../fixtures/commands/MockCommandEnricher";
+import MockMetadataEnricher from "../fixtures/commands/MockMetadataEnricher";
 import MockDateEnricher from "../fixtures/commands/MockDateEnricher";
 
-describe("Command dispatcher enriched, given a list of enrichers", () => {
+describe("Command dispatcher enricher, given a list of enrichers", () => {
 
     let subject:ICommandDispatcher;
     let commandDispatcher:ICommandDispatcher;
@@ -23,7 +22,7 @@ describe("Command dispatcher enriched, given a list of enrichers", () => {
 
     beforeEach(() => {
         commandDispatcher = new MockAuthCommandDispatcher();
-        subject = new CommandDispatcherEnriched(commandDispatcher, [new MockCommandEnricher(), new MockDateEnricher()]);
+        subject = new CommandDispatcherEnriched(commandDispatcher, [new MockMetadataEnricher(), new MockDateEnricher()]);
         dispatchSpy = sinon.spy(commandDispatcher, "dispatch");
     });
 
@@ -32,13 +31,12 @@ describe("Command dispatcher enriched, given a list of enrichers", () => {
     });
 
     context("when a commands needs to be sent", () => {
-
         it("should append all the metadata provided by the enriches to that command", () => {
-            let commandEnvelope = new CommandEnvelope<MockCommands.DefaultCommand>();
-            commandEnvelope.payload = new MockCommands.DefaultCommand();
-            commandEnvelope.metadata = {"guid": "fixed-id", "date": "2016-05-16T09:52:18Z"};
             subject.dispatch(new MockCommands.DefaultCommand());
-            expect(dispatchSpy.calledWith(commandEnvelope)).to.be(true);
+            expect(dispatchSpy.calledWith(new MockCommands.DefaultCommand(), {
+                "guid": "fixed-id",
+                "date": "2016-05-16T09:52:18Z"
+            })).to.be(true);
         });
     });
 });
