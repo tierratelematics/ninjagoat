@@ -1,7 +1,7 @@
-import HttpHeaders from "./HttpHeaders";
+import Dictionary from "../util/Dictionary";
 
 class HttpResponse {
-    constructor(public response:any, public headers?:HttpHeaders) {
+    constructor(public response:any, public headers?:Dictionary<string>) {
 
     }
 }

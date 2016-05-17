@@ -124,15 +124,15 @@ declare module ninjagoat {
     export var Transport:TransportStatic;
 
     export interface IHttpClient {
-        get(url:string, headers?:{}):Rx.Observable<HttpResponse>
-        post(url:string, body:any, headers?:{}):Rx.Observable<HttpResponse>
-        put(url:string, body:any, headers?:{}):Rx.Observable<HttpResponse>
-        delete(url:string, headers?:{}):Rx.Observable<HttpResponse>
+        get(url:string, headers?:Dictionary<string>):Rx.Observable<HttpResponse>
+        post(url:string, body:any, headers?:Dictionary<string>):Rx.Observable<HttpResponse>
+        put(url:string, body:any, headers?:Dictionary<string>):Rx.Observable<HttpResponse>
+        delete(url:string, headers?:Dictionary<string>):Rx.Observable<HttpResponse>
     }
 
     export class HttpResponse {
         response:any;
-        headers:{};
+        headers:Dictionary<string>;
     }
 
     export interface IModelRetriever {
