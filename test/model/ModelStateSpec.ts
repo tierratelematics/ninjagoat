@@ -1,10 +1,9 @@
-/// <reference path="../typings/browser.d.ts" />
 import expect = require("expect.js");
 import * as Rx from "rx";
 import SinonStub = Sinon.SinonStub;
 import SinonSpy = Sinon.SinonSpy;
-import StateViewModel from "./fixtures/viewmodels/StateViewModel";
-import ModelState from "../scripts/viewmodels/ModelState";
+import StateViewModel from "../fixtures/viewmodels/StateViewModel";
+import ModelState from "../../scripts/viewmodels/ModelState";
 
 describe("ModelState, given a viewmodel", () => {
 

@@ -8,25 +8,25 @@ import {injectable} from "inversify";
 @injectable()
 class HttpClient implements IHttpClient {
 
-    get(url:string, headers?:HttpHeaders):Rx.IObservable<HttpResponse> {
+    get(url:string, headers?:HttpHeaders):Rx.Observable<HttpResponse> {
         return this.performNetworkCall(url, 'get', null, headers);
     }
 
-    post(url:string, body:{}|FormData, headers?:HttpHeaders):Rx.IObservable<HttpResponse> {
+    post(url:string, body:{}|FormData, headers?:HttpHeaders):Rx.Observable<HttpResponse> {
         if (!(body instanceof FormData))
             body = JSON.stringify(body);
         return this.performNetworkCall(url, 'post', body, headers);
     }
 
-    put(url:string, body:{}, headers?:HttpHeaders):Rx.IObservable<HttpResponse> {
+    put(url:string, body:{}, headers?:HttpHeaders):Rx.Observable<HttpResponse> {
         return this.performNetworkCall(url, 'put', JSON.stringify(body), headers);
     }
 
-    delete(url:string, headers?:HttpHeaders):Rx.IObservable<HttpResponse> {
+    delete(url:string, headers?:HttpHeaders):Rx.Observable<HttpResponse> {
         return this.performNetworkCall(url, 'delete', null, headers);
     }
 
-    private performNetworkCall(url:string, method:string, body?:any, headers?:HttpHeaders):Rx.IObservable<HttpResponse> {
+    private performNetworkCall(url:string, method:string, body?:any, headers?:HttpHeaders):Rx.Observable<HttpResponse> {
         return Rx.Observable.fromPromise(
             window.fetch(url, {
                 method: method,

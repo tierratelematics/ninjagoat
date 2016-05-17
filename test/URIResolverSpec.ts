@@ -1,4 +1,3 @@
-/// <reference path="../typings/browser.d.ts" />
 import expect = require("expect.js");
 import ViewModelRegistry from "../scripts/registry/ViewModelRegistry";
 import IViewModelRegistry from "../scripts/registry/IViewModelRegistry";
@@ -50,15 +49,21 @@ describe("UriResolver, given an URI", () => {
 
     context("when it's the root of an area", () => {
         context("and there is a specific Index viewmodel associated", () => {
-
-            beforeEach(() => {
-                registry.add(FooIndexViewModel).forArea("Foo");
-            });
-
             it("should return the viewmodel identifier composed by the name of the area plus Index", () => {
+                registry.add(FooIndexViewModel).forArea("Foo");
                 let resource = subject.resolve("/foo");
 
                 expect(resource.viewmodel.id).to.be("FooIndex");
+            });
+        });
+
+        context("and this area needs some parameters", () => {
+            it("should correctly resolve the viewmodel", () => {
+                registry.add(FooIndexViewModel, _ => null, ":id").forArea("Foo");
+                let resource = subject.resolve("/foo/25");
+
+                expect(resource.viewmodel.id).to.be("FooIndex");
+                expect(resource.viewmodel.parameters).to.be(":id");
             });
         });
 

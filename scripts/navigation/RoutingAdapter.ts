@@ -29,11 +29,6 @@ class RoutingAdapter implements IRoutingAdapter {
         return <PlainRoute[]>_(areas)
             .filter(area => !_.includes([Area.Index, Area.Master], area.area))
             .reduce((routes, area) => {
-                let route = area.area.toLowerCase();
-                routes.push({
-                    component: this.componentFactory.componentForUri(route),
-                    path: route
-                });
                 routes.push(this.getRoutesForArea(area));
                 return _.flatten(routes);
             }, [])
@@ -42,9 +37,9 @@ class RoutingAdapter implements IRoutingAdapter {
 
     private getRoutesForArea(area:AreaRegistry):{}[] {
         return <PlainRoute[]>_(area.entries)
-            .filter(entry => !_.includes([Area.Index, Area.Master, area.area + Area.Index], entry.id))
             .reduce((routes, entry) => {
-                let route = path.join(area.area.toLowerCase(), entry.id.toLowerCase(), entry.parameters || "");
+                let id = entry.id.indexOf(Area.Index) > -1 ? "" : entry.id.toLowerCase(),
+                    route = path.join(area.area.toLowerCase(), id, entry.parameters || "");
                 routes.push({
                     component: this.componentFactory.componentForUri(route),
                     path: route

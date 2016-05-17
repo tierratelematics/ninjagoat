@@ -1,7 +1,6 @@
 import IModule from "./IModule";
 import IViewModelRegistry from "../registry/IViewModelRegistry";
-import {IKernelModule} from "inversify";
-import IKernel = inversify.IKernel;
+import {IKernelModule, IKernel} from "inversify";
 import ViewModelRegistry from "../registry/ViewModelRegistry";
 import IObservableFactory from "../viewmodels/IObservableFactory";
 import ObservableFactory from "../viewmodels/ObservableFactory";
@@ -23,10 +22,25 @@ import IHttpClient from "../net/IHttpClient";
 import HttpClient from "../net/HttpClient";
 import ISerializer from "../io/ISerializer";
 import QuerySerializer from "../io/QuerySerializer";
+import IModelRetriever from "../net/IModelRetriever";
+import ModelRetriever from "../net/ModelRetriever";
+import INotificationManager from "../notifications/INotificationManager";
+import NotificationManager from "../notifications/NotificationManager";
+import IServiceLocator from "./IServiceLocator";
+import IDateRetriever from "../util/IDateRetriever";
+import DateRetriever from "../util/DateRetriever";
+import GUIDGenerator from "../util/GUIDGenerator";
+import IGUIDGenerator from "../util/IGUIDGenerator";
+import ICommandDispatcher from "../commands/ICommandDispatcher";
+import CommandDispatcherEnricher from "../commands/CommandDispatcherEnricher";
+import CommandDispatcher from "../commands/CommandDispatcher";
+import PostCommandDispatcher from "../commands/PostCommandDispatcher";
+import IMetadataEnricher from "../commands/IMetadataEnricher";
+import EmptyMetadataEnricher from "../commands/EmptyMetadataEnricher";
 
 class NinjaGoatModule implements IModule {
 
-    modules: IKernelModule = (kernel: IKernel) => {
+    modules:IKernelModule = (kernel:IKernel) => {
         kernel.bind<IKernel>("IKernel").toConstantValue(kernel);
         kernel.bind<IObjectContainer>("IObjectContainer").to(ObjectContainer).inSingletonScope();
         kernel.bind<IViewModelRegistry>("IViewModelRegistry").to(ViewModelRegistry).inSingletonScope();
@@ -39,9 +53,17 @@ class NinjaGoatModule implements IModule {
         kernel.bind<IViewModelFactory>("IViewModelFactory").to(ViewModelFactory).inSingletonScope();
         kernel.bind<IHttpClient>("IHttpClient").to(HttpClient).inSingletonScope();
         kernel.bind<ISerializer<{[index:string]:string}, string>>("ISerializer").to(QuerySerializer).inSingletonScope();
+        kernel.bind<IModelRetriever>("IModelRetriever").to(ModelRetriever).inSingletonScope();
+        kernel.bind<INotificationManager>("INotificationManager").to(NotificationManager).inSingletonScope();
+        kernel.bind<IDateRetriever>("IDateRetriever").to(DateRetriever).inSingletonScope();
+        kernel.bind<IGUIDGenerator>("IGUIDGenerator").to(GUIDGenerator).inSingletonScope();
+        kernel.bind<ICommandDispatcher>("ICommandDispatcher").to(CommandDispatcherEnricher).inSingletonScope();
+        kernel.bind<CommandDispatcher>("CommandDispatcher").to(PostCommandDispatcher).inSingletonScope().whenInjectedInto(CommandDispatcherEnricher);
+        kernel.bind<IMetadataEnricher>("IMetadataEnricher").to(EmptyMetadataEnricher).inSingletonScope(); //Needed by inversify to resolve correctly the dependency graph
     };
 
-    register(registry: IViewModelRegistry, overrides?: any): void {
+    register(registry:IViewModelRegistry, serviceLocator?:IServiceLocator, overrides?:any):void {
+
     }
 }
 

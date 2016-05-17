@@ -1,4 +1,3 @@
-/// <reference path="../typings/browser.d.ts" />
 import "reflect-metadata";
 import "bluebird";
 import expect = require("expect.js");

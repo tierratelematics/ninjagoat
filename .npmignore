@@ -9,3 +9,4 @@ typings.json
 coverage
 .git
 .idea
+.travis.yml

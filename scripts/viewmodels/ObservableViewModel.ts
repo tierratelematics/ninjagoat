@@ -13,8 +13,7 @@ abstract class ObservableViewModel<T> implements IViewModel<T> {
                 this.onData(model);
                 this.subject.onNext(undefined);
             },
-            error => this.onError(error),
-            () => this.dispose()
+            error => this.onError(error)
         );
     }
 
@@ -37,6 +36,10 @@ abstract class ObservableViewModel<T> implements IViewModel<T> {
     dispose(): void {
         if (this.subscription) this.subscription.dispose();
         this.subject.onCompleted();
+    }
+
+    private notifyChanged() {
+        this.subject.onNext(undefined);
     }
 }
 

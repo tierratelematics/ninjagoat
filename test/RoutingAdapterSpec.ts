@@ -1,4 +1,3 @@
-/// <reference path="../typings/browser.d.ts" />
 import expect = require("expect.js");
 import IViewModelRegistry from "../scripts/registry/IViewModelRegistry";
 import IRoutingAdapter from "../scripts/navigation/IRoutingAdapter";
@@ -53,6 +52,22 @@ describe("RoutingAdapter, given a list of registry entries", () => {
             });
         });
 
+        context("and it needs some parameters when constructed", () => {
+            it("should append those parameters", () => {
+                registry.add(FooIndexViewModel, _ => null, ":id").forArea("Foo");
+
+                expect(subject.routes()).to.eql({
+                    path: "/",
+                    component: null,
+                    indexRoute: { component: null},
+                    childRoutes: [{
+                        path: "foo/:id",
+                        component: null
+                    }]
+                });
+            });
+        });
+
         context("and it has some viewmodels registered", () => {
             it("should also add these viewmodels to the area registration", () => {
                 registry.add(BarViewModel).forArea("Foo");
@@ -62,10 +77,6 @@ describe("RoutingAdapter, given a list of registry entries", () => {
                     component: null,
                     indexRoute: { component: null},
                     childRoutes: [
-                        {
-                            path: "foo",
-                            component: null
-                        },
                         {
                             path: "foo/bar",
                             component: null
@@ -83,10 +94,6 @@ describe("RoutingAdapter, given a list of registry entries", () => {
                     component: null,
                     indexRoute: { component: null},
                     childRoutes: [
-                        {
-                            path: "foo",
-                            component: null
-                        },
                         {
                             path: "foo/bar/:id/:subCategory",
                             component: null

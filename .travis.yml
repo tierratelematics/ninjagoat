@@ -5,6 +5,7 @@ install:
   - npm install smild -g
   - npm install typings -g
   - npm install
+  - rm -rf typings
   - typings install
 script: smild js
 deploy:
