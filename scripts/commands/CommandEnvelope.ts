@@ -1,13 +1,14 @@
 import Command from "./Command";
+import Dictionary from "../util/Dictionary";
 
 class CommandEnvelope<T> {
     id:string;
     type:string;
     createdTimestamp:string;
-    metadata:{[index:string]:any};
+    metadata:Dictionary<any>;
     payload:T;
 
-    static of<T extends Command>(payload:T, metadata?:{[index:string]:any}) {
+    static of<T extends Command>(payload:T, metadata?:Dictionary<any>) {
         let envelope = new CommandEnvelope<T>();
         envelope.payload = payload;
         envelope.metadata = metadata;

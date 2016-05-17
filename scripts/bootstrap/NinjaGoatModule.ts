@@ -37,6 +37,7 @@ import CommandDispatcher from "../commands/CommandDispatcher";
 import PostCommandDispatcher from "../commands/PostCommandDispatcher";
 import IMetadataEnricher from "../commands/IMetadataEnricher";
 import EmptyMetadataEnricher from "../commands/EmptyMetadataEnricher";
+import Dictionary from "../util/Dictionary";
 
 class NinjaGoatModule implements IModule {
 
@@ -52,7 +53,7 @@ class NinjaGoatModule implements IModule {
         kernel.bind<IRoutingAdapter>("IRoutingAdapter").to(RoutingAdapter).inSingletonScope();
         kernel.bind<IViewModelFactory>("IViewModelFactory").to(ViewModelFactory).inSingletonScope();
         kernel.bind<IHttpClient>("IHttpClient").to(HttpClient).inSingletonScope();
-        kernel.bind<ISerializer<{[index:string]:string}, string>>("ISerializer").to(QuerySerializer).inSingletonScope();
+        kernel.bind<ISerializer<Dictionary<string>, string>>("ISerializer").to(QuerySerializer).inSingletonScope();
         kernel.bind<IModelRetriever>("IModelRetriever").to(ModelRetriever).inSingletonScope();
         kernel.bind<INotificationManager>("INotificationManager").to(NotificationManager).inSingletonScope();
         kernel.bind<IDateRetriever>("IDateRetriever").to(DateRetriever).inSingletonScope();

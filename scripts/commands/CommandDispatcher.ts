@@ -4,6 +4,7 @@ import CommandResponse from "./CommandResponse";
 import CommandEnvelope from "./CommandEnvelope";
 import IDateRetriever from "../util/IDateRetriever";
 import IGUIDGenerator from "../util/IGUIDGenerator";
+import Dictionary from "../util/Dictionary";
 
 abstract class CommandDispatcher implements ICommandDispatcher {
 
@@ -17,7 +18,7 @@ abstract class CommandDispatcher implements ICommandDispatcher {
 
     }
 
-    dispatch(command:Command, metadata?:{[index:string]:any}):Rx.Observable<CommandResponse> {
+    dispatch(command:Command, metadata?:Dictionary<any>):Rx.Observable<CommandResponse> {
         this.extractCommandMetadata(command);
         if (!this.type)
             throw new Error("Missing type info from command");

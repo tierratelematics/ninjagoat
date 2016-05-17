@@ -12,6 +12,10 @@ declare module ninjagoat {
         register(module:IModule);
     }
 
+    export interface Dictionary<T> {
+        [index:string]:T
+    }
+
     export interface IModule {
         modules?:IKernelModule;
         register(registry:IViewModelRegistry, serviceLocator?:IServiceLocator, overrides?:any):void;
@@ -140,7 +144,7 @@ declare module ninjagoat {
     }
 
     export interface ICommandDispatcher {
-        dispatch(command:Command, metadata?:{[index:string]:any}):Rx.Observable<CommandResponse>;
+        dispatch(command:Command, metadata?:Dictionary<any>):Rx.Observable<CommandResponse>;
     }
 
     export interface CommandResponse {
@@ -164,7 +168,7 @@ declare module ninjagoat {
 
         constructor(dateRetriever:IDateRetriever, guidGenerator:IGUIDGenerator);
 
-        dispatch(command:Command, metadata?:{[index:string]:any}):Rx.Observable<CommandResponse>;
+        dispatch(command:Command, metadata?:Dictionary<any>):Rx.Observable<CommandResponse>;
 
         abstract canExecuteCommand(command:Command);
 
@@ -177,14 +181,14 @@ declare module ninjagoat {
         id:string;
         type:string;
         createdTimestamp:string;
-        metadata:{[index:string]:any};
+        metadata:Dictionary<any>;
         payload:T;
 
-        static of<T extends Command>(payload:T, metadata?:{[index:string]:any});
+        static of<T extends Command>(payload:T, metadata?:Dictionary<any>);
     }
 
     export interface IMetadataEnricher {
-        enrich<T extends Command>(command?:T, metadata?:{[index:string]:any}):{[index:string]:any}
+        enrich<T extends Command>(command?:T, metadata?:Dictionary<any>):Dictionary<any>
     }
 }
 
