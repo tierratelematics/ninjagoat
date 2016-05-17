@@ -1,5 +1,7 @@
+import Command from "./Command";
+
 interface IMetadataEnricher {
-    enrich<T>(metadata?:{[index:string]:any}):{[index:string]:any}
+    enrich<T extends Command>(command?:T, metadata?:{[index:string]:any}):{[index:string]:any}
 }
 
 export default IMetadataEnricher

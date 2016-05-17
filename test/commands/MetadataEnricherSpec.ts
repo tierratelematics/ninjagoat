@@ -5,6 +5,7 @@ import Rx = require("rx");
 import sinon = require("sinon");
 import IMetadataEnricher from "../../scripts/commands/IMetadataEnricher";
 import MockCommandEnricher from "../fixtures/commands/MockMetadataEnricher";
+import {DefaultCommand} from "../fixtures/commands/MockCommands";
 
 describe("Metadata enricher, given a list of enrichers", () => {
 
@@ -22,7 +23,7 @@ describe("Metadata enricher, given a list of enrichers", () => {
 
     context("and some metadata where already added", () => {
         it("should merge the existing metadata with the new ones", () => {
-            expect(subject.enrich({"user": "existing-metadata"})).to.eql({
+            expect(subject.enrich(new DefaultCommand(), {"user": "existing-metadata"})).to.eql({
                 "guid": "fixed-id",
                 "user": "existing-metadata"
             });

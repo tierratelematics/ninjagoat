@@ -1,10 +1,11 @@
 import IMetadataEnricher from "./IMetadataEnricher";
 import {injectable} from "inversify";
+import Command from "./Command";
 
 @injectable()
 class EmptyMetadataEnricher implements IMetadataEnricher {
 
-    enrich<T>(metadata?:{[index:string]:any}):{[index:string]:any} {
+    enrich<T extends Command>(command?:T, metadata?:{[index:string]:any}):{[index:string]:any} {
         return metadata;
     }
 
