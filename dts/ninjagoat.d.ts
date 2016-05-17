@@ -1,4 +1,4 @@
-/// <reference path="../typings/browser.d.ts" />
+/// <reference path="../typings/index.d.ts" />
 
 import {IKernelModule, INewable, IKernel} from "inversify";
 import * as Rx from "rx";
@@ -92,11 +92,6 @@ declare module ninjagoat {
         Failed
     }
 
-
-    interface ICommandDispatcher {
-        dispatch(command:Command):void;
-    }
-
     export class Command {
 
     }
@@ -109,14 +104,6 @@ declare module ninjagoat {
     }
 
     export var CommandDecorators:CommandDecoratorsStatic;
-
-    export abstract class CommandDispatcher implements ICommandDispatcher {
-        dispatch(command:Command):void;
-
-        abstract internalExecute(command:Command):boolean;
-
-        setNext(dispatcher:ICommandDispatcher):void;
-    }
 
     export interface AuthenticationStatic {
         Bearer:string;
@@ -150,6 +137,54 @@ declare module ninjagoat {
 
     export class ModelRetriever implements IModelRetriever {
         modelFor<T>(context:ViewModelContext):Rx.Observable<ModelState<T>>;
+    }
+
+    export interface ICommandDispatcher {
+        dispatch(command:Command, metadata?:{[index:string]:any}):Rx.Observable<CommandResponse>;
+    }
+
+    export interface CommandResponse {
+        response:any;
+    }
+
+    export interface IDateRetriever {
+        getDate():string;
+    }
+
+    export interface IGUIDGenerator {
+        generate():string;
+    }
+
+    export abstract class CommandDispatcher implements ICommandDispatcher {
+
+        protected transport:string;
+        protected endpoint:string;
+        protected authentication:string;
+        protected type:string;
+
+        constructor(dateRetriever:IDateRetriever, guidGenerator:IGUIDGenerator);
+
+        dispatch(command:Command, metadata?:{[index:string]:any}):Rx.Observable<CommandResponse>;
+
+        abstract canExecuteCommand(command:Command);
+
+        abstract executeCommand<T extends Command>(command:CommandEnvelope<T>):Rx.Observable<CommandResponse>;
+
+        setNext(dispatcher:ICommandDispatcher):void;
+    }
+
+    class CommandEnvelope<T> {
+        id:string;
+        type:string;
+        createdTimestamp:string;
+        metadata:{[index:string]:any};
+        payload:T;
+
+        static of<T extends Command>(payload:T, metadata?:{[index:string]:any});
+    }
+
+    export interface IMetadataEnricher {
+        enrich<T>(metadata?:{[index:string]:any}):{[index:string]:any}
     }
 }
 

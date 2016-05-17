@@ -11,7 +11,9 @@ import {injectable, inject} from "inversify";
 @injectable()
 class PostCommandDispatcher extends CommandDispatcher {
 
-    constructor(@inject() dateRetriever:IDateRetriever, guidGenerator:IGUIDGenerator, private httpClient:IHttpClient) {
+    constructor(@inject("IDateRetriever") dateRetriever:IDateRetriever,
+                @inject("IGUIDGenerator") guidGenerator:IGUIDGenerator,
+                @inject("IHttpClient") private httpClient:IHttpClient) {
         super(dateRetriever, guidGenerator);
     }
 

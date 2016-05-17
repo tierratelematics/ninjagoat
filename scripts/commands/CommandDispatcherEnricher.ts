@@ -3,10 +3,13 @@ import Command from "./Command";
 import CommandResponse from "./CommandResponse";
 import IMetadataEnricher from "./IMetadataEnricher";
 import * as _ from "lodash";
+import {injectable, inject, multiInject} from "inversify";
 
+@injectable()
 class CommandDispatcherEnricher implements ICommandDispatcher {
 
-    constructor(private commandDispatcher:ICommandDispatcher, private enrichers:IMetadataEnricher[]) {
+    constructor(@inject("CommandDispatcher") private commandDispatcher:ICommandDispatcher,
+                @multiInject("IMetadataEnricher") private enrichers?:IMetadataEnricher[]) {
 
     }
 

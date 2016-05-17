@@ -1,6 +1,8 @@
 import IGUIDGenerator from "./IGUIDGenerator";
 import * as uuid from "uuid";
+import {injectable} from "inversify";
 
+@injectable()
 class GUIDGenerator implements IGUIDGenerator {
     
     generate():string {
