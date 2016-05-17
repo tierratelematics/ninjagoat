@@ -18,7 +18,7 @@ declare module ninjagoat {
     }
 
     export interface IServiceLocator {
-        get<T>(key:string):T;
+        get<T>(key:string, name?:string):T;
     }
 
     export interface IViewModelRegistry {

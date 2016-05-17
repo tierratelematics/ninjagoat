@@ -29,7 +29,7 @@ describe("Model retriever, given an area and a viewmodel id", () => {
         });
         socketClient = new MockSocketClient();
         httpClient = new HttpClient();
-        notificationManager = new NotificationManager(() => Promise.resolve(socketClient));
+        notificationManager = new NotificationManager(socketClient);
         subject = new ModelRetriever(httpClient, notificationManager);
     });
 

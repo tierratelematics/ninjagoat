@@ -8,8 +8,8 @@ export default class ObjectContainer implements IObjectContainer {
     constructor(@inject("IKernel") private kernel:IKernel) {
     }
 
-    get<T>(key:string):T {
-        return this.kernel.get<T>(key);
+    get<T>(key:string, name?:string):T {
+        return !name ? this.kernel.get<T>(key) : this.kernel.getNamed<T>(key, name);
     }
 
     set<T>(key:string, object:INewable<T>|T, parent?:string) {
