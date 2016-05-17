@@ -18,7 +18,7 @@ class PostCommandDispatcher extends CommandDispatcher {
     }
 
     canExecuteCommand(command:Command) {
-        return this.transport === HTTP_Post;
+        return this.transport === HTTP_Post && !this.authentication;
     }
 
     executeCommand<T extends Command>(command:CommandEnvelope<T>):Rx.Observable<CommandResponse> {
