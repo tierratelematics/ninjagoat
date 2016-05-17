@@ -6,10 +6,12 @@ import IDateRetriever from "../util/IDateRetriever";
 import IGUIDGenerator from "../util/IGUIDGenerator";
 import {HTTP_Post} from "../constants/Transport";
 import IHttpClient from "../net/IHttpClient";
+import {injectable, inject} from "inversify";
 
+@injectable()
 class PostCommandDispatcher extends CommandDispatcher {
 
-    constructor(dateRetriever:IDateRetriever, guidGenerator:IGUIDGenerator, private httpClient:IHttpClient) {
+    constructor(@inject() dateRetriever:IDateRetriever, guidGenerator:IGUIDGenerator, private httpClient:IHttpClient) {
         super(dateRetriever, guidGenerator);
     }
 

@@ -1,4 +1,3 @@
-/// <reference path="../typings/browser.d.ts" />
 import expect = require("expect.js");
 import IViewResolver from "../scripts/views/IViewResolver";
 import ViewResolver from "../scripts/views/ViewResolver";

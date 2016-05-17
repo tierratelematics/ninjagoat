@@ -1,4 +1,3 @@
-/// <reference path="../typings/browser.d.ts" />
 import expect = require("expect.js");
 import IViewModelRegistry from "../scripts/registry/IViewModelRegistry";
 import IRoutingAdapter from "../scripts/navigation/IRoutingAdapter";

@@ -1,4 +1,3 @@
-/// <reference path="../../typings/browser.d.ts" />
 import expect = require("expect.js");
 import * as Rx from "rx";
 import IViewModelRegistry from "../../scripts/registry/IViewModelRegistry";

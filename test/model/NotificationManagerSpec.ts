@@ -1,4 +1,3 @@
-/// <reference path="../../typings/browser.d.ts" />
 import expect = require("expect.js");
 import sinon = require("sinon");
 import NotificationManager from "../../scripts/notifications/NotificationManager";

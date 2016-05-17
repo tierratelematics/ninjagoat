@@ -1,4 +1,3 @@
-/// <reference path="../../typings/browser.d.ts" />
 import expect = require("expect.js");
 import * as sinon from "sinon";
 import * as Rx from "rx";

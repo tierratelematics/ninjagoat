@@ -1,4 +1,4 @@
-/// <reference path="../typings/browser.d.ts" />
+/// <reference path="../typings/index.d.ts" />
 import Application from "./bootstrap/Application";
 import IModule from "./bootstrap/IModule";
 import IViewModel from "./viewmodels/IViewModel";
