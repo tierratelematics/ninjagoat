@@ -1,4 +1,4 @@
-class Command {
+interface Command {
 
 }
 

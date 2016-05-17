@@ -1,20 +1,19 @@
-/// <reference path="../typings/browser.d.ts" />
 import expect = require("expect.js");
 import sinon = require("sinon");
 import Rx = require("rx");
-import IModelRetriever from "../scripts/net/IModelRetriever";
-import ModelRetriever from "../scripts/net/ModelRetriever";
-import ModelState from "../scripts/viewmodels/ModelState";
-import ModelPhase from "../scripts/constants/ModelPhase";
-import INotificationManager from "../scripts/notifications/INotificationManager";
-import IHttpClient from "../scripts/net/IHttpClient";
-import HttpClient from "../scripts/net/HttpClient";
-import NotificationManager from "../scripts/notifications/NotificationManager";
+import IModelRetriever from "../../scripts/net/IModelRetriever";
+import ModelRetriever from "../../scripts/net/ModelRetriever";
+import ModelState from "../../scripts/viewmodels/ModelState";
+import ModelPhase from "../../scripts/constants/ModelPhase";
+import INotificationManager from "../../scripts/notifications/INotificationManager";
+import IHttpClient from "../../scripts/net/IHttpClient";
+import HttpClient from "../../scripts/net/HttpClient";
+import NotificationManager from "../../scripts/notifications/NotificationManager";
 import SinonSandbox = Sinon.SinonSandbox;
-import TestCounter from "./fixtures/viewmodels/TestCounter";
-import HttpResponse from "../scripts/net/HttpResponse";
-import MockSocketClient from "./fixtures/MockSocketClient";
-import ViewModelContext from "../scripts/registry/ViewModelContext";
+import TestCounter from "../fixtures/viewmodels/TestCounter";
+import HttpResponse from "../../scripts/net/HttpResponse";
+import MockSocketClient from "../fixtures/MockSocketClient";
+import ViewModelContext from "../../scripts/registry/ViewModelContext";
 
 describe("Model retriever, given an area and a viewmodel id", () => {
 

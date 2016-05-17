@@ -19,6 +19,14 @@ function Authentication(type:string) {
     };
 }
 
+function Type(type:string) {
+    return function (target:any) {
+        Reflect.defineMetadata("Type", type, target);
+        return target;
+    };
+}
+
 export {Authentication}
 export {Endpoint}
 export {Transport}
+export {Type}

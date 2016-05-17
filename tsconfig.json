@@ -8,8 +8,10 @@
     },
     "exclude": [
         "node_modules",
-        "typings",
         "test",
         "dts"
+    ],
+    "files": [
+        "typings/index.d.ts"
     ]
 }

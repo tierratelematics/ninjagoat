@@ -1,12 +1,11 @@
-/// <reference path="../typings/browser.d.ts" />
 import expect = require("expect.js");
 import sinon = require("sinon");
-import NotificationManager from "../scripts/notifications/NotificationManager";
+import NotificationManager from "../../scripts/notifications/NotificationManager";
 import SinonStub = Sinon.SinonStub;
-import MockSocketClient from "./fixtures/MockSocketClient";
+import MockSocketClient from "../fixtures/MockSocketClient";
 import SinonFakeTimers = Sinon.SinonFakeTimers;
 import * as Rx from "rx";
-import ViewModelContext from "../scripts/registry/ViewModelContext";
+import ViewModelContext from "../../scripts/registry/ViewModelContext";
 
 describe("NotificationManager, given an area and a viewmodel id", () => {
 

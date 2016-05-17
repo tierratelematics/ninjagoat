@@ -1,8 +1,7 @@
-/// <reference path="../typings/browser.d.ts" />
 import expect = require("expect.js");
 import * as Rx from "rx";
-import IObservableFactory from "../scripts/viewmodels/IObservableFactory";
-import ObservableFactory from "../scripts/viewmodels/ObservableFactory";
+import IObservableFactory from "../../scripts/viewmodels/IObservableFactory";
+import ObservableFactory from "../../scripts/viewmodels/ObservableFactory";
 
 describe("ObservableFactory, given a viewmodel id", () => {
 

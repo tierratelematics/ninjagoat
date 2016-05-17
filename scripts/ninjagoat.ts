@@ -1,4 +1,4 @@
-/// <reference path="../typings/browser.d.ts" />
+/// <reference path="../typings/index.d.ts" />
 import Application from "./bootstrap/Application";
 import IModule from "./bootstrap/IModule";
 import IViewModel from "./viewmodels/IViewModel";
@@ -18,6 +18,11 @@ import HttpResponse from "./net/HttpResponse";
 import ModelRetriever from "./net/ModelRetriever";
 import IModelRetriever from "./net/IModelRetriever";
 import Refresh from "./viewmodels/RefreshDecorator";
+import ICommandDispatcher from "./commands/ICommandDispatcher";
+import CommandResponse from "./commands/CommandResponse";
+import IMetadataEnricher from "./commands/IMetadataEnricher";
+import IDateRetriever from "./util/IDateRetriever";
+import IGUIDGenerator from "./util/IGUIDGenerator";
 
 export {Application};
 export {IViewModel}
@@ -38,3 +43,8 @@ export {HttpClient}
 export {HttpResponse}
 export {ModelRetriever}
 export {IModelRetriever}
+export {ICommandDispatcher}
+export {CommandResponse}
+export {IDateRetriever}
+export {IGUIDGenerator}
+export {IMetadataEnricher}
