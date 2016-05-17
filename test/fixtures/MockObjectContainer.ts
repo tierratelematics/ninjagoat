@@ -4,7 +4,7 @@ import INewable = inversify.INewable;
 export default class MockObjectContainer implements IObjectContainer {
     private dictionary:{ [id:string]:INewable<any>|any } = {};
 
-    get<T>(key:string):T {
+    get<T>(key:string, name?:string):T {
         return new this.dictionary[key]();
     }
 

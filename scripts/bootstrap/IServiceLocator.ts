@@ -1,5 +1,5 @@
 interface IServiceLocator {
-    get<T>(key: string): T;
+    get<T>(key: string, name?:string): T;
 }
 
 export default IServiceLocator
