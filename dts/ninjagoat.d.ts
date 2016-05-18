@@ -96,10 +96,6 @@ declare module ninjagoat {
         Failed
     }
 
-    export class Command {
-
-    }
-
     export interface CommandDecoratorsStatic {
         Authentication(type:string)
         Endpoint(endpoint:string)
@@ -144,7 +140,7 @@ declare module ninjagoat {
     }
 
     export interface ICommandDispatcher {
-        dispatch(command:Command, metadata?:Dictionary<any>):Rx.Observable<CommandResponse>;
+        dispatch(command:Object, metadata?:Dictionary<any>):Rx.IPromise<CommandResponse>;
     }
 
     export interface CommandResponse {
@@ -161,34 +157,29 @@ declare module ninjagoat {
 
     export abstract class CommandDispatcher implements ICommandDispatcher {
 
-        protected transport:string;
-        protected endpoint:string;
-        protected authentication:string;
-        protected type:string;
-
         constructor(dateRetriever:IDateRetriever, guidGenerator:IGUIDGenerator);
 
-        dispatch(command:Command, metadata?:Dictionary<any>):Rx.Observable<CommandResponse>;
+        dispatch(command:Object, metadata?:Dictionary<any>):Rx.IPromise<CommandResponse>;
 
-        abstract canExecuteCommand(command:Command);
+        abstract canExecuteCommand(command:Object);
 
-        abstract executeCommand<T extends Command>(command:CommandEnvelope<T>):Rx.Observable<CommandResponse>;
+        abstract executeCommand(envelope:CommandEnvelope):Rx.IPromise<CommandResponse>;
 
         setNext(dispatcher:ICommandDispatcher):void;
     }
 
-    class CommandEnvelope<T> {
+    class CommandEnvelope {
         id:string;
         type:string;
         createdTimestamp:string;
         metadata:Dictionary<any>;
-        payload:T;
+        payload:Object;
 
-        static of<T extends Command>(payload:T, metadata?:Dictionary<any>);
+        static of(payload:Object, metadata?:Dictionary<any>);
     }
 
     export interface IMetadataEnricher {
-        enrich<T extends Command>(command?:T, metadata?:Dictionary<any>):Dictionary<any>
+        enrich(command?:Object, metadata?:Dictionary<any>):Dictionary<any>
     }
 }
 
