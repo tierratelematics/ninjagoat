@@ -1,5 +1,4 @@
 import CommandDispatcher from "../../../scripts/commands/CommandDispatcher";
-import Command from "../../../scripts/commands/Command";
 import * as Transport from "../../../scripts/constants/Transport";
 import CommandResponse from "../../../scripts/commands/CommandResponse";
 import CommandEnvelope from "../../../scripts/commands/CommandEnvelope";
@@ -12,11 +11,11 @@ class MockWSCommandDispatcher extends CommandDispatcher {
         super(dateRetriever, guidGenerator);
     }
 
-    canExecuteCommand(command:Command):boolean {
+    canExecuteCommand(command:Object):boolean {
         return this.transport === Transport.WebSocket;
     }
 
-    executeCommand<T extends Command>(command:CommandEnvelope<T>):Rx.Observable<CommandResponse> {
+    executeCommand(command:CommandEnvelope):Rx.IPromise<CommandResponse> {
         return null;
     }
 

@@ -7,6 +7,7 @@ import {inject, injectable} from "inversify";
 import IViewModelFactory from "../viewmodels/IViewModelFactory";
 import * as _ from "lodash";
 import ISerializer from "../io/ISerializer";
+import Dictionary from "../util/Dictionary";
 
 @injectable()
 class ContextFactory implements IContextFactory {
@@ -15,7 +16,7 @@ class ContextFactory implements IContextFactory {
         @inject("IUriResolver") private uriResolver: IUriResolver,
         @inject("IViewResolver") private viewResolver: IViewResolver,
         @inject("IViewModelFactory") private viewModelFactory: IViewModelFactory,
-        @inject("ISerializer") private serializer:ISerializer<{[index:string]:string}, string>) {
+        @inject("ISerializer") private serializer:ISerializer<Dictionary<string>, string>) {
     }
 
     contextFor<T extends IViewModel<any>>(uri: string, parameters?: any): { view: View<T>, viewmodel: T } {

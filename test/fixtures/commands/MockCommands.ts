@@ -1,33 +1,32 @@
-import Command from "../../../scripts/commands/Command";
 import * as Decorators from "../../../scripts/commands/CommandDecorators";
 import * as Authentication from "../../../scripts/constants/Authentication";
 import * as Transport from "../../../scripts/constants/Transport";
 
 @Decorators.Type("DefaultCommand")
-class DefaultCommand implements Command {
+class DefaultCommand {
     public foo:string = "bar";
 }
 
 @Decorators.Type("EndpointCommand")
 @Decorators.Endpoint("/foo")
 @Decorators.Transport(Transport.HTTP_Post)
-class EndpointCommand implements Command {
+class EndpointCommand {
     public foo:string = "bar";
 }
 
 @Decorators.Type("TransportCommand")
 @Decorators.Transport(Transport.WebSocket)
-class TransportCommand implements Command {
+class TransportCommand {
     public foo:string = "bar";
 }
 
 @Decorators.Type("AuthenticationCommand")
 @Decorators.Authentication(Authentication.Basic)
-class AuthenticationCommand implements Command {
+class AuthenticationCommand {
     public foo:string = "bar";
 }
 
-class UnnamedCommand implements Command {
+class UnnamedCommand {
     public foo:string = "bar";
 }
 

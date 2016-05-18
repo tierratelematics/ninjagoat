@@ -12,6 +12,10 @@ declare module ninjagoat {
         register(module:IModule);
     }
 
+    export interface Dictionary<T> {
+        [index:string]:T
+    }
+
     export interface IModule {
         modules?:IKernelModule;
         register(registry:IViewModelRegistry, serviceLocator?:IServiceLocator, overrides?:any):void;
@@ -19,6 +23,10 @@ declare module ninjagoat {
 
     export interface IServiceLocator {
         get<T>(key:string, name?:string):T;
+    }
+
+    interface IEndpointConfig {
+        endpoint:string;
     }
 
     export interface IViewModelRegistry {
@@ -92,11 +100,7 @@ declare module ninjagoat {
         Failed
     }
 
-    export class Command {
-
-    }
-
-    export interface CommandDecoratorsStatic {
+    interface CommandDecoratorsStatic {
         Authentication(type:string)
         Endpoint(endpoint:string)
         Transport(type:string)
@@ -105,30 +109,37 @@ declare module ninjagoat {
 
     export var CommandDecorators:CommandDecoratorsStatic;
 
-    export interface AuthenticationStatic {
+    interface AuthenticationStatic {
         Bearer:string;
         Basic:string;
     }
 
     export var Authentication:AuthenticationStatic;
 
-    export interface TransportStatic {
+    interface TransportStatic {
         HTTP_Post:string,
         WebSocket:string
     }
 
     export var Transport:TransportStatic;
 
+    interface RegistrationStatic {
+        Config_Base:string;
+        Config_WebSocket:string;
+    }
+
+    export var Registration:RegistrationStatic;
+
     export interface IHttpClient {
-        get(url:string, headers?:{}):Rx.Observable<HttpResponse>
-        post(url:string, body:any, headers?:{}):Rx.Observable<HttpResponse>
-        put(url:string, body:any, headers?:{}):Rx.Observable<HttpResponse>
-        delete(url:string, headers?:{}):Rx.Observable<HttpResponse>
+        get(url:string, headers?:Dictionary<string>):Rx.Observable<HttpResponse>
+        post(url:string, body:any, headers?:Dictionary<string>):Rx.Observable<HttpResponse>
+        put(url:string, body:any, headers?:Dictionary<string>):Rx.Observable<HttpResponse>
+        delete(url:string, headers?:Dictionary<string>):Rx.Observable<HttpResponse>
     }
 
     export class HttpResponse {
         response:any;
-        headers:{};
+        headers:Dictionary<string>;
     }
 
     export interface IModelRetriever {
@@ -140,7 +151,7 @@ declare module ninjagoat {
     }
 
     export interface ICommandDispatcher {
-        dispatch(command:Command, metadata?:{[index:string]:any}):Rx.Observable<CommandResponse>;
+        dispatch(command:Object, metadata?:Dictionary<any>):Rx.IPromise<CommandResponse>;
     }
 
     export interface CommandResponse {
@@ -157,34 +168,29 @@ declare module ninjagoat {
 
     export abstract class CommandDispatcher implements ICommandDispatcher {
 
-        protected transport:string;
-        protected endpoint:string;
-        protected authentication:string;
-        protected type:string;
-
         constructor(dateRetriever:IDateRetriever, guidGenerator:IGUIDGenerator);
 
-        dispatch(command:Command, metadata?:{[index:string]:any}):Rx.Observable<CommandResponse>;
+        dispatch(command:Object, metadata?:Dictionary<any>):Rx.IPromise<CommandResponse>;
 
-        abstract canExecuteCommand(command:Command);
+        abstract canExecuteCommand(command:Object);
 
-        abstract executeCommand<T extends Command>(command:CommandEnvelope<T>):Rx.Observable<CommandResponse>;
+        abstract executeCommand(envelope:CommandEnvelope):Rx.IPromise<CommandResponse>;
 
         setNext(dispatcher:ICommandDispatcher):void;
     }
 
-    class CommandEnvelope<T> {
+    class CommandEnvelope {
         id:string;
         type:string;
         createdTimestamp:string;
-        metadata:{[index:string]:any};
-        payload:T;
+        metadata:Dictionary<any>;
+        payload:Object;
 
-        static of<T extends Command>(payload:T, metadata?:{[index:string]:any});
+        static of(payload:Object, metadata?:Dictionary<any>);
     }
 
     export interface IMetadataEnricher {
-        enrich<T>(metadata?:{[index:string]:any}):{[index:string]:any}
+        enrich(command?:Object, metadata?:Dictionary<any>):Dictionary<any>
     }
 }
 

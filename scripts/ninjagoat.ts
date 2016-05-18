@@ -10,7 +10,6 @@ import ModelPhase from "./constants/ModelPhase";
 import * as Transport from "./constants/Transport";
 import * as Authentication from "./constants/Authentication";
 import CommandDispatcher from "./commands/CommandDispatcher";
-import Command from "./commands/Command";
 import * as CommandDecorators from "./commands/CommandDecorators";
 import IHttpClient from "./net/IHttpClient";
 import HttpClient from "./net/HttpClient";
@@ -23,6 +22,8 @@ import CommandResponse from "./commands/CommandResponse";
 import IMetadataEnricher from "./commands/IMetadataEnricher";
 import IDateRetriever from "./util/IDateRetriever";
 import IGUIDGenerator from "./util/IGUIDGenerator";
+import * as Registration from "./constants/Registration";
+import IEndpointConfig from "./configs/IEndpointConfig";
 
 export {Application};
 export {IViewModel}
@@ -36,7 +37,6 @@ export {Transport}
 export {ModelPhase}
 export {Authentication}
 export {CommandDecorators}
-export {Command}
 export {CommandDispatcher}
 export {IHttpClient}
 export {HttpClient}
@@ -48,3 +48,5 @@ export {CommandResponse}
 export {IDateRetriever}
 export {IGUIDGenerator}
 export {IMetadataEnricher}
+export {Registration}
+export {IEndpointConfig}

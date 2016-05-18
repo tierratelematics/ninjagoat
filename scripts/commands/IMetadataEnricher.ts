@@ -1,5 +1,7 @@
+import Dictionary from "../util/Dictionary";
+
 interface IMetadataEnricher {
-    enrich<T>(metadata?:{[index:string]:any}):{[index:string]:any}
+    enrich(command?:Object, metadata?:Dictionary<any>):Dictionary<any>
 }
 
 export default IMetadataEnricher

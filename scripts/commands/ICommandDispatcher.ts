@@ -1,8 +1,8 @@
-import Command from "./Command";
 import CommandResponse from "./CommandResponse";
+import Dictionary from "../util/Dictionary";
 
 interface ICommandDispatcher {
-    dispatch(command:Command, metadata?:{[index:string]:any}):Rx.Observable<CommandResponse>;
+    dispatch(command:Object, metadata?:Dictionary<any>):Rx.IPromise<CommandResponse>;
 }
 
 export default ICommandDispatcher

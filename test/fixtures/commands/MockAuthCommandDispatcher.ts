@@ -1,5 +1,4 @@
 import CommandDispatcher from "../../../scripts/commands/CommandDispatcher";
-import Command from "../../../scripts/commands/Command";
 import * as Authentication from "../../../scripts/constants/Authentication";
 import CommandResponse from "../../../scripts/commands/CommandResponse";
 import CommandEnvelope from "../../../scripts/commands/CommandEnvelope";
@@ -12,11 +11,11 @@ class MockAuthCommandDispatcher extends CommandDispatcher {
         super(dateRetriever, guidGenerator);
     }
 
-    canExecuteCommand(command:Command):boolean {
+    canExecuteCommand(command:Object):boolean {
         return this.authentication === Authentication.Basic;
     }
 
-    executeCommand<T extends Command>(command:CommandEnvelope<T>):Rx.Observable<CommandResponse> {
+    executeCommand(envelope:CommandEnvelope):Rx.IPromise<CommandResponse> {
         return null;
     }
 
