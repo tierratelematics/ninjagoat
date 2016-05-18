@@ -20,8 +20,8 @@ class PostCommandDispatcher extends CommandDispatcher {
         return this.transport === HTTP_Post && !this.authentication;
     }
 
-    executeCommand(envelope:CommandEnvelope):Rx.Observable<CommandResponse> {
-        return this.httpClient.post(this.endpoint, envelope);
+    executeCommand(envelope:CommandEnvelope):Rx.IPromise<CommandResponse> {
+        return this.httpClient.post(this.endpoint, envelope).toPromise();
     }
 
 }

@@ -15,7 +15,7 @@ class MockWSCommandDispatcher extends CommandDispatcher {
         return this.transport === Transport.WebSocket;
     }
 
-    executeCommand(command:CommandEnvelope):Rx.Observable<CommandResponse> {
+    executeCommand(command:CommandEnvelope):Rx.IPromise<CommandResponse> {
         return null;
     }
 

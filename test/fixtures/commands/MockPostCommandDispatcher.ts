@@ -15,7 +15,7 @@ class MockPostCommandDispatcher extends CommandDispatcher {
         return this.transport === Transport.HTTP_Post;
     }
 
-    executeCommand(envelope:CommandEnvelope):Rx.Observable<CommandResponse> {
+    executeCommand(envelope:CommandEnvelope):Rx.IPromise<CommandResponse> {
         return null;
     }
 

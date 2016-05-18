@@ -13,7 +13,7 @@ class CommandDispatcherEnricher implements ICommandDispatcher {
 
     }
 
-    dispatch(command:Object):Rx.Observable<CommandResponse> {
+    dispatch(command:Object):Rx.IPromise<CommandResponse> {
         let metadata:Dictionary<any> = _.reduce(this.enrichers, (result, enricher) => {
             result = enricher.enrich(command, result);
             return result;

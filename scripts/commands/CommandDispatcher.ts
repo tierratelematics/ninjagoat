@@ -17,7 +17,7 @@ abstract class CommandDispatcher implements ICommandDispatcher {
 
     }
 
-    dispatch(command:Object, metadata?:Dictionary<any>):Rx.Observable<CommandResponse> {
+    dispatch(command:Object, metadata?:Dictionary<any>):Rx.IPromise<CommandResponse> {
         this.extractCommandMetadata(command);
         if (!this.type)
             throw new Error("Missing type info from command");
@@ -41,7 +41,7 @@ abstract class CommandDispatcher implements ICommandDispatcher {
 
     abstract canExecuteCommand(command:Object);
 
-    abstract executeCommand(envelope:CommandEnvelope):Rx.Observable<CommandResponse>;
+    abstract executeCommand(envelope:CommandEnvelope):Rx.IPromise<CommandResponse>;
 
     setNext(dispatcher:ICommandDispatcher):void {
         this.nextDispatcher = dispatcher;

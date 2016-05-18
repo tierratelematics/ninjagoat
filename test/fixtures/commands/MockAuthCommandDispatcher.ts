@@ -15,7 +15,7 @@ class MockAuthCommandDispatcher extends CommandDispatcher {
         return this.authentication === Authentication.Basic;
     }
 
-    executeCommand(envelope:CommandEnvelope):Rx.Observable<CommandResponse> {
+    executeCommand(envelope:CommandEnvelope):Rx.IPromise<CommandResponse> {
         return null;
     }
 
