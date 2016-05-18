@@ -11,8 +11,6 @@ import HttpResponse from "./net/HttpResponse";
 import Refresh from "./viewmodels/RefreshDecorator";
 import CommandResponse from "./commands/CommandResponse";
 import * as RegistrationKeys from "./constants/RegistrationKeys";
-import DialogStatus from "./dialogs/DialogStatus";
-import SimpleDialogService from "./dialogs/SimpleDialogService";
 import HttpClient from "./net/HttpClient";
 import ViewModelContext from "./registry/ViewModelContext"
 
@@ -28,7 +26,5 @@ export {CommandDispatcher}
 export {HttpResponse}
 export {CommandResponse}
 export {RegistrationKeys}
-export {DialogStatus}
-export {SimpleDialogService}
 export {HttpClient}
 export {ViewModelContext}
