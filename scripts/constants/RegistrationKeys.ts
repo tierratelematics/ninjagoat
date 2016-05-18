@@ -1,0 +1,1 @@
+export const Config_Base = "Config_Base";

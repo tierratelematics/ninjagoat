@@ -7,7 +7,7 @@ import {HTTP_Post} from "../constants/Transport";
 import IHttpClient from "../net/IHttpClient";
 import {injectable, inject, named} from "inversify";
 import IEndpointConfig from "../configs/IEndpointConfig";
-import {Config_Base} from "../constants/Registration";
+import {Config_Base} from "../constants/RegistrationKeys";
 
 @injectable()
 class PostCommandDispatcher extends CommandDispatcher {

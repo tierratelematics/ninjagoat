@@ -10,7 +10,7 @@ import * as CommandDecorators from "./commands/CommandDecorators";
 import HttpResponse from "./net/HttpResponse";
 import Refresh from "./viewmodels/RefreshDecorator";
 import CommandResponse from "./commands/CommandResponse";
-import * as Registration from "./constants/Registration";
+import * as RegistrationKeys from "./constants/RegistrationKeys";
 import DialogStatus from "./dialogs/DialogStatus";
 import SimpleDialogService from "./dialogs/SimpleDialogService";
 import HttpClient from "./net/HttpClient";
@@ -27,7 +27,7 @@ export {CommandDecorators}
 export {CommandDispatcher}
 export {HttpResponse}
 export {CommandResponse}
-export {Registration}
+export {RegistrationKeys}
 export {DialogStatus}
 export {SimpleDialogService}
 export {HttpClient}
