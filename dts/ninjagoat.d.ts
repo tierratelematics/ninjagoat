@@ -56,6 +56,8 @@ declare module ninjagoat {
         area:string;
         viewmodelId:string;
         parameters:any;
+
+        constructor(area:string, viewmodelId:string, parameters?:any);
     }
 
     export interface IViewModel<T> extends Rx.IDisposable, Rx.IObservable<void> {
@@ -82,24 +84,6 @@ declare module ninjagoat {
     export function ViewModel(name:string);
 
     export function Refresh(target:any, propertyKey:string, descriptor:TypedPropertyDescriptor<any>);
-
-    export class ModelState<T> {
-        phase:ModelPhase;
-        model:T;
-        failure:any;
-
-        static Loading<T>():ModelState<T>;
-
-        static Ready<T>(model:T):ModelState<T>;
-
-        static Failed<T>(failure:any):ModelState<T>;
-    }
-
-    export enum ModelPhase {
-        Loading,
-        Ready,
-        Failed
-    }
 
     interface CommandDecoratorsStatic {
         Authentication(type:string)
@@ -138,17 +122,22 @@ declare module ninjagoat {
         delete(url:string, headers?:Dictionary<string>):Rx.Observable<HttpResponse>
     }
 
+    export class HttpClient implements IHttpClient {
+
+        get(url:string, headers?:Dictionary<string>):Rx.Observable<HttpResponse>;
+
+        post(url:string, body:{}|FormData, headers?:Dictionary<string>):Rx.Observable<HttpResponse>;
+
+        put(url:string, body:{}, headers?:Dictionary<string>):Rx.Observable<HttpResponse>;
+
+        delete(url:string, headers?:Dictionary<string>):Rx.Observable<HttpResponse>;
+    }
+
     export class HttpResponse {
         response:any;
         headers:Dictionary<string>;
-    }
 
-    export interface IModelRetriever {
-        modelFor<T>(context:ViewModelContext):Rx.Observable<ModelState<T>>;
-    }
-
-    export class ModelRetriever implements IModelRetriever {
-        modelFor<T>(context:ViewModelContext):Rx.Observable<ModelState<T>>;
+        constructor(response:any, headers?:Dictionary<string>);
     }
 
     export interface ICommandDispatcher {
