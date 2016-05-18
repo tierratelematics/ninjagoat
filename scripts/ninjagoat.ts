@@ -24,6 +24,9 @@ import IDateRetriever from "./util/IDateRetriever";
 import IGUIDGenerator from "./util/IGUIDGenerator";
 import * as Registration from "./constants/Registration";
 import IEndpointConfig from "./configs/IEndpointConfig";
+import DialogStatus from "./dialogs/DialogStatus";
+import IDialogService from "./dialogs/IDialogService";
+import SimpleDialogService from "./dialogs/SimpleDialogService";
 
 export {Application};
 export {IViewModel}
@@ -50,3 +53,6 @@ export {IGUIDGenerator}
 export {IMetadataEnricher}
 export {Registration}
 export {IEndpointConfig}
+export {DialogStatus}
+export {IDialogService}
+export {SimpleDialogService}

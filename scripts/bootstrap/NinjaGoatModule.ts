@@ -41,6 +41,8 @@ import Dictionary from "../util/Dictionary";
 import {Config_WebSocket} from "../constants/Registration";
 import IEndpointConfig from "../configs/IEndpointConfig";
 import * as io from "socket.io-client";
+import IDialogService from "../dialogs/IDialogService";
+import SimpleDialogService from "../dialogs/SimpleDialogService";
 
 class NinjaGoatModule implements IModule {
 
@@ -68,6 +70,7 @@ class NinjaGoatModule implements IModule {
             let config = kernel.getNamed<IEndpointConfig>("IEndpointConfig", Config_WebSocket);
             return io.connect(config.endpoint);
         });
+        kernel.bind<IDialogService>("IDialogService").to(SimpleDialogService).inSingletonScope();
     };
 
     register(registry:IViewModelRegistry, serviceLocator?:IServiceLocator, overrides?:any):void {
