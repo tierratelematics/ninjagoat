@@ -1,5 +1,4 @@
 import ICommandDispatcher from "./ICommandDispatcher";
-import Command from "./Command";
 import CommandResponse from "./CommandResponse";
 import CommandEnvelope from "./CommandEnvelope";
 import IDateRetriever from "../util/IDateRetriever";
@@ -18,7 +17,7 @@ abstract class CommandDispatcher implements ICommandDispatcher {
 
     }
 
-    dispatch(command:Command, metadata?:Dictionary<any>):Rx.Observable<CommandResponse> {
+    dispatch(command:Object, metadata?:Dictionary<any>):Rx.Observable<CommandResponse> {
         this.extractCommandMetadata(command);
         if (!this.type)
             throw new Error("Missing type info from command");
@@ -27,22 +26,22 @@ abstract class CommandDispatcher implements ICommandDispatcher {
             envelope.type = this.type;
             envelope.id = this.guidGenerator.generate();
             envelope.createdTimestamp = this.dateRetriever.getDate();
-            return this.executeCommand<any>(envelope);
+            return this.executeCommand(envelope);
         } else if (this.nextDispatcher) {
             return this.nextDispatcher.dispatch(command, metadata);
         }
     }
 
-    private extractCommandMetadata(command:Command):void {
+    private extractCommandMetadata(command:Object):void {
         this.transport = Reflect.getMetadata("Transport", command.constructor);
         this.endpoint = Reflect.getMetadata("Endpoint", command.constructor);
         this.authentication = Reflect.getMetadata("Authentication", command.constructor);
         this.type = Reflect.getMetadata("Type", command.constructor);
     }
 
-    abstract canExecuteCommand(command:Command);
+    abstract canExecuteCommand(command:Object);
 
-    abstract executeCommand<T extends Command>(command:CommandEnvelope<T>):Rx.Observable<CommandResponse>;
+    abstract executeCommand(envelope:CommandEnvelope):Rx.Observable<CommandResponse>;
 
     setNext(dispatcher:ICommandDispatcher):void {
         this.nextDispatcher = dispatcher;

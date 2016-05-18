@@ -1,5 +1,4 @@
 import ICommandDispatcher from "./ICommandDispatcher";
-import Command from "./Command";
 import CommandResponse from "./CommandResponse";
 import IMetadataEnricher from "./IMetadataEnricher";
 import * as _ from "lodash";
@@ -14,7 +13,7 @@ class CommandDispatcherEnricher implements ICommandDispatcher {
 
     }
 
-    dispatch(command:Command):Rx.Observable<CommandResponse> {
+    dispatch(command:Object):Rx.Observable<CommandResponse> {
         let metadata:Dictionary<any> = _.reduce(this.enrichers, (result, enricher) => {
             result = enricher.enrich(command, result);
             return result;

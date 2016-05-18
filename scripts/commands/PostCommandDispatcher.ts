@@ -1,5 +1,4 @@
 import CommandDispatcher from "./CommandDispatcher";
-import Command from "./Command";
 import CommandEnvelope from "./CommandEnvelope";
 import CommandResponse from "./CommandResponse";
 import IDateRetriever from "../util/IDateRetriever";
@@ -17,12 +16,12 @@ class PostCommandDispatcher extends CommandDispatcher {
         super(dateRetriever, guidGenerator);
     }
 
-    canExecuteCommand(command:Command) {
+    canExecuteCommand(command:Object) {
         return this.transport === HTTP_Post && !this.authentication;
     }
 
-    executeCommand<T extends Command>(command:CommandEnvelope<T>):Rx.Observable<CommandResponse> {
-        return this.httpClient.post(this.endpoint, command);
+    executeCommand(envelope:CommandEnvelope):Rx.Observable<CommandResponse> {
+        return this.httpClient.post(this.endpoint, envelope);
     }
 
 }

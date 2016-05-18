@@ -10,7 +10,6 @@ import ModelPhase from "./constants/ModelPhase";
 import * as Transport from "./constants/Transport";
 import * as Authentication from "./constants/Authentication";
 import CommandDispatcher from "./commands/CommandDispatcher";
-import Command from "./commands/Command";
 import * as CommandDecorators from "./commands/CommandDecorators";
 import IHttpClient from "./net/IHttpClient";
 import HttpClient from "./net/HttpClient";
@@ -36,7 +35,6 @@ export {Transport}
 export {ModelPhase}
 export {Authentication}
 export {CommandDecorators}
-export {Command}
 export {CommandDispatcher}
 export {IHttpClient}
 export {HttpClient}
