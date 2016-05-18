@@ -34,8 +34,6 @@ import PostCommandDispatcher from "../commands/PostCommandDispatcher";
 import IMetadataEnricher from "../commands/IMetadataEnricher";
 import EmptyMetadataEnricher from "../commands/EmptyMetadataEnricher";
 import Dictionary from "../util/Dictionary";
-import IEndpointConfig from "../configs/IEndpointConfig";
-import * as io from "socket.io-client";
 import IDialogService from "../dialogs/IDialogService";
 import SimpleDialogService from "../dialogs/SimpleDialogService";
 
