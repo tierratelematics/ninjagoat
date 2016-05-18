@@ -23,6 +23,7 @@ import IMetadataEnricher from "./commands/IMetadataEnricher";
 import IDateRetriever from "./util/IDateRetriever";
 import IGUIDGenerator from "./util/IGUIDGenerator";
 import * as Registration from "./constants/Registration";
+import IEndpointConfig from "./configs/IEndpointConfig";
 
 export {Application};
 export {IViewModel}
@@ -48,3 +49,4 @@ export {IDateRetriever}
 export {IGUIDGenerator}
 export {IMetadataEnricher}
 export {Registration}
+export {IEndpointConfig}
