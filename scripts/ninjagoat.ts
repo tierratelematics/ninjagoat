@@ -23,6 +23,9 @@ import CommandResponse from "./commands/CommandResponse";
 import IMetadataEnricher from "./commands/IMetadataEnricher";
 import IDateRetriever from "./util/IDateRetriever";
 import IGUIDGenerator from "./util/IGUIDGenerator";
+import DialogStatus from "./dialogs/DialogStatus";
+import IDialogService from "./dialogs/IDialogService";
+import SimpleDialogService from "./dialogs/SimpleDialogService";
 
 export {Application};
 export {IViewModel}
@@ -48,3 +51,6 @@ export {CommandResponse}
 export {IDateRetriever}
 export {IGUIDGenerator}
 export {IMetadataEnricher}
+export {DialogStatus}
+export {IDialogService}
+export {SimpleDialogService}
