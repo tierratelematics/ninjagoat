@@ -96,28 +96,27 @@ declare module ninjagoat {
         Failed
     }
 
-    export interface CommandDecoratorsStatic {
+    export interface CommandDecorators {
         Authentication(type:string)
         Endpoint(endpoint:string)
         Transport(type:string)
         Type(type:string)
     }
 
-    export var CommandDecorators:CommandDecoratorsStatic;
-
-    export interface AuthenticationStatic {
+    export interface Authentication {
         Bearer:string;
         Basic:string;
     }
 
-    export var Authentication:AuthenticationStatic;
-
-    export interface TransportStatic {
+    export interface Transport {
         HTTP_Post:string,
         WebSocket:string
     }
 
-    export var Transport:TransportStatic;
+    export interface Registration {
+        Config_Base:string;
+        Config_WebSocket:string;
+    }
 
     export interface IHttpClient {
         get(url:string, headers?:Dictionary<string>):Rx.Observable<HttpResponse>

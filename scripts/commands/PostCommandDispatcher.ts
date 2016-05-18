@@ -5,14 +5,17 @@ import IDateRetriever from "../util/IDateRetriever";
 import IGUIDGenerator from "../util/IGUIDGenerator";
 import {HTTP_Post} from "../constants/Transport";
 import IHttpClient from "../net/IHttpClient";
-import {injectable, inject} from "inversify";
+import {injectable, inject, named} from "inversify";
+import IEndpointConfig from "../configs/IEndpointConfig";
+import {Config_Base} from "../constants/Registration";
 
 @injectable()
 class PostCommandDispatcher extends CommandDispatcher {
 
     constructor(@inject("IDateRetriever") dateRetriever:IDateRetriever,
                 @inject("IGUIDGenerator") guidGenerator:IGUIDGenerator,
-                @inject("IHttpClient") private httpClient:IHttpClient) {
+                @inject("IHttpClient") private httpClient:IHttpClient,
+                @inject("IEndpointConfig") @named(Config_Base) private config:IEndpointConfig) {
         super(dateRetriever, guidGenerator);
     }
 
@@ -21,7 +24,7 @@ class PostCommandDispatcher extends CommandDispatcher {
     }
 
     executeCommand(envelope:CommandEnvelope):Rx.IPromise<CommandResponse> {
-        return this.httpClient.post(this.endpoint, envelope).toPromise();
+        return this.httpClient.post(this.config.endpoint + this.endpoint, envelope).toPromise();
     }
 
 }

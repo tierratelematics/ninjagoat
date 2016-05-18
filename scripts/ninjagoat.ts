@@ -22,6 +22,7 @@ import CommandResponse from "./commands/CommandResponse";
 import IMetadataEnricher from "./commands/IMetadataEnricher";
 import IDateRetriever from "./util/IDateRetriever";
 import IGUIDGenerator from "./util/IGUIDGenerator";
+import * as Registration from "./constants/Registration";
 
 export {Application};
 export {IViewModel}
@@ -46,3 +47,4 @@ export {CommandResponse}
 export {IDateRetriever}
 export {IGUIDGenerator}
 export {IMetadataEnricher}
+export {Registration}
