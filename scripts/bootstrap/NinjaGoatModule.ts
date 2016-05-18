@@ -34,7 +34,6 @@ import PostCommandDispatcher from "../commands/PostCommandDispatcher";
 import IMetadataEnricher from "../commands/IMetadataEnricher";
 import EmptyMetadataEnricher from "../commands/EmptyMetadataEnricher";
 import Dictionary from "../util/Dictionary";
-import {Config_WebSocket} from "../constants/Registration";
 import IEndpointConfig from "../configs/IEndpointConfig";
 import * as io from "socket.io-client";
 import IDialogService from "../dialogs/IDialogService";
@@ -60,10 +59,6 @@ class NinjaGoatModule implements IModule {
         kernel.bind<ICommandDispatcher>("ICommandDispatcher").to(CommandDispatcherEnricher).inSingletonScope();
         kernel.bind<CommandDispatcher>("CommandDispatcher").to(PostCommandDispatcher).inSingletonScope().whenInjectedInto(CommandDispatcherEnricher);
         kernel.bind<IMetadataEnricher>("IMetadataEnricher").to(EmptyMetadataEnricher).inSingletonScope(); //Needed by inversify to resolve correctly the dependency graph
-        kernel.bind<SocketIOClient.Socket>("SocketIOClient.Socket").toDynamicValue(() => {
-            let config = kernel.getNamed<IEndpointConfig>("IEndpointConfig", Config_WebSocket);
-            return io.connect(config.endpoint);
-        });
         kernel.bind<IDialogService>("IDialogService").to(SimpleDialogService).inSingletonScope();
     };
 

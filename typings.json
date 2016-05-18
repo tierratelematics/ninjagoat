@@ -9,7 +9,6 @@
         "react": "registry:dt/react#0.14.0+20160423065914",
         "react-dom": "registry:dt/react-dom#0.14.0+20160412154040",
         "react-router": "registry:dt/react-router#2.0.0+20160501155536",
-        "socket.io-client": "registry:dt/socket.io-client#1.4.4+20160317120654",
         "whatwg-fetch": "registry:dt/whatwg-fetch#0.0.0+20160412133644",
         "lodash": "registry:dt/lodash#3.10.0+20160330154726",
         "node": "registry:dt/node#4.0.0+20160505172921"

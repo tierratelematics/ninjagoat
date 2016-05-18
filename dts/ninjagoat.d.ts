@@ -108,12 +108,11 @@ declare module ninjagoat {
 
     export var Transport:TransportStatic;
 
-    interface RegistrationStatic {
+    interface RegistrationKeysStatic {
         Config_Base:string;
-        Config_WebSocket:string;
     }
 
-    export var Registration:RegistrationStatic;
+    export var RegistrationKeys:RegistrationKeysStatic;
 
     export interface IHttpClient {
         get(url:string, headers?:Dictionary<string>):Rx.Observable<HttpResponse>
