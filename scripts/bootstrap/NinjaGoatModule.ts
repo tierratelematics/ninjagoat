@@ -34,8 +34,6 @@ import PostCommandDispatcher from "../commands/PostCommandDispatcher";
 import IMetadataEnricher from "../commands/IMetadataEnricher";
 import EmptyMetadataEnricher from "../commands/EmptyMetadataEnricher";
 import Dictionary from "../util/Dictionary";
-import IDialogService from "../dialogs/IDialogService";
-import SimpleDialogService from "../dialogs/SimpleDialogService";
 
 class NinjaGoatModule implements IModule {
 
@@ -57,7 +55,6 @@ class NinjaGoatModule implements IModule {
         kernel.bind<ICommandDispatcher>("ICommandDispatcher").to(CommandDispatcherEnricher).inSingletonScope();
         kernel.bind<CommandDispatcher>("CommandDispatcher").to(PostCommandDispatcher).inSingletonScope().whenInjectedInto(CommandDispatcherEnricher);
         kernel.bind<IMetadataEnricher>("IMetadataEnricher").to(EmptyMetadataEnricher).inSingletonScope(); //Needed by inversify to resolve correctly the dependency graph
-        kernel.bind<IDialogService>("IDialogService").to(SimpleDialogService).inSingletonScope();
     };
 
     register(registry:IViewModelRegistry, serviceLocator?:IServiceLocator, overrides?:any):void {
