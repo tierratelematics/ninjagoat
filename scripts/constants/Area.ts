@@ -1,2 +1,2 @@
-export const Index = "Index";
-export const Master = "Master";
+export let Index = "Index";
+export let Master = "Master";

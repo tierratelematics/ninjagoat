@@ -27,12 +27,6 @@ import IDateRetriever from "../util/IDateRetriever";
 import DateRetriever from "../util/DateRetriever";
 import GUIDGenerator from "../util/GUIDGenerator";
 import IGUIDGenerator from "../util/IGUIDGenerator";
-import ICommandDispatcher from "../commands/ICommandDispatcher";
-import CommandDispatcherEnricher from "../commands/CommandDispatcherEnricher";
-import CommandDispatcher from "../commands/CommandDispatcher";
-import PostCommandDispatcher from "../commands/PostCommandDispatcher";
-import IMetadataEnricher from "../commands/IMetadataEnricher";
-import EmptyMetadataEnricher from "../commands/EmptyMetadataEnricher";
 import Dictionary from "../util/Dictionary";
 
 class NinjaGoatModule implements IModule {
@@ -52,9 +46,6 @@ class NinjaGoatModule implements IModule {
         kernel.bind<ISerializer<Dictionary<string>, string>>("ISerializer").to(QuerySerializer).inSingletonScope();
         kernel.bind<IDateRetriever>("IDateRetriever").to(DateRetriever).inSingletonScope();
         kernel.bind<IGUIDGenerator>("IGUIDGenerator").to(GUIDGenerator).inSingletonScope();
-        kernel.bind<ICommandDispatcher>("ICommandDispatcher").to(CommandDispatcherEnricher).inSingletonScope();
-        kernel.bind<CommandDispatcher>("CommandDispatcher").to(PostCommandDispatcher).inSingletonScope().whenInjectedInto(CommandDispatcherEnricher);
-        kernel.bind<IMetadataEnricher>("IMetadataEnricher").to(EmptyMetadataEnricher).inSingletonScope(); //Needed by inversify to resolve correctly the dependency graph
     };
 
     register(registry:IViewModelRegistry, serviceLocator?:IServiceLocator, overrides?:any):void {

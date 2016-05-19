@@ -1,1 +1,1 @@
-export const Config_Base = "Config_Base";
+export let Config_Base = "Config_Base";
