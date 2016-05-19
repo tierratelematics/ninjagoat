@@ -7,7 +7,7 @@ import BarViewModel from "./fixtures/viewmodels/BarViewModel";
 import FooIndexViewModel from "./fixtures/viewmodels/FooIndexViewModel";
 import IndexViewModel from "./fixtures/viewmodels/IndexViewModel";
 import RootViewModel from "./fixtures/viewmodels/RootViewModel";
-import * as Area from "../scripts/constants/Area";
+import * as Area from "../scripts/config/Area";
 
 describe("UriResolver, given an URI", () => {
 

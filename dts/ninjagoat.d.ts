@@ -85,29 +85,6 @@ declare module ninjagoat {
 
     export function Refresh(target:any, propertyKey:string, descriptor:TypedPropertyDescriptor<any>);
 
-    interface CommandDecoratorsStatic {
-        Authentication(type:string)
-        Endpoint(endpoint:string)
-        Transport(type:string)
-        Type(type:string)
-    }
-
-    export var CommandDecorators:CommandDecoratorsStatic;
-
-    interface AuthenticationStatic {
-        Bearer:string;
-        Basic:string;
-    }
-
-    export var Authentication:AuthenticationStatic;
-
-    interface TransportStatic {
-        HTTP_Post:string,
-        WebSocket:string
-    }
-
-    export var Transport:TransportStatic;
-
     interface RegistrationKeysStatic {
         Config_Base:string;
     }
@@ -139,47 +116,12 @@ declare module ninjagoat {
         constructor(response:any, headers?:Dictionary<string>);
     }
 
-    export interface ICommandDispatcher {
-        dispatch(command:Object, metadata?:Dictionary<any>):Rx.IPromise<CommandResponse>;
-    }
-
-    export interface CommandResponse {
-        response:any;
-    }
-
     export interface IDateRetriever {
         getDate():string;
     }
 
     export interface IGUIDGenerator {
         generate():string;
-    }
-
-    export abstract class CommandDispatcher implements ICommandDispatcher {
-
-        constructor(dateRetriever:IDateRetriever, guidGenerator:IGUIDGenerator);
-
-        dispatch(command:Object, metadata?:Dictionary<any>):Rx.IPromise<CommandResponse>;
-
-        abstract canExecuteCommand(command:Object);
-
-        abstract executeCommand(envelope:CommandEnvelope):Rx.IPromise<CommandResponse>;
-
-        setNext(dispatcher:ICommandDispatcher):void;
-    }
-
-    class CommandEnvelope {
-        id:string;
-        type:string;
-        createdTimestamp:string;
-        metadata:Dictionary<any>;
-        payload:Object;
-
-        static of(payload:Object, metadata?:Dictionary<any>);
-    }
-
-    export interface IMetadataEnricher {
-        enrich(command?:Object, metadata?:Dictionary<any>):Dictionary<any>
     }
 }
 
