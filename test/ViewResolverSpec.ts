@@ -10,7 +10,7 @@ import MasterView from "./fixtures/views/Master";
 import IndexViewModel from "./fixtures/viewmodels/IndexViewModel";
 import BarViewModel from "./fixtures/viewmodels/BarViewModel";
 import FooIndexViewModel from "./fixtures/viewmodels/FooIndexViewModel";
-import * as Area from "../scripts/constants/Area";
+import * as Area from "../scripts/config/Area";
 
 describe("ViewResolver,given a viewmodel identifier", () => {
 

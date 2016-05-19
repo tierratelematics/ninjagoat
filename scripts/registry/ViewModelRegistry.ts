@@ -6,7 +6,7 @@ import {injectable, INewable} from "inversify";
 import IViewModel from "../viewmodels/IViewModel";
 import ViewModelContext from "../registry/ViewModelContext";
 import * as Rx from "rx";
-import * as Area from "../constants/Area";
+import * as Area from "../config/Area";
 
 @injectable()
 class ViewModelRegistry implements IViewModelRegistry {

@@ -23,8 +23,8 @@ import IViewModelFactory from "../scripts/viewmodels/IViewModelFactory";
 import ViewModelContext from "../scripts/registry/ViewModelContext";
 import MockObjectContainer from "./fixtures/MockObjectContainer";
 import IndexViewModel from "./fixtures/viewmodels/IndexViewModel";
-import {Index} from "../scripts/constants/Area";
-import * as Area from "../scripts/constants/Area";
+import {Index} from "../scripts/config/Area";
+import * as Area from "../scripts/config/Area";
 import MasterView from "./fixtures/views/Master";
 import QuerySerializer from "../scripts/io/QuerySerializer";
 

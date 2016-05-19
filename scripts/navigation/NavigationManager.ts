@@ -2,7 +2,7 @@ import INavigationManager from "./INavigationManager";
 import ILocationHandler from "./ILocationHandler";
 import IViewModelRegistry from "../registry/IViewModelRegistry";
 import * as _ from "lodash";
-import * as Area from "../constants/Area";
+import * as Area from "../config/Area";
 import Dictionary from "../util/Dictionary";
 
 class NavigationManager implements INavigationManager {

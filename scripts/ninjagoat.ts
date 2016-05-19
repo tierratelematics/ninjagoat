@@ -5,7 +5,7 @@ import View from "./views/View";
 import ViewModel from "./viewmodels/ViewModelDecorator";
 import HttpResponse from "./net/HttpResponse";
 import Refresh from "./viewmodels/RefreshDecorator";
-import * as RegistrationKeys from "./constants/RegistrationKeys";
+import * as RegistrationKeys from "./config/RegistrationKeys";
 import HttpClient from "./net/HttpClient";
 import ViewModelContext from "./registry/ViewModelContext"
 

@@ -2,7 +2,7 @@ import IViewResolver from "./IViewResolver";
 import View from "./View";
 import IViewModel from "../viewmodels/IViewModel";
 import {inject, injectable} from "inversify";
-import * as Area from "../constants/Area";
+import * as Area from "../config/Area";
 
 @injectable()
 class ViewResolver implements IViewResolver {

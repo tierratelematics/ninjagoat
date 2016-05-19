@@ -4,7 +4,7 @@ import AreaRegistry from "../registry/AreaRegistry";
 import * as _ from "lodash";
 import * as path from "path";
 import {inject, injectable} from "inversify";
-import * as Area from "../constants/Area";
+import * as Area from "../config/Area";
 import IComponentFactory from "../components/IComponentFactory";
 import {PlainRoute} from "react-router";
 
