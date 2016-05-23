@@ -1,3 +1,5 @@
+import LogLevel from "./LogLevel";
+
 interface ILogger {
     debug(message:string);
 
@@ -6,6 +8,8 @@ interface ILogger {
     warning(message:string);
 
     error(error:string|Error);
+
+    setLogLevel(level:LogLevel);
 }
 
 export default ILogger

@@ -132,7 +132,17 @@ declare module ninjagoat {
         warning(message:string);
 
         error(error:string|Error);
+
+        setLogLevel(level:LogLevel);
     }
+
+    export enum LogLevel {
+        Debug,
+        Info,
+        Warning,
+        Error
+    }
+
 }
 
 export = ninjagoat;
