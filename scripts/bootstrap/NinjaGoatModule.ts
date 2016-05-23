@@ -28,6 +28,8 @@ import DateRetriever from "../util/DateRetriever";
 import GUIDGenerator from "../util/GUIDGenerator";
 import IGUIDGenerator from "../util/IGUIDGenerator";
 import Dictionary from "../util/Dictionary";
+import ConsoleLogger from "../util/ConsoleLogger";
+import ILogger from "../util/ILogger";
 
 class NinjaGoatModule implements IModule {
 
@@ -46,6 +48,7 @@ class NinjaGoatModule implements IModule {
         kernel.bind<ISerializer<Dictionary<string>, string>>("ISerializer").to(QuerySerializer).inSingletonScope();
         kernel.bind<IDateRetriever>("IDateRetriever").to(DateRetriever).inSingletonScope();
         kernel.bind<IGUIDGenerator>("IGUIDGenerator").to(GUIDGenerator).inSingletonScope();
+        kernel.bind<ILogger>("ILogger").to(ConsoleLogger).inSingletonScope();
     };
 
     register(registry:IViewModelRegistry, serviceLocator?:IServiceLocator, overrides?:any):void {
