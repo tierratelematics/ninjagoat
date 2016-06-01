@@ -4,12 +4,13 @@ import "whatwg-fetch";
 import HttpResponse from "./HttpResponse";
 import {injectable} from "inversify";
 import Dictionary from "../util/Dictionary";
+import * as _ from "lodash";
 
 @injectable()
 class HttpClient implements IHttpClient {
 
     get(url:string, headers?:Dictionary<string>):Rx.Observable<HttpResponse> {
-        return this.performNetworkCall(url, 'get', null, headers);
+        return this.performNetworkCall(url, 'get', undefined, headers);
     }
 
     post(url:string, body:{}|FormData, headers?:Dictionary<string>):Rx.Observable<HttpResponse> {
@@ -21,7 +22,7 @@ class HttpClient implements IHttpClient {
     }
 
     delete(url:string, headers?:Dictionary<string>):Rx.Observable<HttpResponse> {
-        return this.performNetworkCall(url, 'delete', null, headers);
+        return this.performNetworkCall(url, 'delete', undefined, headers);
     }
 
     private getJsonBody(body:{}|FormData) {
@@ -43,7 +44,7 @@ class HttpClient implements IHttpClient {
                 headers: headers
             }).then(response => {
                 let headers:Dictionary<string> = {};
-                response.headers.forEach((value, name) => {
+                _.forEach(response.headers, (value, name) => {
                     headers[name] = value;
                 });
                 return response.json().then(json => new HttpResponse(json, headers));
