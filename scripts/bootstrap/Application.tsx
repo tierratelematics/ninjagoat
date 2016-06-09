@@ -28,10 +28,7 @@ class Application {
         let registry = this.kernel.get<IViewModelRegistry>("IViewModelRegistry"),
             routingAdapter = this.kernel.get<IRoutingAdapter>("IRoutingAdapter");
         _.forEach(this.modules, (module: IModule) => module.register(registry, this.kernel, overrides));
-        render(React.createElement(Router, {
-            history: browserHistory,
-            routes: routingAdapter.routes()
-        }), document.getElementById("root"));
+        render(<Router history={browserHistory} routes={routingAdapter.routes()} />, document.getElementById("root"));
     }
 }
 
