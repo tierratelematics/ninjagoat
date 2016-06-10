@@ -30,6 +30,15 @@ describe("ViewResolver,given a viewmodel identifier", () => {
 
             expect(view).to.be(Bar);
         });
+
+        context("and the area is lowercase", () => {
+            it("should return the correct view", () => {
+                registry.add(BarViewModel).add(FooIndexViewModel).forArea("tools");
+                let view = subject.resolve<any>("tools", "Bar");
+
+                expect(view).to.be(Bar);
+            })
+        });
     });
 
     context("when it's the root of an area", () => {

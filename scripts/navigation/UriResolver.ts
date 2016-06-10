@@ -19,7 +19,6 @@ class UriResolver implements IUriResolver {
         if (!area)
             area = Area.Index; // If area doesn't exists it means I am in "/"
 
-        area = _.capitalize(area);
         let entry:{ area:string, viewmodel:RegistryEntry<T> } = null;
         if (!viewmodelId) {
             if (area === Area.Index || area === Area.Master)
