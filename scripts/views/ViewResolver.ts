@@ -11,6 +11,7 @@ class ViewResolver implements IViewResolver {
     }
 
     resolve<T extends IViewModel<T>>(area: string, viewmodelId?: string): View<T> {
+        area = area[0].toUpperCase() + area.slice(1);
         if (area === Area.Index || area === Area.Master)
             return this.views[area];
         if (!viewmodelId)
@@ -19,4 +20,5 @@ class ViewResolver implements IViewResolver {
             return this.views[area][viewmodelId];
     }
 }
+
 export default ViewResolver;
