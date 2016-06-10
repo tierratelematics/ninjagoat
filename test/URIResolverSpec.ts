@@ -30,6 +30,15 @@ describe("UriResolver, given an URI", () => {
 
             expect(resource.viewmodel.id).to.be("Bar");
         });
+
+        context("and the viewmodel has been registered in a lower case area", () => {
+            it("should return the correct area identifier", () => {
+                registry.add(BarViewModel).forArea("tools");
+                let resource = subject.resolve("/tools/bar");
+
+                expect(resource.area).to.be("tools");
+            });
+        });
     });
 
     context("when it contains some parameters", () => {

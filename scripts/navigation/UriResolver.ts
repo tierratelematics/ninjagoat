@@ -20,27 +20,27 @@ class UriResolver implements IUriResolver {
             area = Area.Index; // If area doesn't exists it means I am in "/"
 
         area = _.capitalize(area);
-        let viewmodel:RegistryEntry<T> = null;
+        let entry:{ area:string, entry:RegistryEntry<T> } = null;
         if (!viewmodelId) {
             if (area === Area.Index || area === Area.Master)
-                viewmodel = <RegistryEntry<any>>this.registry.getArea(area).entries[0];
+                entry = {area: area, entry: <RegistryEntry<any>>this.registry.getArea(area).entries[0]};
             else {
-                viewmodel = this.getAreaViewModel<T>(area);
+                entry = this.getAreaViewModel<T>(area);
             }
         } else {
-            viewmodel = this.registry.getEntry<T>(area, viewmodelId);
-            if (!viewmodel) //If viewmodel is undefined it means tha the second part of the uri is parameters, not the viemwodel id
-                viewmodel = this.getAreaViewModel<T>(area);
+            entry = this.registry.getEntry<T>(area, viewmodelId);
+            if (!entry.entry) //If viewmodel is undefined it means tha the second part of the uri is parameters, not the viemwodel id
+                entry = this.getAreaViewModel<T>(area);
         }
 
         return {
-            area: area, viewmodel: <RegistryEntry<T>>viewmodel
+            area: entry.area, viewmodel: entry.entry
         };
     }
 
-    private getAreaViewModel<T>(area:string):RegistryEntry<T> {
+    private getAreaViewModel<T>(area:string):{ area:string, entry:RegistryEntry<T> } {
         let specificIndexEntry = this.registry.getEntry<T>(area, `${area}${Area.Index}`);
-        return specificIndexEntry ? specificIndexEntry : this.registry.getEntry<T>(area, Area.Index);
+        return specificIndexEntry.entry ? specificIndexEntry : this.registry.getEntry<T>(area, Area.Index);
     }
 }
 
