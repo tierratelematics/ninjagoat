@@ -46,12 +46,12 @@ class ViewModelRegistry implements IViewModelRegistry {
         return this.registry;
     }
 
-    getEntry<T>(area: string, id: string): { area: string, entry: RegistryEntry<T> } {
+    getEntry<T>(area: string, id: string): { area: string, viewmodel: RegistryEntry<T> } {
         //I'm returning also the area since I need the initially registered area (case sensitive)
         let areaRegistry = this.getArea(area);
         return {
             area: areaRegistry.area,
-            entry: _.find(areaRegistry.entries, (entry:RegistryEntry<any>) => entry.id.toLowerCase() === id.toLowerCase())
+            viewmodel: _.find(areaRegistry.entries, (entry:RegistryEntry<any>) => entry.id.toLowerCase() === id.toLowerCase())
         };
     }
 }

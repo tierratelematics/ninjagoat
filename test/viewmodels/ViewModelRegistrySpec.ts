@@ -83,7 +83,7 @@ describe("ViewModelRegistry, given a list of ViewModel identifiers", () => {
         it("should find and return it", () => {
             registry.add(FooViewModel).add(BarViewModel).forArea("Admin");
 
-            expect(registry.getEntry("admin", "Bar").entry.id).to.eql("Bar");
+            expect(registry.getEntry("admin", "Bar").viewmodel.id).to.eql("Bar");
         });
     });
 
@@ -102,14 +102,14 @@ describe("ViewModelRegistry, given a list of ViewModel identifiers", () => {
     context("when a factory function that specifies what the viewmodel's parameters will be is supplied", () => {
         it("should register this specific viewmodel", () => {
             registry.add(FooViewModel, parameters => Rx.Observable.just(10), ":counter").forArea("Admin");
-            let factory = registry.getEntry("Admin", "Foo").entry.observableFactory;
+            let factory = registry.getEntry("Admin", "Foo").viewmodel.observableFactory;
 
             expect(factory).to.not.be(null);
         });
 
         it("should register the root viewmodel", () => {
             registry.index(RootViewModel, parameters => Rx.Observable.just(10));
-            let id = registry.getEntry("Index", "Root").entry.id;
+            let id = registry.getEntry("Index", "Root").viewmodel.id;
 
             expect(id).to.be("Root");
         });
