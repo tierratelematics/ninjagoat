@@ -28,7 +28,7 @@ class NavigationManager implements INavigationManager {
     }
 
     private substituteParamsForPath(entry, parameters: Dictionary<any>): string {
-        let path = entry.parameters;
+        let path = entry.viewmodel.parameters;
         _.forEach(parameters, (value, key) => {
             path = path.replace(":" + key, value);
         });

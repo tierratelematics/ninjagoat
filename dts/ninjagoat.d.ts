@@ -37,7 +37,7 @@ declare module ninjagoat {
         forArea(area:string):AreaRegistry;
         getArea(areaId:string):AreaRegistry;
         getAreas():AreaRegistry[];
-        getEntry<T>(area:string, id:string):RegistryEntry<T>;
+        getEntry<T>(area:string, id:string):{ area:string, viewmodel:RegistryEntry<T> };
     }
 
     export class AreaRegistry {
