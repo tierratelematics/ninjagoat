@@ -12,23 +12,28 @@ import NinjaGoatModule from "./NinjaGoatModule";
 
 class Application {
 
-    private kernel = new Kernel();
-    private modules: IModule[] = [];
+    protected kernel = new Kernel();
+    private modules:IModule[] = [];
+    private routingAdapter:IRoutingAdapter;
 
     constructor() {
         this.register(new NinjaGoatModule());
     }
 
-    register(module: IModule) {
+    register(module:IModule) {
         this.kernel.load(module.modules);
         this.modules.push(module);
     }
 
-    run(overrides?: any) {
-        let registry = this.kernel.get<IViewModelRegistry>("IViewModelRegistry"),
-            routingAdapter = this.kernel.get<IRoutingAdapter>("IRoutingAdapter");
-        _.forEach(this.modules, (module: IModule) => module.register(registry, this.kernel, overrides));
-        render(<Router history={browserHistory} routes={routingAdapter.routes()} />, document.getElementById("root"));
+    run(overrides?:any) {
+        let registry = this.kernel.get<IViewModelRegistry>("IViewModelRegistry");
+        this.routingAdapter = this.kernel.get<IRoutingAdapter>("IRoutingAdapter");
+        _.forEach(this.modules, (module:IModule) => module.register(registry, this.kernel, overrides));
+        render(this.rootComponent(), document.getElementById("root"));
+    }
+
+    protected rootComponent():React.ReactElement<any> {
+        return <Router history={browserHistory} routes={this.routingAdapter.routes()}/>
     }
 }
 

@@ -8,9 +8,13 @@ import {IPromise} from "rx";
 declare module ninjagoat {
 
     export class Application {
+        protected kernel:IKernel;
+
         run(overrides?:any);
 
         register(module:IModule);
+
+        protected rootComponent():React.ReactElement<any>;
     }
 
     export interface Dictionary<T> {
