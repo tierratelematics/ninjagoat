@@ -26,7 +26,8 @@ class ComponentFactory implements IComponentFactory {
                 return React.createElement(Component, {
                     contextFactory: contextFactory,
                     params: this.props.params,
-                    children: this.props.children
+                    children: this.props.children,
+                    key: window.location.href
                 });
             }
         });
