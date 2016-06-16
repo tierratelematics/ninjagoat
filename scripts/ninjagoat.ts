@@ -1,22 +1,13 @@
 /// <reference path="../typings/index.d.ts" />
-import Application from "./bootstrap/Application";
-import ObservableViewModel from "./viewmodels/ObservableViewModel";
-import View from "./views/View";
-import ViewModel from "./viewmodels/ViewModelDecorator";
-import HttpResponse from "./net/HttpResponse";
-import Refresh from "./viewmodels/RefreshDecorator";
 import * as RegistrationKeys from "./config/RegistrationKeys";
-import HttpClient from "./net/HttpClient";
-import ViewModelContext from "./registry/ViewModelContext"
-import LogLevel from "./util/LogLevel";
-
-export {Application}
-export {ObservableViewModel}
-export {View}
-export {ViewModel}
-export {Refresh}
-export {HttpResponse}
+export {default as Application}  from "./bootstrap/Application";
+export {default as ObservableViewModel}  from "./viewmodels/ObservableViewModel";
+export {default as View}  from "./views/View";
+export {default as ViewModel}  from "./viewmodels/ViewModelDecorator";
+export {default as HttpResponse}  from "./net/HttpResponse";
+export {default as Refresh}  from "./viewmodels/RefreshDecorator";
+export {default as HttpClient}  from "./net/HttpClient";
+export {default as ViewModelContext}  from "./registry/ViewModelContext"
+export {default as LogLevel} from "./util/LogLevel";
+export {default as ComponentFactory} from "./components/ComponentFactory";
 export {RegistrationKeys}
-export {HttpClient}
-export {ViewModelContext}
-export {LogLevel}

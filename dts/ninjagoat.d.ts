@@ -147,6 +147,23 @@ declare module ninjagoat {
         Error
     }
 
+    export interface IComponentFactory {
+        componentForMaster<T>(): React.ClassicComponentClass<T>;
+        componentForUri<T>(uri: string): React.ClassicComponentClass<T>;
+    }
+
+    export class ComponentFactory implements IComponentFactory {
+
+        constructor(contextFactory:IContextFactory);
+
+        componentForMaster<T>():React.ClassicComponentClass<any>;
+
+        componentForUri<T>(uri:string):React.ClassicComponentClass<any>;
+    }
+
+    export interface IContextFactory {
+        contextFor<T extends IViewModel<any>>(uri: string, parameters?: any): { view: View<T>, viewmodel: T };
+    }
 }
 
 export = ninjagoat;
