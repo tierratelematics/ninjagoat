@@ -26,10 +26,14 @@ class Application {
     }
 
     run(overrides?:any) {
+        this.boot(overrides);
+        render(this.rootComponent(), document.getElementById("root"));
+    }
+
+    boot(overrides?:any) {
         let registry = this.kernel.get<IViewModelRegistry>("IViewModelRegistry");
         this.routingAdapter = this.kernel.get<IRoutingAdapter>("IRoutingAdapter");
         _.forEach(this.modules, (module:IModule) => module.register(registry, this.kernel, overrides));
-        render(this.rootComponent(), document.getElementById("root"));
     }
 
     protected rootComponent():React.ReactElement<any> {

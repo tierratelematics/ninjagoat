@@ -11,7 +11,7 @@ class ViewModelFactory implements IViewModelFactory {
     constructor( @inject("IObjectContainer") private container: IObjectContainer) { }
 
     create<T>(context: { area: string, viewmodel: RegistryEntry<T> }, parameters?: any): T {
-        const key = `ninjagoat:viewmodels:${context.viewmodel.id}`;
+        const key = `ninjagoat:viewmodels:${context.area}:${context.viewmodel.id}`;
         if (!this.container.contains(key))
             this.container.set(key, context.viewmodel.construct);
 
