@@ -12,6 +12,8 @@ declare module ninjagoat {
 
         run(overrides?:any);
 
+        boot(overrides?:any);
+
         register(module:IModule);
 
         protected rootComponent():React.ReactElement<any>;
