@@ -117,9 +117,10 @@ declare module ninjagoat {
 
     export class HttpResponse {
         response:any;
+        status:number;
         headers:Dictionary<string>;
 
-        constructor(response:any, headers?:Dictionary<string>);
+        constructor(response:any, status:number, headers?:Dictionary<string>);
     }
 
     export interface IDateRetriever {
