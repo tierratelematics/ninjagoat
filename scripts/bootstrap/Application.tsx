@@ -1,5 +1,3 @@
-import "bluebird";
-import "reflect-metadata";
 import {Kernel} from "inversify";
 import IModule from "./IModule";
 import IViewModelRegistry from "../registry/IViewModelRegistry";
