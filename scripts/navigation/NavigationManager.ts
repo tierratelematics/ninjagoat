@@ -4,13 +4,16 @@ import IViewModelRegistry from "../registry/IViewModelRegistry";
 import * as _ from "lodash";
 import * as Area from "../config/Area";
 import Dictionary from "../util/Dictionary";
+import {injectable, inject} from "inversify";
 
+@injectable()
 class NavigationManager implements INavigationManager {
 
-    constructor(private locationHandler: ILocationHandler, private registry: IViewModelRegistry) {
+    constructor(@inject("ILocationHandler") private locationHandler:ILocationHandler,
+                @inject("IViewModelRegistry") private registry:IViewModelRegistry) {
     }
 
-    navigate(area: string, viewmodelId?: string, parameters?: Dictionary<any>): void {
+    navigate(area:string, viewmodelId?:string, parameters?:Dictionary<any>):void {
         if (area === Area.Index) area = "";
         area = area.toLowerCase();
         if (!viewmodelId) {
@@ -27,7 +30,7 @@ class NavigationManager implements INavigationManager {
         }
     }
 
-    private substituteParamsForPath(entry, parameters: Dictionary<any>): string {
+    private substituteParamsForPath(entry, parameters:Dictionary<any>):string {
         let path = entry.viewmodel.parameters;
         _.forEach(parameters, (value, key) => {
             path = path.replace(":" + key, value);
