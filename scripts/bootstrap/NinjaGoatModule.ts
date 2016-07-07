@@ -30,6 +30,10 @@ import IGUIDGenerator from "../util/IGUIDGenerator";
 import Dictionary from "../util/Dictionary";
 import ConsoleLogger from "../util/ConsoleLogger";
 import ILogger from "../util/ILogger";
+import INavigationManager from "../navigation/INavigationManager";
+import NavigationManager from "../navigation/NavigationManager";
+import ILocationHandler from "../navigation/ILocationHandler";
+import LocationHandler from "../navigation/LocationHandler";
 
 class NinjaGoatModule implements IModule {
 
@@ -49,6 +53,8 @@ class NinjaGoatModule implements IModule {
         kernel.bind<IDateRetriever>("IDateRetriever").to(DateRetriever).inSingletonScope();
         kernel.bind<IGUIDGenerator>("IGUIDGenerator").to(GUIDGenerator).inSingletonScope();
         kernel.bind<ILogger>("ILogger").to(ConsoleLogger).inSingletonScope();
+        kernel.bind<INavigationManager>("INavigationManager").to(NavigationManager).inSingletonScope();
+        kernel.bind<ILocationHandler>("ILocationHandler").to(LocationHandler).inSingletonScope();
     };
 
     register(registry:IViewModelRegistry, serviceLocator?:IServiceLocator, overrides?:any):void {

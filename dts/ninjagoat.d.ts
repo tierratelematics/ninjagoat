@@ -171,6 +171,10 @@ declare module ninjagoat {
     export interface INavigationManager {
         navigate(area: string, viewmodelId?: string, parameters?: Dictionary<any>): void;
     }
+
+    export interface ILocationHandler {
+        changeLocation(url: string);
+    }
 }
 
 export = ninjagoat;
