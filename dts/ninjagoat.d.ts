@@ -169,6 +169,12 @@ declare module ninjagoat {
     export interface ILocationHandler {
         changeLocation(url: string);
     }
+
+    export interface ISettingsManager {
+        getValue<T>(key:string, fallback:T):T;
+        setValue<T>(key:string, value:T):void;
+    }
+
 }
 
 export = ninjagoat;
