@@ -4,7 +4,7 @@ export default React.createClass({
     render() {
         let View = this.view;
         let ViewModel = this.viewmodel;
-        return <View viewmodel={ViewModel}/>
+        return View ? <View viewmodel={ViewModel}/> : <div></div>;
     },
     componentWillMount() {
         let context = this.props.contextFactory.contextFor(
