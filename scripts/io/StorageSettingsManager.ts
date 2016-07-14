@@ -1,4 +1,5 @@
 import ISettingsManager from "./ISettingsManager";
+import {injectable} from "inversify";
 
 class StorageSettingsManager implements ISettingsManager {
 
