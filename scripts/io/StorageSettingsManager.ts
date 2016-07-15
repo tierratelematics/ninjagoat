@@ -1,5 +1,7 @@
 import ISettingsManager from "./ISettingsManager";
+import {injectable} from "inversify";
 
+@injectable()
 class StorageSettingsManager implements ISettingsManager {
 
     getValue<T>(key:string, fallback?:T):T {
