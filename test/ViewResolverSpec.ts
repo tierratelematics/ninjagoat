@@ -14,8 +14,8 @@ import * as Area from "../scripts/config/Area";
 
 describe("ViewResolver,given a viewmodel identifier", () => {
 
-    let subject: IViewResolver;
-    let registry: IViewModelRegistry;
+    let subject:IViewResolver;
+    let registry:IViewModelRegistry;
 
     beforeEach(() => {
         registry = new ViewModelRegistry();
@@ -38,6 +38,14 @@ describe("ViewResolver,given a viewmodel identifier", () => {
 
                 expect(view).to.be(Bar);
             })
+        });
+    });
+
+    context("when a view that is not registered needs to be resolved", () => {
+        it("should return a null result", () => {
+            let view = subject.resolve<any>("Inexistent");
+
+            expect(view).to.be(null);
         });
     });
 

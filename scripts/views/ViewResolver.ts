@@ -7,17 +7,19 @@ import * as Area from "../config/Area";
 @injectable()
 class ViewResolver implements IViewResolver {
 
-    constructor( @inject("Views") private views: {[index:string]:any}) {
+    constructor(@inject("Views") private views:{[index:string]:any}) {
     }
 
-    resolve<T extends IViewModel<T>>(area: string, viewmodelId?: string): View<T> {
+    resolve<T extends IViewModel<T>>(area:string, viewmodelId?:string):View<T> {
         area = area[0].toUpperCase() + area.slice(1);
+        let viewsForArea = this.views[area];
         if (area === Area.Index || area === Area.Master)
-            return this.views[area];
+            return viewsForArea;
+        if (!viewsForArea) return null;
         if (!viewmodelId)
-            return this.views[area].Index || this.views[area][`${area}${Area.Index}`];
+            return viewsForArea.Index || viewsForArea[`${area}${Area.Index}`];
         else
-            return this.views[area][viewmodelId];
+            return viewsForArea[viewmodelId];
     }
 }
 
