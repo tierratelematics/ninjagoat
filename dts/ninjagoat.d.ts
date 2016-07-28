@@ -1,14 +1,13 @@
 /// <reference path="../typings/index.d.ts" />
 
-import {IKernelModule, INewable, IKernel} from "inversify";
+import {interfaces} from "inversify";
 import * as Rx from "rx";
 import * as React from "react";
-import {IPromise} from "rx";
 
 declare module ninjagoat {
 
     export class Application {
-        protected kernel:IKernel;
+        protected kernel:interfaces.Kernel;
 
         run(overrides?:any);
 
@@ -24,7 +23,7 @@ declare module ninjagoat {
     }
 
     export interface IModule {
-        modules?:IKernelModule;
+        modules?:(Kernel:interfaces.Kernel) => void;
         register(registry:IViewModelRegistry, serviceLocator?:IServiceLocator, overrides?:any):void;
     }
 
@@ -37,14 +36,15 @@ declare module ninjagoat {
     }
 
     export interface IViewModelRegistry {
-        master<T>(constructor:INewable<IViewModel<T>>, observable?:(context:ViewModelContext) => Rx.IObservable<T>):AreaRegistry;
-        index<T>(constructor:INewable<IViewModel<T>>, observable?:(context:ViewModelContext) => Rx.IObservable<T>):AreaRegistry;
-        add<T>(constructor:INewable<IViewModel<T>>, observable?:(context:ViewModelContext) => Rx.IObservable<T>, parameters?:string):IViewModelRegistry;
-        forArea(area:string):AreaRegistry;
-        getArea(areaId:string):AreaRegistry;
-        getAreas():AreaRegistry[];
-        getEntry<T>(area:string, id:string):{ area:string, viewmodel:RegistryEntry<T> };
+        master<T>(construct: interfaces.Newable<IViewModel<T>>, observable?: (context: ViewModelContext) => Rx.IObservable<T>): AreaRegistry;
+        index<T>(construct: interfaces.Newable<IViewModel<T>>, observable?: (context: ViewModelContext) => Rx.IObservable<T>): AreaRegistry;
+        add<T>(construct: interfaces.Newable<IViewModel<T>>, observable?: (context: ViewModelContext) => Rx.IObservable<T>, parameters?: string): IViewModelRegistry;
+        forArea(area: string): AreaRegistry;
+        getArea(areaId: string): AreaRegistry;
+        getAreas(): AreaRegistry[];
+        getEntry<T>(area: string, id: string): { area: string, viewmodel: RegistryEntry<T> };
     }
+
 
     export class AreaRegistry {
         area:string;
@@ -52,7 +52,7 @@ declare module ninjagoat {
     }
 
     export class RegistryEntry<T> {
-        construct:INewable<IViewModel<T>>;
+        construct:interfaces.Newable<IViewModel<T>>;
         id:string;
         observableFactory:(context:ViewModelContext) => Rx.IObservable<T>;
         parameters:string;

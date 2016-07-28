@@ -1,6 +1,6 @@
 import IModule from "./IModule";
 import IViewModelRegistry from "../registry/IViewModelRegistry";
-import {IKernelModule, IKernel} from "inversify";
+import {interfaces} from "inversify";
 import ViewModelRegistry from "../registry/ViewModelRegistry";
 import IObservableFactory from "../viewmodels/IObservableFactory";
 import ObservableFactory from "../viewmodels/ObservableFactory";
@@ -39,8 +39,8 @@ import StorageSettingsManager from "../io/StorageSettingsManager";
 
 class NinjaGoatModule implements IModule {
 
-    modules:IKernelModule = (kernel:IKernel) => {
-        kernel.bind<IKernel>("IKernel").toConstantValue(kernel);
+    modules = (kernel:interfaces.Kernel) => {
+        kernel.bind<interfaces.Kernel>("Kernel").toConstantValue(kernel);
         kernel.bind<IObjectContainer>("IObjectContainer").to(ObjectContainer).inSingletonScope();
         kernel.bind<IViewModelRegistry>("IViewModelRegistry").to(ViewModelRegistry).inSingletonScope();
         kernel.bind<IObservableFactory>("IObservableFactory").to(ObservableFactory).inSingletonScope();
