@@ -1,6 +1,8 @@
 import * as Rx from "rx";
 import IViewModel from "./IViewModel";
+import {injectable} from "inversify";
 
+@injectable()
 abstract class ObservableViewModel<T> implements IViewModel<T> {
     "force nominal type for IViewModel": T;
 

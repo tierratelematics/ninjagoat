@@ -19,7 +19,7 @@ class Application {
     }
 
     register(module:IModule) {
-        this.kernel.load(module.modules);
+        module.modules(this.kernel);
         this.modules.push(module);
     }
 

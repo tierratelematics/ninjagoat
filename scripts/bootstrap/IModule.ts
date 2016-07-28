@@ -1,9 +1,9 @@
-import {IKernelModule, IKernel} from "inversify";
+import {interfaces} from "inversify";
 import IViewModelRegistry from "../registry/IViewModelRegistry";
 import IServiceLocator from "./IServiceLocator";
 
 interface IModule {
-    modules?:IKernelModule;
+    modules?:(Kernel:interfaces.Kernel) => void;
     register(registry:IViewModelRegistry, serviceLocator?:IServiceLocator, overrides?:any):void;
 }
 
