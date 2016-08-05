@@ -185,6 +185,13 @@ declare module ninjagoat {
         pushLocation(location:string):void;
         changes():Rx.Observable<{ area:string, viewmodel:RegistryEntry<any> }>;
     }
+
+    export abstract class MasterViewModel<T> extends ObservableViewModel<T> {
+        public presentation:string;
+
+        constructor(locationListener:ILocationListener);
+    }
+
 }
 
 export = ninjagoat;
