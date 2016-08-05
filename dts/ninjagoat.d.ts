@@ -178,6 +178,11 @@ declare module ninjagoat {
     export interface IUriResolver {
         resolve<T>(uri: string): { area: string, viewmodel: RegistryEntry<T> };
     }
+
+    export interface ILocationListener {
+        pushLocation(location:string):void;
+        changes():Rx.Observable<{ area:string, viewmodel:RegistryEntry<any> }>;
+    }
 }
 
 export = ninjagoat;
