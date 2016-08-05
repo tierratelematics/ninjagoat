@@ -3,6 +3,7 @@ export {default as Application}  from "./bootstrap/Application";
 export {default as ObservableViewModel}  from "./viewmodels/ObservableViewModel";
 export {default as View}  from "./views/View";
 export {default as ViewModel}  from "./viewmodels/ViewModelDecorator";
+export {default as Presentation}  from "./viewmodels/PresentationDecorator";
 export {default as HttpResponse}  from "./net/HttpResponse";
 export {default as Refresh}  from "./viewmodels/RefreshDecorator";
 export {default as HttpClient}  from "./net/HttpClient";

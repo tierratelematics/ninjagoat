@@ -89,6 +89,8 @@ declare module ninjagoat {
 
     export function ViewModel(name:string);
 
+    export function Presentation(name:string);
+
     export function Refresh(target:any, propertyKey:string, descriptor:TypedPropertyDescriptor<any>);
 
     export interface IHttpClient {
