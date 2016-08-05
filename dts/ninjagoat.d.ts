@@ -3,6 +3,7 @@
 import {interfaces} from "inversify";
 import * as Rx from "rx";
 import * as React from "react";
+import {PlainRoute} from "react-router";
 
 declare module ninjagoat {
 
@@ -190,6 +191,10 @@ declare module ninjagoat {
         public presentation:string;
 
         constructor(locationListener:ILocationListener);
+    }
+
+    export interface IRoutingAdapter {
+        routes(): PlainRoute;
     }
 
 }
