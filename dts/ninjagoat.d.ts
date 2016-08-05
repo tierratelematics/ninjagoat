@@ -175,6 +175,9 @@ declare module ninjagoat {
         setValue<T>(key:string, value:T):void;
     }
 
+    export interface IUriResolver {
+        resolve<T>(uri: string): { area: string, viewmodel: RegistryEntry<T> };
+    }
 }
 
 export = ninjagoat;
