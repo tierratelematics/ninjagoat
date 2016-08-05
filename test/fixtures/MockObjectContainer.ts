@@ -1,14 +1,14 @@
 import IObjectContainer from "../../scripts/bootstrap/IObjectContainer";
-import INewable = inversify.INewable;
+import {interfaces} from "inversify";
 
 export default class MockObjectContainer implements IObjectContainer {
-    private dictionary:{ [id:string]:INewable<any>|any } = {};
+    private dictionary:{ [id:string]:interfaces.Newable<any>|any } = {};
 
     get<T>(key:string, name?:string):T {
         return new this.dictionary[key]();
     }
 
-    set<T>(key:string, object:INewable<T>|T, parent?:string) {
+    set<T>(key:string, object:interfaces.Newable<T>|T, parent?:string) {
         this.dictionary[key] = object;
     }
 
