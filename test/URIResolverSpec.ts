@@ -156,5 +156,14 @@ describe("UriResolver, given an URI", () => {
                 expect(resource.viewmodel.id).to.be("Root");
             });
         });
+
+        context("and it's resolved using the special NotFound identifier", () => {
+            it("should return the 404 handler", () => {
+                let resource = subject.resolve(Area.NotFound);
+
+                expect(resource.area).to.be(Area.NotFound);
+                expect(resource.viewmodel.id).to.be("Root");
+            });
+        });
     });
 });
