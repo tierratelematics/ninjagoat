@@ -22,6 +22,10 @@ class ViewModelRegistry implements IViewModelRegistry {
         return this.add(construct, observable).forArea(Area.Index);
     }
 
+    notFound<T>(construct:inversify.interfaces.Newable<IViewModel<T>>, observable?:(context:ViewModelContext)=>Rx.IObservable<T>):AreaRegistry {
+        return this.add(construct, observable).forArea(Area.NotFound);
+    }
+
     add<T>(construct: interfaces.Newable<IViewModel<T>>, observable?: (context: ViewModelContext) => Rx.IObservable<T>, parameters?: string): IViewModelRegistry {
         let id = Reflect.getMetadata("ninjagoat:viewmodel", construct);
         if (!id)

@@ -8,5 +8,6 @@ module.exports = {
         FooIndex: require('./foo/FooIndex').default
     },
     Index: require('./Index').default,
-    Master: require('./Master').default
+    Master: require('./Master').default,
+    NotFound: require('./NotFound').default
 };
