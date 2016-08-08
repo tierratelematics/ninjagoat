@@ -1,12 +1,12 @@
 import ILocationListener from "./ILocationListener";
 import RegistryEntry from "../registry/RegistryEntry";
-import {Subject, Observable} from "rx";
+import {Subject, Observable, ReplaySubject} from "rx";
 import {inject, injectable} from "inversify";
 import IUriResolver from "./IUriResolver";
 
 @injectable()
 class LocationListener implements ILocationListener {
-    private subject:Subject<string> = new Subject<string>();
+    private subject:Subject<string> = new ReplaySubject<string>(1);
 
     constructor(@inject("IUriResolver") private uriResolver:IUriResolver) {
 
