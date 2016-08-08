@@ -10,4 +10,4 @@ export {default as HttpClient}  from "./net/HttpClient";
 export {default as ViewModelContext}  from "./registry/ViewModelContext"
 export {default as LogLevel} from "./util/LogLevel";
 export {default as ComponentFactory} from "./components/ComponentFactory";
-export {default as MasterViewModel} from "./viewmodels/MasterViewModel";
+export {default as PresentationViewModel} from "./viewmodels/PresentationViewModel";

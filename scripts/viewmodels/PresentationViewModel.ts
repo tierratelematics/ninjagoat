@@ -3,7 +3,7 @@ import {injectable, inject} from "inversify";
 import ILocationListener from "../navigation/ILocationListener";
 
 @injectable()
-abstract class MasterViewModel<T> extends ObservableViewModel<T> {
+abstract class PresentationViewModel<T> extends ObservableViewModel<T> {
     public presentation:string;
 
     constructor(@inject("ILocationListener") locationListener:ILocationListener) {
@@ -14,4 +14,4 @@ abstract class MasterViewModel<T> extends ObservableViewModel<T> {
     }
 }
 
-export default MasterViewModel
+export default PresentationViewModel

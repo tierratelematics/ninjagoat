@@ -188,7 +188,7 @@ declare module ninjagoat {
         changes():Rx.Observable<{ area:string, viewmodel:RegistryEntry<any> }>;
     }
 
-    export abstract class MasterViewModel<T> extends ObservableViewModel<T> {
+    export abstract class PresentationViewModel<T> extends ObservableViewModel<T> {
         public presentation:string;
 
         constructor(locationListener:ILocationListener);
