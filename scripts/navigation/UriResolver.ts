@@ -21,13 +21,14 @@ class UriResolver implements IUriResolver {
 
         let entry:{ area:string, viewmodel:RegistryEntry<T> } = null;
         let areaRegistry = this.registry.getArea(area);
-        if (!areaRegistry)
+        if (!areaRegistry) {
             return {
                 area: Area.NotFound,
                 viewmodel: <RegistryEntry<any>>this.registry.getArea(Area.NotFound).entries[0]
             };
+        }
         if (!viewmodelId) {
-            if (area === Area.Index || area === Area.Master)
+            if (area === Area.Index || area === Area.Master || area === Area.NotFound)
                 entry = {area: area, viewmodel: <RegistryEntry<any>>this.registry.getArea(area).entries[0]};
             else
                 entry = this.getAreaViewModel<T>(area);
