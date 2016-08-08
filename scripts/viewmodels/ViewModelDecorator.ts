@@ -8,4 +8,4 @@ function ViewModel(name:string) {
     };
 }
 
-export default ViewModel;
+export default ViewModel

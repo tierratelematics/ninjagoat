@@ -3,6 +3,10 @@ import * as React from "react";
 
 class MockComponentFactory implements IComponentFactory {
 
+    componentForNotFound<T>():React.ClassicComponentClass<T> {
+        return null;
+    }
+
     componentForMaster<T>():React.ClassicComponentClass<T> {
         return null;
     }

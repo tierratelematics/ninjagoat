@@ -13,7 +13,7 @@ class ViewResolver implements IViewResolver {
     resolve<T extends IViewModel<T>>(area:string, viewmodelId?:string):View<T> {
         area = area[0].toUpperCase() + area.slice(1);
         let viewsForArea = this.views[area];
-        if (area === Area.Index || area === Area.Master)
+        if (area === Area.Index || area === Area.Master || area === Area.NotFound)
             return viewsForArea;
         if (!viewsForArea) return null;
         if (!viewmodelId)

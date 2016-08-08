@@ -11,6 +11,7 @@ import IndexViewModel from "./fixtures/viewmodels/IndexViewModel";
 import BarViewModel from "./fixtures/viewmodels/BarViewModel";
 import FooIndexViewModel from "./fixtures/viewmodels/FooIndexViewModel";
 import * as Area from "../scripts/config/Area";
+import NotFound from "./fixtures/views/NotFound";
 
 describe("ViewResolver,given a viewmodel identifier", () => {
 
@@ -70,6 +71,14 @@ describe("ViewResolver,given a viewmodel identifier", () => {
             let view = subject.resolve<any>(Area.Master);
 
             expect(view).to.be(MasterView);
+        });
+    });
+
+    context("when a page is not found", () => {
+        it("should the not found view", () => {
+            let view = subject.resolve<any>(Area.NotFound);
+
+            expect(view).to.be(NotFound);
         });
     });
 });

@@ -20,12 +20,17 @@ class UriResolver implements IUriResolver {
             area = Area.Index; // If area doesn't exists it means I am in "/"
 
         let entry:{ area:string, viewmodel:RegistryEntry<T> } = null;
+        let areaRegistry = this.registry.getArea(area);
+        if (!areaRegistry)
+            return {
+                area: Area.NotFound,
+                viewmodel: <RegistryEntry<any>>this.registry.getArea(Area.NotFound).entries[0]
+            };
         if (!viewmodelId) {
             if (area === Area.Index || area === Area.Master)
                 entry = {area: area, viewmodel: <RegistryEntry<any>>this.registry.getArea(area).entries[0]};
-            else {
+            else
                 entry = this.getAreaViewModel<T>(area);
-            }
         } else {
             entry = this.registry.getEntry<T>(area, viewmodelId);
             if (!entry.viewmodel) //If viewmodel is undefined it means tha the second part of the uri is parameters, not the viemwodel id

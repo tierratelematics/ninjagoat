@@ -3,6 +3,7 @@
 import {interfaces} from "inversify";
 import * as Rx from "rx";
 import * as React from "react";
+import {PlainRoute} from "react-router";
 
 declare module ninjagoat {
 
@@ -38,6 +39,7 @@ declare module ninjagoat {
     export interface IViewModelRegistry {
         master<T>(construct: interfaces.Newable<IViewModel<T>>, observable?: (context: ViewModelContext) => Rx.IObservable<T>): AreaRegistry;
         index<T>(construct: interfaces.Newable<IViewModel<T>>, observable?: (context: ViewModelContext) => Rx.IObservable<T>): AreaRegistry;
+        notFound<T>(construct:inversify.interfaces.Newable<IViewModel<T>>, observable?:(context:ViewModelContext)=>Rx.IObservable<T>):AreaRegistry;
         add<T>(construct: interfaces.Newable<IViewModel<T>>, observable?: (context: ViewModelContext) => Rx.IObservable<T>, parameters?: string): IViewModelRegistry;
         forArea(area: string): AreaRegistry;
         getArea(areaId: string): AreaRegistry;
@@ -88,6 +90,8 @@ declare module ninjagoat {
     }
 
     export function ViewModel(name:string);
+
+    export function Presentation(name:string);
 
     export function Refresh(target:any, propertyKey:string, descriptor:TypedPropertyDescriptor<any>);
 
@@ -147,6 +151,7 @@ declare module ninjagoat {
     export interface IComponentFactory {
         componentForMaster<T>(): React.ClassicComponentClass<T>;
         componentForUri<T>(uri: string): React.ClassicComponentClass<T>;
+        componentForNotFound<T>(): React.ClassicComponentClass<T>;
     }
 
     export class ComponentFactory implements IComponentFactory {
@@ -156,6 +161,8 @@ declare module ninjagoat {
         componentForMaster<T>():React.ClassicComponentClass<any>;
 
         componentForUri<T>(uri:string):React.ClassicComponentClass<any>;
+
+        componentForNotFound<T>(): React.ClassicComponentClass<T>;
     }
 
     export interface IContextFactory {
@@ -164,6 +171,7 @@ declare module ninjagoat {
 
     export interface INavigationManager {
         navigate(area: string, viewmodelId?: string, parameters?: Dictionary<any>): void;
+        getNavigationPath(area: string, viewmodelId?: string, parameters?: Dictionary<any>): string;
     }
 
     export interface ILocationHandler {
@@ -178,6 +186,22 @@ declare module ninjagoat {
     export interface IUriResolver {
         resolve<T>(uri: string): { area: string, viewmodel: RegistryEntry<T> };
     }
+
+    export interface ILocationListener {
+        pushLocation(location:string):void;
+        changes():Rx.Observable<{ area:string, viewmodel:RegistryEntry<any> }>;
+    }
+
+    export abstract class PresentationViewModel<T> extends ObservableViewModel<T> {
+        public presentation:string;
+
+        constructor(locationListener:ILocationListener);
+    }
+
+    export interface IRoutingAdapter {
+        routes(): PlainRoute;
+    }
+
 }
 
 export = ninjagoat;

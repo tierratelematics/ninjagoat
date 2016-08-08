@@ -4,6 +4,7 @@ import * as React from "react";
 import PageComponent from "./PageComponent";
 import {inject, injectable} from "inversify";
 import MasterComponent from "./MasterComponent";
+import NotFoundComponent from "./NotFoundComponent";
 
 @injectable()
 class ComponentFactory implements IComponentFactory {
@@ -17,6 +18,10 @@ class ComponentFactory implements IComponentFactory {
 
     componentForUri<T>(uri:string):React.ClassicComponentClass<any> {
         return this.buildComponent(PageComponent);
+    }
+
+    componentForNotFound<T>():React.ClassicComponentClass<any> {
+        return this.buildComponent(NotFoundComponent);
     }
 
     private buildComponent(Component):React.ClassicComponentClass<any> {

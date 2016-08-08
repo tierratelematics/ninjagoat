@@ -7,6 +7,7 @@ import * as React from "react";
 import {render} from "react-dom";
 import {Router, browserHistory} from "react-router"
 import NinjaGoatModule from "./NinjaGoatModule";
+import ILocationListener from "../navigation/ILocationListener";
 
 class Application {
 
@@ -35,6 +36,8 @@ class Application {
     }
 
     protected rootComponent():React.ReactElement<any> {
+        let locationListener = this.kernel.get<ILocationListener>("ILocationListener");
+        browserHistory.listen(event => locationListener.pushLocation(event.pathname));
         return <Router history={browserHistory} routes={this.routingAdapter.routes()}/>
     }
 }

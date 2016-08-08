@@ -11,9 +11,9 @@ import MockComponentFactory from "./fixtures/MockComponentFactory";
 
 describe("RoutingAdapter, given a list of registry entries", () => {
 
-    let registry: IViewModelRegistry;
-    let subject: IRoutingAdapter;
-    let componentFactory: IPageComponentFactory;
+    let registry:IViewModelRegistry;
+    let subject:IRoutingAdapter;
+    let componentFactory:IPageComponentFactory;
 
     beforeEach(() => {
         registry = new ViewModelRegistry();
@@ -29,7 +29,7 @@ describe("RoutingAdapter, given a list of registry entries", () => {
             expect(subject.routes()).to.eql({
                 path: "/",
                 component: null,
-                indexRoute: { component: null},
+                indexRoute: {component: null},
                 childRoutes: []
             });
         });
@@ -43,7 +43,7 @@ describe("RoutingAdapter, given a list of registry entries", () => {
                 expect(subject.routes()).to.eql({
                     path: "/",
                     component: null,
-                    indexRoute: { component: null},
+                    indexRoute: {component: null},
                     childRoutes: [{
                         path: "foo",
                         component: null
@@ -59,7 +59,7 @@ describe("RoutingAdapter, given a list of registry entries", () => {
                 expect(subject.routes()).to.eql({
                     path: "/",
                     component: null,
-                    indexRoute: { component: null},
+                    indexRoute: {component: null},
                     childRoutes: [{
                         path: "foo/:id",
                         component: null
@@ -75,7 +75,7 @@ describe("RoutingAdapter, given a list of registry entries", () => {
                 expect(subject.routes()).to.eql({
                     path: "/",
                     component: null,
-                    indexRoute: { component: null},
+                    indexRoute: {component: null},
                     childRoutes: [
                         {
                             path: "foo/bar",
@@ -86,19 +86,41 @@ describe("RoutingAdapter, given a list of registry entries", () => {
         });
 
         context("and some parameters are registered for the corresponding viewmodel", () => {
+            beforeEach(() => registry.add(BarViewModel, null, ":id/:subCategory").forArea("Foo"));
             it("should add these parameters to the constructed path", () => {
-                registry.add(BarViewModel, null, ":id/:subCategory").forArea("Foo");
-
                 expect(subject.routes()).to.eql({
                     path: "/",
                     component: null,
-                    indexRoute: { component: null},
+                    indexRoute: {component: null},
                     childRoutes: [
                         {
                             path: "foo/bar/:id/:subCategory",
                             component: null
                         }]
                 });
+            });
+        });
+    });
+
+    context("when a not found page is present", () => {
+        beforeEach(() => {
+            registry.add(BarViewModel, null, ":id/:subCategory").forArea("Foo");
+            registry.notFound(BarViewModel);
+        });
+        it("should add a 404 handler to the routing", () => {
+            expect(subject.routes()).to.eql({
+                path: "/",
+                component: null,
+                indexRoute: {component: null},
+                childRoutes: [
+                    {
+                        path: "foo/bar/:id/:subCategory",
+                        component: null
+                    },
+                    {
+                        path: "*",
+                        component: null
+                    }]
             });
         });
     });
