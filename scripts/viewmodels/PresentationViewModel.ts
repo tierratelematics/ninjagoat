@@ -1,6 +1,7 @@
 import ObservableViewModel from "./ObservableViewModel";
 import {injectable, inject} from "inversify";
 import ILocationListener from "../navigation/ILocationListener";
+import Refresh from "./RefreshDecorator";
 
 @injectable()
 abstract class PresentationViewModel<T> extends ObservableViewModel<T> {
@@ -9,8 +10,13 @@ abstract class PresentationViewModel<T> extends ObservableViewModel<T> {
     constructor(@inject("ILocationListener") locationListener:ILocationListener) {
         super();
         locationListener.changes().subscribe(data => {
-            this.presentation = Reflect.getMetadata("ninjagoat:presentation", data.viewmodel.construct);
+            this.updatePresentation(Reflect.getMetadata("ninjagoat:presentation", data.viewmodel.construct));
         });
+    }
+
+    @Refresh
+    protected updatePresentation(presentation:string) {
+        this.presentation = presentation;
     }
 }
 
