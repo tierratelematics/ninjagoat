@@ -138,4 +138,23 @@ describe("UriResolver, given an URI", () => {
             expect(resource.viewmodel.id).to.be("FooIndex");
         });
     });
+
+    context("when it's a page that does not exists", () => {
+        beforeEach(() => registry.notFound(RootViewModel));
+        it("should return the 404 handler", () => {
+            let resource = subject.resolve("/inexistent");
+
+            expect(resource.area).to.be(Area.NotFound);
+            expect(resource.viewmodel.id).to.be("Root");
+        });
+
+        context("and it contains a viewmodel identifier", () => {
+            it("should return the 404 handler", () => {
+                let resource = subject.resolve("/inexistent/testViewmodel");
+
+                expect(resource.area).to.be(Area.NotFound);
+                expect(resource.viewmodel.id).to.be("Root");
+            });
+        });
+    });
 });
