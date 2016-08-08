@@ -39,6 +39,7 @@ declare module ninjagoat {
     export interface IViewModelRegistry {
         master<T>(construct: interfaces.Newable<IViewModel<T>>, observable?: (context: ViewModelContext) => Rx.IObservable<T>): AreaRegistry;
         index<T>(construct: interfaces.Newable<IViewModel<T>>, observable?: (context: ViewModelContext) => Rx.IObservable<T>): AreaRegistry;
+        notFound<T>(construct:inversify.interfaces.Newable<IViewModel<T>>, observable?:(context:ViewModelContext)=>Rx.IObservable<T>):AreaRegistry;
         add<T>(construct: interfaces.Newable<IViewModel<T>>, observable?: (context: ViewModelContext) => Rx.IObservable<T>, parameters?: string): IViewModelRegistry;
         forArea(area: string): AreaRegistry;
         getArea(areaId: string): AreaRegistry;
@@ -150,6 +151,7 @@ declare module ninjagoat {
     export interface IComponentFactory {
         componentForMaster<T>(): React.ClassicComponentClass<T>;
         componentForUri<T>(uri: string): React.ClassicComponentClass<T>;
+        componentForNotFound<T>(): React.ClassicComponentClass<T>;
     }
 
     export class ComponentFactory implements IComponentFactory {
@@ -159,6 +161,8 @@ declare module ninjagoat {
         componentForMaster<T>():React.ClassicComponentClass<any>;
 
         componentForUri<T>(uri:string):React.ClassicComponentClass<any>;
+
+        componentForNotFound<T>(): React.ClassicComponentClass<T>;
     }
 
     export interface IContextFactory {
