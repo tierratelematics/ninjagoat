@@ -196,6 +196,8 @@ declare module ninjagoat {
         public presentation:string;
 
         constructor(locationListener:ILocationListener);
+
+        protected updatePresentation(presentation:string);
     }
 
     export interface IRoutingAdapter {
