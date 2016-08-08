@@ -14,18 +14,22 @@ class NavigationManager implements INavigationManager {
     }
 
     navigate(area:string, viewmodelId?:string, parameters?:Dictionary<any>):void {
+        this.locationHandler.changeLocation(this.getNavigationPath(area, viewmodelId, parameters));
+    }
+
+    getNavigationPath(area:string, viewmodelId?:string, parameters?:Dictionary<any>):string {
         if (area === Area.Index) area = "";
         area = area.toLowerCase();
         if (!viewmodelId) {
-            this.locationHandler.changeLocation(`/${area}`);
+            return `/${area}`;
         } else {
             viewmodelId = viewmodelId.toLowerCase();
             if (!parameters)
-                this.locationHandler.changeLocation(`/${area}/${viewmodelId}`);
+                return `/${area}/${viewmodelId}`;
             else {
                 let entry = this.registry.getEntry(area, viewmodelId),
                     params = this.substituteParamsForPath(entry, parameters);
-                this.locationHandler.changeLocation(`/${area}/${viewmodelId}/${params}`);
+                return `/${area}/${viewmodelId}/${params}`;
             }
         }
     }
