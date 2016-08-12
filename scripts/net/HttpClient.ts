@@ -48,8 +48,10 @@ class HttpClient implements IHttpClient {
                 _.forEach(response.headers, (value, name) => {
                     headers[name] = value;
                 });
-                return response.json().then(json => {
-                    let httpResponse = new HttpResponse(json, response.status, headers);
+                return response.text().then(text => {
+                    if (response.status === 204)
+                        return Promise.resolve(new HttpResponse(null, response.status, headers));
+                    let httpResponse = new HttpResponse(JSON.parse(text), response.status, headers);
                     if (response.status >= 400)
                         return Promise.reject(httpResponse);
                     return httpResponse;
