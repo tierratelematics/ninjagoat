@@ -1,6 +1,6 @@
 {
     "name": "ninjagoat",
-    "version": "0.12.3",
+    "version": "0.12.4",
     "dependencies": {
         "bluebird": "^3.3.4",
         "inversify": "~2.0.0-rc.1",
