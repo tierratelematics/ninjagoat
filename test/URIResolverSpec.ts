@@ -165,5 +165,18 @@ describe("UriResolver, given an URI", () => {
                 expect(resource.viewmodel.id).to.be("Root");
             });
         });
+
+        context("but it contains a registered area", () => {
+            beforeEach(() => {
+                registry.add(BarViewModel).forArea("Admin");
+            });
+
+            it("should return the 404 handler", () => {
+                let resource = subject.resolve("/admin/inexistent");
+
+                expect(resource.area).to.be(Area.NotFound);
+                expect(resource.viewmodel.id).to.be("Root");
+            });
+        });
     });
 });
