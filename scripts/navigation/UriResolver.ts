@@ -34,8 +34,14 @@ class UriResolver implements IUriResolver {
                 entry = this.getAreaViewModel<T>(area);
         } else {
             entry = this.registry.getEntry<T>(area, viewmodelId);
-            if (!entry.viewmodel) //If viewmodel is undefined it means tha the second part of the uri is parameters, not the viemwodel id
+            if (!entry.viewmodel) {//If viewmodel is undefined it means that the second part of the uri is parameters, not the viemwodel id
                 entry = this.getAreaViewModel<T>(area);
+                if (!entry.viewmodel)
+                    entry = {
+                        area: Area.NotFound,
+                        viewmodel: <RegistryEntry<any>>this.registry.getArea(Area.NotFound).entries[0]
+                    };
+            }
         }
 
         return entry;
