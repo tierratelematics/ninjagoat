@@ -4,19 +4,27 @@ export default React.createClass({
     render() {
         let View = this.view;
         let ViewModel = this.viewmodel;
-        return View ? <View viewmodel={ViewModel}/> : <div></div>;
+        let key = JSON.stringify(this.props.params);
+        return View ? <View viewmodel={ViewModel} key={key}/> : <div></div>;
     },
     componentWillMount() {
-        let context = this.props.contextFactory.contextFor(
+        this.setupPage(this.props);
+    },
+    componentWillReceiveProps(props:any) {
+        this.viewmodel.dispose();
+        this.setupPage(props);
+    },
+    componentWillUnmount() {
+        if (this.viewmodel) this.viewmodel.dispose();
+    },
+    setupPage(props:any) {
+        let context = props.contextFactory.contextFor(
             window.location.pathname + window.location.search,
-            this.props.params
+            props.params
         );
         this.view = context.view;
         this.viewmodel = context.viewmodel;
         this.setState(this.viewmodel);
         context.viewmodel.subscribe(() => this.setState(context.viewmodel));
-    },
-    componentWillUnmount() {
-        if (this.viewmodel) this.viewmodel.dispose();
     }
 });
