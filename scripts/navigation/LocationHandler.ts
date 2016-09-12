@@ -8,6 +8,10 @@ class LocationHandler implements ILocationHandler {
     changeLocation(url: string) {
         browserHistory.push(url);
     }
+
+    replaceLocation(url: string) {
+        browserHistory.replace(url);
+    }
 }
 
 export default LocationHandler;
