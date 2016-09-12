@@ -17,6 +17,10 @@ class NavigationManager implements INavigationManager {
         this.locationHandler.changeLocation(this.getNavigationPath(area, viewmodelId, parameters));
     }
 
+    replace(area:string, viewmodelId?:string, parameters?:Dictionary<any>):void {
+        this.locationHandler.replaceLocation(this.getNavigationPath(area, viewmodelId, parameters));
+    }
+
     getNavigationPath(area:string, viewmodelId?:string, parameters?:Dictionary<any>):string {
         if (area === Area.Index) area = "";
         area = area.toLowerCase();
