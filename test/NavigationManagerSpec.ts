@@ -59,6 +59,16 @@ describe("NavigationManager, given an area", () => {
                     });
                     expect(locationStub.calledWith("/users/bar/20/foo")).to.be(true);
                 });
+
+                context("and a parameter is optional", () => {
+                    it("should correctly substitute it", () => {
+                        registry.add(BarViewModel, null, "(:bar)").forArea("Fake");
+                        subject.navigate("Fake", "Bar", {
+                            bar: 20
+                        });
+                        expect(locationStub.calledWith("/fake/bar/20")).to.be(true);
+                    });
+                });
             });
         });
     });
