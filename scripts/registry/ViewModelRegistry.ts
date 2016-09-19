@@ -30,7 +30,7 @@ class ViewModelRegistry implements IViewModelRegistry {
         let id = Reflect.getMetadata("ninjagoat:viewmodel", construct);
         if (!id)
             throw new Error("Missing ViewModel decorator");
-        this.unregisteredEntries.push(new RegistryEntry<T>(construct, id, observable, parameters));
+        _.forEach(id.split(","), name => this.unregisteredEntries.push(new RegistryEntry<T>(construct, name, observable, parameters)));
         return this;
     }
 
