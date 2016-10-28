@@ -11,16 +11,17 @@ import BarViewModel from "./fixtures/viewmodels/BarViewModel";
 
 describe("NavigationManager, given an area", () => {
 
-    let subject: INavigationManager;
-    let locationHandler: ILocationHandler;
-    let locationStub: SinonStub;
-    let registry: IViewModelRegistry;
+    let subject:INavigationManager;
+    let locationHandler:ILocationHandler;
+    let locationStub:SinonStub;
+    let registry:IViewModelRegistry;
 
     beforeEach(() => {
         registry = new ViewModelRegistry();
         locationHandler = new LocationHandler();
         subject = new NavigationManager(locationHandler, registry);
-        locationStub = sinon.stub(locationHandler, "changeLocation", url => { });
+        locationStub = sinon.stub(locationHandler, "changeLocation", url => {
+        });
     });
 
     afterEach(() => {
@@ -60,13 +61,23 @@ describe("NavigationManager, given an area", () => {
                     expect(locationStub.calledWith("/users/bar/20/foo")).to.be(true);
                 });
 
-                context("and a parameter is optional", () => {
+                context("when a parameter is optional", () => {
                     it("should correctly substitute it", () => {
                         registry.add(BarViewModel, null, "(:bar)").forArea("Fake");
                         subject.navigate("Fake", "Bar", {
                             bar: 20
                         });
                         expect(locationStub.calledWith("/fake/bar/20")).to.be(true);
+                    });
+                });
+
+                context("when a required parameter is followed by an optional parameter", () => {
+                    it("should correctly resolve the url", () => {
+                        registry.add(BarViewModel, null, ":id/(:bar)").forArea("Fake");
+                        subject.navigate("Fake", "Bar", {
+                            id: 50
+                        });
+                        expect(locationStub.calledWith("/fake/bar/50/")).to.be(true);
                     });
                 });
             });
