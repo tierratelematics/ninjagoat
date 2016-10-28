@@ -45,7 +45,7 @@ class HttpClient implements IHttpClient {
                 headers: headers
             }).then(response => {
                 let headers:Dictionary<string> = {};
-                _.forEach(response.headers, (value, name) => {
+                response.headers.forEach((value, name) => {
                     headers[name] = value;
                 });
                 return response.text().then(text => {
