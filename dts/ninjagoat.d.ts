@@ -89,7 +89,7 @@ declare module ninjagoat {
         abstract render();
     }
 
-    export function ViewModel(name:string|string[]);
+    export function ViewModel(name:string);
 
     export function Presentation(name:string);
 

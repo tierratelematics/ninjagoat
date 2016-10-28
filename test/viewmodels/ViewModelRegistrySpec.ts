@@ -6,7 +6,6 @@ import FooViewModel from "../fixtures/viewmodels/FooViewModel";
 import BarViewModel from "../fixtures/viewmodels/BarViewModel";
 import RootViewModel from "../fixtures/viewmodels/RootViewModel";
 import UnregisteredViewModel from '../fixtures/viewmodels/UnregisteredViewModel';
-import MultiViewModel from "../fixtures/viewmodels/MultiViewModel";
 
 describe("ViewModelRegistry, given a list of ViewModel identifiers", () => {
 
@@ -85,15 +84,6 @@ describe("ViewModelRegistry, given a list of ViewModel identifiers", () => {
             registry.add(FooViewModel).add(BarViewModel).forArea("Admin");
 
             expect(registry.getEntry("admin", "Bar").viewmodel.id).to.eql("Bar");
-        });
-    });
-
-    context("when a viewmodel is registered into the same area with different names", () => {
-        it("should register it correctly", () => {
-            registry.add(MultiViewModel).forArea("Admin");
-
-            expect(registry.getArea("Admin").entries[0].id).to.eql("Multi1");
-            expect(registry.getArea("Admin").entries[1].id).to.eql("Multi2");
         });
     });
 
