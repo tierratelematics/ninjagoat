@@ -10,6 +10,10 @@ class FeatureValidator implements IFeatureValidator {
         return predicate();
     }
 
+    canValidate(feature:any):boolean {
+        return !!Reflect.getMetadata("__featuretoggle_predicate", feature);
+    }
+
 }
 
 export default FeatureValidator

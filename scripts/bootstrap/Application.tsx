@@ -8,20 +8,27 @@ import {render} from "react-dom";
 import {Router, browserHistory} from "react-router"
 import NinjaGoatModule from "./NinjaGoatModule";
 import ILocationListener from "../navigation/ILocationListener";
+import FeatureValidator from "../feature-toggle/FeatureValidator";
 
 class Application {
 
     protected kernel = new Kernel();
     private modules:IModule[] = [];
     private routingAdapter:IRoutingAdapter;
+    private featureValidator = new FeatureValidator();
 
     constructor() {
         this.register(new NinjaGoatModule());
     }
 
-    register(module:IModule) {
-        module.modules(this.kernel);
-        this.modules.push(module);
+    register(module:IModule):boolean {
+        if (!this.featureValidator.canValidate(module.constructor) || this.featureValidator.validate(module.constructor)) {
+            if (module.modules)
+                module.modules(this.kernel);
+            this.modules.push(module);
+            return true;
+        }
+        return false;
     }
 
     run(overrides?:any) {

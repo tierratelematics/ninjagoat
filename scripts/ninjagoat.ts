@@ -12,5 +12,6 @@ export {default as LogLevel} from "./util/LogLevel";
 export {default as ComponentFactory} from "./components/ComponentFactory";
 export {default as PresentationViewModel} from "./viewmodels/PresentationViewModel";
 export {default as FeatureToggle} from "./feature-toggle/FeatureToggleDecorator";
+export {default as FeatureValidator} from "./feature-toggle/FeatureValidator";
 import * as Validations from "./feature-toggle/Validations";
 export {Validations};
