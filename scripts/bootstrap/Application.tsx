@@ -9,6 +9,7 @@ import {Router, browserHistory} from "react-router"
 import NinjaGoatModule from "./NinjaGoatModule";
 import ILocationListener from "../navigation/ILocationListener";
 import FeatureValidator from "../feature-toggle/FeatureValidator";
+import IFeatureValidator from "../feature-toggle/IFeatureValidator";
 
 class Application {
 
@@ -19,6 +20,7 @@ class Application {
 
     constructor() {
         this.register(new NinjaGoatModule());
+        this.kernel.bind<IFeatureValidator>("IFeatureValidator").toConstantValue(this.featureValidator);
     }
 
     register(module:IModule):boolean {
