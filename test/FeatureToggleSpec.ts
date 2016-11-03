@@ -11,7 +11,7 @@ describe("Feature toggle, given a constructor decorated with a feature toggle", 
         featureValidator = new FeatureValidator();
     });
 
-    context("when it's always enable", () => {
+    context("when it's always enabled", () => {
         it("should enable the feature", () => {
             expect(featureValidator.validate(AlwaysValid)).to.be(true);
         });
