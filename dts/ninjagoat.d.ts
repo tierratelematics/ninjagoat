@@ -15,7 +15,7 @@ declare module ninjagoat {
 
         boot(overrides?:any);
 
-        register(module:IModule);
+        register(module:IModule):boolean;
 
         protected rootComponent():React.ReactElement<any>;
     }
@@ -217,7 +217,13 @@ declare module ninjagoat {
         validate(feature:any):boolean;
     }
 
+    export class FeatureValidator implements IFeatureValidator {
+        validate(feature:any):boolean;
+    }
+
     interface ValidationsStatic {
+        enabled():boolean;
+        disabled():boolean;
         environment(environments:string[]):() => boolean;
         version(version:string):() => boolean;
     }
