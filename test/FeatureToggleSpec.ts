@@ -1,7 +1,7 @@
 import expect = require("expect.js");
 import IFeatureValidator from "../scripts/feature-toggle/IFeatureValidator";
 import FeatureValidator from "../scripts/feature-toggle/FeatureValidator";
-import {AlwaysValid, EnvToggle, VersionToggle, NotDecoratedToggle} from "./fixtures/FeatureToggles";
+import {AlwaysValid, EnvToggle, VersionToggle, NotDecoratedToggle, MixedToggle} from "./fixtures/FeatureToggles";
 
 describe("Feature toggle, given a constructor decorated with a feature toggle", () => {
 
@@ -60,6 +60,28 @@ describe("Feature toggle, given a constructor decorated with a feature toggle", 
             beforeEach(() => process.env.PACKAGE_VERSION = "2.0.0");
             it("should enable the feature", () => {
                 expect(featureValidator.validate(VersionToggle)).to.be(true);
+            });
+        });
+    });
+
+    context("when multiple selectors are applied", () => {
+        context("and all the selectors are satisfied", () => {
+            beforeEach(() => {
+                process.env.PACKAGE_VERSION = "3.0.0";
+                process.env.NODE_ENV = "dev";
+            });
+            it("should enable the feature", () => {
+                expect(featureValidator.validate(MixedToggle)).to.be(true);
+            });
+        });
+
+        context("and some selectors are not satisfied", () => {
+            beforeEach(() => {
+                process.env.PACKAGE_VERSION = "1.0.0";
+                process.env.NODE_ENV = "dev";
+            });
+            it("should disable the feature", () => {
+                expect(featureValidator.validate(MixedToggle)).to.be(false);
             });
         });
     });

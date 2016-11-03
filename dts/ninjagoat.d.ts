@@ -226,6 +226,7 @@ declare module ninjagoat {
         disabled():boolean;
         environment(environments:string[]):() => boolean;
         version(version:string):() => boolean;
+        compose(p1:IValidationPredicate, p2:IValidationPredicate):() => boolean;
     }
 
     export var Validations:ValidationsStatic;
