@@ -4,13 +4,13 @@ export function enabled() {
     return true;
 }
 
-export function environment(environments:string[]) {
+export function environment(environments:string[]):() => boolean {
     return function () {
         return _.includes(environments, process.env.NODE_ENV);
     }
 }
 
-export function version(version:string) {
+export function version(version:string):() => boolean {
     return function () {
         return process.env.PACKAGE_VERSION >= version;
     }

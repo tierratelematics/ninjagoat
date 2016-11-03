@@ -4,6 +4,7 @@ import {interfaces} from "inversify";
 import * as Rx from "rx";
 import * as React from "react";
 import {PlainRoute} from "react-router";
+import IValidationPredicate from "../scripts/feature-toggle/IValidationPredicate";
 
 declare module ninjagoat {
 
@@ -206,6 +207,22 @@ declare module ninjagoat {
         routes(): PlainRoute;
     }
 
+    export function FeatureToggle(predicate:IValidationPredicate);
+
+    export interface IValidationPredicate {
+        ():boolean
+    }
+
+    export interface IFeatureValidator {
+        validate(feature:any):boolean;
+    }
+
+    interface ValidationsStatic {
+        environment(environments:string[]):() => boolean;
+        version(version:string):() => boolean;
+    }
+
+    export var Validations:ValidationsStatic;
 }
 
 export = ninjagoat;
