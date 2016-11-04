@@ -14,7 +14,7 @@ declare module ninjagoat {
 
         boot(overrides?:any);
 
-        register(module:IModule);
+        register(module:IModule):boolean;
 
         protected rootComponent():React.ReactElement<any>;
     }
@@ -206,6 +206,32 @@ declare module ninjagoat {
         routes(): PlainRoute;
     }
 
+    export function FeatureToggle(predicate:CheckPredicate);
+
+    export interface CheckPredicate {
+        ():boolean
+    }
+
+    export interface IFeatureChecker {
+        check(feature:any):boolean;
+        canCheck(feature:any):boolean;
+    }
+
+    export class FeatureChecker implements IFeatureChecker {
+        check(feature:any):boolean;
+        canCheck(feature:any):boolean;
+    }
+
+    interface ChecksStatic {
+        always():boolean;
+        never():boolean;
+        environment(environments:string[]):() => boolean;
+        version(version:string):() => boolean;
+        compose(p1:CheckPredicate, p2:CheckPredicate):() => boolean;
+        negate(predicate:CheckPredicate):() => boolean;
+    }
+
+    export var Checks:ChecksStatic;
 }
 
 export = ninjagoat;

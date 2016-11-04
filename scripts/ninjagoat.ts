@@ -11,3 +11,7 @@ export {default as ViewModelContext}  from "./registry/ViewModelContext"
 export {default as LogLevel} from "./util/LogLevel";
 export {default as ComponentFactory} from "./components/ComponentFactory";
 export {default as PresentationViewModel} from "./viewmodels/PresentationViewModel";
+export {default as FeatureToggle} from "./feature-toggle/FeatureToggleDecorator";
+export {default as FeatureChecker} from "./feature-toggle/FeatureChecker";
+import * as Checks from "./feature-toggle/Checks";
+export {Checks};
