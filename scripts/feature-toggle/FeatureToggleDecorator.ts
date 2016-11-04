@@ -1,8 +1,8 @@
-import IValidationPredicate from "./IValidationPredicate";
+import CheckPredicate from "./CheckPredicate";
 
-function FeatureToggle(validationPredicate:IValidationPredicate) {
+function FeatureToggle(checkPredicate:CheckPredicate) {
     return function (target:any) {
-        Reflect.defineMetadata("__featuretoggle_predicate", validationPredicate, target);
+        Reflect.defineMetadata("__featuretoggle_predicate", checkPredicate, target);
         return target;
     };
 }

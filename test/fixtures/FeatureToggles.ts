@@ -1,7 +1,7 @@
 import FeatureToggle from "../../scripts/feature-toggle/FeatureToggleDecorator";
-import {enabled, environment, version, compose} from "../../scripts/feature-toggle/Validations";
+import {always, environment, version, compose} from "../../scripts/feature-toggle/Checks";
 
-@FeatureToggle(enabled)
+@FeatureToggle(always)
 export class AlwaysValid {
 
 }

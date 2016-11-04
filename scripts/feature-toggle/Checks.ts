@@ -1,11 +1,11 @@
 import * as _ from "lodash";
-import IValidationPredicate from "./IValidationPredicate";
+import CheckPredicate from "./CheckPredicate";
 
-export function enabled() {
+export function always() {
     return true;
 }
 
-export function disabled() {
+export function never() {
     return false;
 }
 
@@ -21,7 +21,7 @@ export function version(version:string):() => boolean {
     }
 }
 
-export function compose(p1:IValidationPredicate, p2:IValidationPredicate):() => boolean {
+export function compose(p1:CheckPredicate, p2:CheckPredicate):() => boolean {
     return function () {
         return p1() && p2();
     }

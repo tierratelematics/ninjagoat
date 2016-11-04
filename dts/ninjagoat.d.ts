@@ -4,7 +4,7 @@ import {interfaces} from "inversify";
 import * as Rx from "rx";
 import * as React from "react";
 import {PlainRoute} from "react-router";
-import IValidationPredicate from "../scripts/feature-toggle/IValidationPredicate";
+import IValidationPredicate from "../scripts/feature-toggle/CheckPredicate";
 
 declare module ninjagoat {
 
@@ -207,29 +207,31 @@ declare module ninjagoat {
         routes(): PlainRoute;
     }
 
-    export function FeatureToggle(predicate:IValidationPredicate);
+    export function FeatureToggle(predicate:CheckPredicate);
 
-    export interface IValidationPredicate {
+    export interface CheckPredicate {
         ():boolean
     }
 
-    export interface IFeatureValidator {
-        validate(feature:any):boolean;
+    export interface IFeatureChecker {
+        check(feature:any):boolean;
+        canCheck(feature:any):boolean;
     }
 
-    export class FeatureValidator implements IFeatureValidator {
-        validate(feature:any):boolean;
+    export class FeatureChecker implements IFeatureChecker {
+        check(feature:any):boolean;
+        canCheck(feature:any):boolean;
     }
 
-    interface ValidationsStatic {
-        enabled():boolean;
-        disabled():boolean;
+    interface ChecksStatic {
+        always():boolean;
+        never():boolean;
         environment(environments:string[]):() => boolean;
         version(version:string):() => boolean;
-        compose(p1:IValidationPredicate, p2:IValidationPredicate):() => boolean;
+        compose(p1:CheckPredicate, p2:CheckPredicate):() => boolean;
     }
 
-    export var Validations:ValidationsStatic;
+    export var Checks:ChecksStatic;
 }
 
 export = ninjagoat;

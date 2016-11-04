@@ -1,17 +1,17 @@
 import FeatureToggle from "../../scripts/feature-toggle/FeatureToggleDecorator";
-import {enabled, disabled} from "../../scripts/feature-toggle/Validations";
+import {always, never} from "../../scripts/feature-toggle/Checks";
 import IModule from "../../scripts/bootstrap/IModule";
 import IViewModelRegistry from "../../scripts/registry/IViewModelRegistry";
 import IServiceLocator from "../../scripts/bootstrap/IServiceLocator";
 
-@FeatureToggle(enabled)
+@FeatureToggle(always)
 export class ValidModule implements IModule {
     register(registry:IViewModelRegistry, serviceLocator?:IServiceLocator, overrides?:any):void {
     }
 
 }
 
-@FeatureToggle(disabled)
+@FeatureToggle(never)
 export class DisabledModule implements IModule {
     register(registry:IViewModelRegistry, serviceLocator?:IServiceLocator, overrides?:any):void {
     }

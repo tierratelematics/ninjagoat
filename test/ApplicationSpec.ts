@@ -12,7 +12,7 @@ describe("Application, given some modules", () => {
         application = new Application();
     });
 
-    context("when a module does not validate under a feature toggle", () => {
+    context("when a module does not check under a feature toggle", () => {
         it("should not be registered", () => {
             expect(application.register(new DisabledModule())).to.be(false);
         });
