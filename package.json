@@ -2,6 +2,7 @@
   "name": "ninjagoat",
   "version": "0.12.10",
   "dependencies": {
+    "bivio": "^0.1.0",
     "bluebird": "^3.3.4",
     "inversify": "~2.0.0-rc.1",
     "inversify-dts": "~1.4.0",

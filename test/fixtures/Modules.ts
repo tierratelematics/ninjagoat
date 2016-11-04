@@ -1,17 +1,16 @@
-import FeatureToggle from "../../scripts/feature-toggle/FeatureToggleDecorator";
-import {always, never} from "../../scripts/feature-toggle/Checks";
+import {Predicates, FeatureToggle} from "bivio";
 import IModule from "../../scripts/bootstrap/IModule";
 import IViewModelRegistry from "../../scripts/registry/IViewModelRegistry";
 import IServiceLocator from "../../scripts/bootstrap/IServiceLocator";
 
-@FeatureToggle(always)
+@FeatureToggle(Predicates.always)
 export class ValidModule implements IModule {
     register(registry:IViewModelRegistry, serviceLocator?:IServiceLocator, overrides?:any):void {
     }
 
 }
 
-@FeatureToggle(never)
+@FeatureToggle(Predicates.never)
 export class DisabledModule implements IModule {
     register(registry:IViewModelRegistry, serviceLocator?:IServiceLocator, overrides?:any):void {
     }

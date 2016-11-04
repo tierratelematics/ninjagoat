@@ -8,8 +8,7 @@ import {render} from "react-dom";
 import {Router, browserHistory} from "react-router"
 import NinjaGoatModule from "./NinjaGoatModule";
 import ILocationListener from "../navigation/ILocationListener";
-import FeatureChecker from "../feature-toggle/FeatureChecker";
-import IFeatureChecker from "../feature-toggle/IFeatureChecker";
+import {IFeatureChecker, FeatureChecker} from "bivio";
 
 class Application {
 
