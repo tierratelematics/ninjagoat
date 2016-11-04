@@ -4,7 +4,6 @@ import {interfaces} from "inversify";
 import * as Rx from "rx";
 import * as React from "react";
 import {PlainRoute} from "react-router";
-import IValidationPredicate from "../scripts/feature-toggle/CheckPredicate";
 
 declare module ninjagoat {
 
@@ -229,6 +228,7 @@ declare module ninjagoat {
         environment(environments:string[]):() => boolean;
         version(version:string):() => boolean;
         compose(p1:CheckPredicate, p2:CheckPredicate):() => boolean;
+        negate(predicate:CheckPredicate):() => boolean;
     }
 
     export var Checks:ChecksStatic;

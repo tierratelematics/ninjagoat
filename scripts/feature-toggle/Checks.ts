@@ -26,3 +26,9 @@ export function compose(p1:CheckPredicate, p2:CheckPredicate):() => boolean {
         return p1() && p2();
     }
 }
+
+export function negate(predicate:CheckPredicate):() => boolean {
+    return function () {
+        return !predicate();
+    }
+}
