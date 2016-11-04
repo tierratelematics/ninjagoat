@@ -14,7 +14,7 @@ declare module ninjagoat {
 
         boot(overrides?:any);
 
-        register(module:IModule);
+        register(module:IModule):boolean;
 
         protected rootComponent():React.ReactElement<any>;
     }
@@ -205,7 +205,6 @@ declare module ninjagoat {
     export interface IRoutingAdapter {
         routes(): PlainRoute;
     }
-
 }
 
 export = ninjagoat;

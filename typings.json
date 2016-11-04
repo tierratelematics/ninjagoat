@@ -20,5 +20,8 @@
     },
     "resolution": {
         "browser": "typings"
+    },
+    "dependencies": {
+        "bivio": "npm:bivio/dts/bivio.d.ts"
     }
 }
