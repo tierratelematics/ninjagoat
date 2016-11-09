@@ -1,6 +1,6 @@
 {
   "name": "ninjagoat",
-  "version": "0.13.0",
+  "version": "0.13.1",
   "dependencies": {
     "bivio": "^0.1.0",
     "bluebird": "^3.3.4",
