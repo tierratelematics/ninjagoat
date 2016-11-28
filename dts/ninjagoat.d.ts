@@ -32,6 +32,26 @@ declare module ninjagoat {
         get<T>(key:string, name?:string):T;
     }
 
+    export interface IObjectContainer extends IServiceLocator {
+        set<T>(key:string, object:interfaces.Newable<T>|T, parent?:string);
+        contains(key:string):boolean;
+        remove(key:string):void;
+    }
+
+    export class ObjectContainer implements IObjectContainer {
+
+        constructor(kernel:interfaces.Kernel);
+
+        get<T>(key:string, name?:string):T;
+
+        set<T>(key:string, object:interfaces.Newable<T>|T, parent?:string);
+
+        contains(key:string):boolean;
+
+        remove(key:string):void;
+    }
+
+
     interface IBaseConfig {
         endpoint:string;
     }
