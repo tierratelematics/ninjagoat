@@ -7,12 +7,16 @@ import {inject, injectable} from "inversify";
 import * as Area from "../config/Area";
 import IComponentFactory from "../components/IComponentFactory";
 import {PlainRoute} from "react-router";
+import {RouterState} from "react-router";
+import {RedirectFunction} from "react-router";
+import IRouteHook from "./IRouteHook";
 
 @injectable()
 class RoutingAdapter implements IRoutingAdapter {
 
     constructor(@inject("IViewModelRegistry") private registry:IViewModelRegistry,
-                @inject("IComponentFactory") private componentFactory:IComponentFactory) {
+                @inject("IComponentFactory") private componentFactory:IComponentFactory,
+                @inject("IRouteHook") private hook:IRouteHook) {
     }
 
     routes():PlainRoute {
@@ -27,7 +31,11 @@ class RoutingAdapter implements IRoutingAdapter {
             childRoutes: routes,
             component: this.componentFactory.componentForMaster(),
             indexRoute: {component: this.componentFactory.componentForUri("/")},
-            path: "/"
+            path: "/",
+            onEnter: (nextState:RouterState, replace:RedirectFunction, callback: Function) => {
+                let entry = this.registry.getArea("Index").entries[0];
+                this.hook.enter(entry,  nextState).finally(() => callback());
+            }
         };
     }
 
@@ -48,7 +56,10 @@ class RoutingAdapter implements IRoutingAdapter {
                     route = path.join(area.area.toLowerCase(), id, entry.parameters || "");
                 routes.push({
                     component: this.componentFactory.componentForUri(route),
-                    path: route
+                    path: route,
+                    onEnter: (nextState:RouterState, replace:RedirectFunction, callback: Function) => {
+                        this.hook.enter(entry,  nextState).finally(() => callback());
+                    }
                 });
                 return routes;
             }, [])
