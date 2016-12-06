@@ -206,6 +206,11 @@ declare module ninjagoat {
         enter(entry:RegistryEntry<any>, nextState:RouterState):Promise<string>;
     }
 
+    export class VoidRouteStrategy implements IRouteStrategy {
+
+        enter(entry: RegistryEntry<any>, nextState: RouterState): Promise<string>;
+    }
+
     export interface ISettingsManager {
         getValue<T>(key:string, fallback?:T):T;
         setValue<T>(key:string, value:T):void;
