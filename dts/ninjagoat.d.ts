@@ -6,7 +6,6 @@ import * as React from "react";
 import {PlainRoute} from "react-router";
 import * as Promise from "bluebird";
 import {RouterState} from "react-router";
-import {RedirectFunction} from "react-router";
 
 declare module ninjagoat {
 
@@ -203,8 +202,8 @@ declare module ninjagoat {
         replaceLocation(url: string);
     }
 
-    export interface IRouteHook {
-        enter(entry:RegistryEntry<any>, nextState:RouterState, replace:RedirectFunction):Promise<void>;
+    export interface IRouteStrategy {
+        enter(entry:RegistryEntry<any>, nextState:RouterState):Promise<string>;
     }
 
     export interface ISettingsManager {
