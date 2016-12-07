@@ -1,5 +1,5 @@
 import IGUIDGenerator from "./IGUIDGenerator";
-import * as uuid from "uuid";
+const uuid = require("uuid");
 import {injectable} from "inversify";
 
 @injectable()

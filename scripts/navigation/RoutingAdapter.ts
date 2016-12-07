@@ -7,12 +7,17 @@ import {inject, injectable} from "inversify";
 import * as Area from "../config/Area";
 import IComponentFactory from "../components/IComponentFactory";
 import {PlainRoute} from "react-router";
+import {RouterState} from "react-router";
+import {RedirectFunction} from "react-router";
+import IRouteStrategy from "./IRouteStrategy";
+import RegistryEntry from "../registry/RegistryEntry";
 
 @injectable()
 class RoutingAdapter implements IRoutingAdapter {
 
     constructor(@inject("IViewModelRegistry") private registry:IViewModelRegistry,
-                @inject("IComponentFactory") private componentFactory:IComponentFactory) {
+                @inject("IComponentFactory") private componentFactory:IComponentFactory,
+                @inject("IRouteStrategy") private routeStrategy:IRouteStrategy) {
     }
 
     routes():PlainRoute {
@@ -27,7 +32,10 @@ class RoutingAdapter implements IRoutingAdapter {
             childRoutes: routes,
             component: this.componentFactory.componentForMaster(),
             indexRoute: {component: this.componentFactory.componentForUri("/")},
-            path: "/"
+            path: "/",
+            onEnter: (nextState:RouterState, replace:RedirectFunction, callback: Function) => {
+                this.handleOnEnter(this.registry.getArea("Index").entries[0], nextState, replace, callback);
+            }
         };
     }
 
@@ -48,11 +56,20 @@ class RoutingAdapter implements IRoutingAdapter {
                     route = path.join(area.area.toLowerCase(), id, entry.parameters || "");
                 routes.push({
                     component: this.componentFactory.componentForUri(route),
-                    path: route
+                    path: route,
+                    onEnter: (nextState:RouterState, replace:RedirectFunction, callback: Function) => {
+                        this.handleOnEnter(entry, nextState, replace, callback);
+                    }
                 });
                 return routes;
             }, [])
             .valueOf();
+    }
+
+    private handleOnEnter(entry: RegistryEntry<any>, nextState:RouterState, replace:RedirectFunction, callback: Function) {
+        this.routeStrategy.enter(entry,  nextState).then(url => {
+            if (url) replace(url);
+        }).finally(() => callback());
     }
 }
 

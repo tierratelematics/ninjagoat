@@ -4,6 +4,8 @@ import {interfaces} from "inversify";
 import * as Rx from "rx";
 import * as React from "react";
 import {PlainRoute} from "react-router";
+import * as Promise from "bluebird";
+import {RouterState} from "react-router";
 
 declare module ninjagoat {
 
@@ -200,9 +202,23 @@ declare module ninjagoat {
         replaceLocation(url: string);
     }
 
+    export interface IRouteStrategy {
+        enter(entry:RegistryEntry<any>, nextState:RouterState):Promise<string>;
+    }
+
+    export class VoidRouteStrategy implements IRouteStrategy {
+
+        enter(entry: RegistryEntry<any>, nextState: RouterState): Promise<string>;
+    }
+
     export interface ISettingsManager {
         getValue<T>(key:string, fallback?:T):T;
         setValue<T>(key:string, value:T):void;
+    }
+
+    export interface ISettingsManagerAsync {
+        getValueAsync<T>(key:string, fallback?:T):Promise<T>;
+        setValueAsync<T>(key:string, value:T):Promise<void>;
     }
 
     export interface IUriResolver {

@@ -1,3 +1,8 @@
+#0.14.0
+
+add async interface for settings manager
+add IRouteStrategy
+
 #0.13.2
 
 Export object container types

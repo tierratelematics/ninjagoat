@@ -38,6 +38,8 @@ import ISettingsManager from "../io/ISettingsManager";
 import StorageSettingsManager from "../io/StorageSettingsManager";
 import ILocationListener from "../navigation/ILocationListener";
 import LocationListener from "../navigation/LocationListener";
+import IRouteStrategy from "../navigation/IRouteStrategy";
+import VoidRouteStrategy from "../navigation/VoidRouteStrategy";
 
 class NinjaGoatModule implements IModule {
 
@@ -61,6 +63,7 @@ class NinjaGoatModule implements IModule {
         kernel.bind<ILocationHandler>("ILocationHandler").to(LocationHandler).inSingletonScope();
         kernel.bind<ISettingsManager>("ISettingsManager").to(StorageSettingsManager).inSingletonScope();
         kernel.bind<ILocationListener>("ILocationListener").to(LocationListener).inSingletonScope();
+        kernel.bind<IRouteStrategy>("IRouteStrategy").to(VoidRouteStrategy).inSingletonScope();
     };
 
     register(registry:IViewModelRegistry, serviceLocator?:IServiceLocator, overrides?:any):void {
