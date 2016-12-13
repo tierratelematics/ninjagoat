@@ -1,3 +1,4 @@
+import "reflect-metadata";
 import expect = require("expect.js");
 import IViewModelRegistry from "../scripts/registry/IViewModelRegistry";
 import IRoutingAdapter from "../scripts/navigation/IRoutingAdapter";
@@ -18,7 +19,7 @@ describe("RoutingAdapter, given a list of registry entries", () => {
     beforeEach(() => {
         registry = new ViewModelRegistry();
         componentFactory = new MockComponentFactory();
-        subject = new RoutingAdapter(registry, componentFactory);
+        subject = new RoutingAdapter(registry, componentFactory, null);
         registry.master(RootViewModel);
         registry.index(RootViewModel);
     });
@@ -26,12 +27,9 @@ describe("RoutingAdapter, given a list of registry entries", () => {
     context("when the area is the index page", () => {
 
         it("should correctly add it into the list of routes produced", () => {
-            expect(subject.routes()).to.eql({
-                path: "/",
-                component: null,
-                indexRoute: {component: null},
-                childRoutes: []
-            });
+            let routes = subject.routes();
+            expect(routes.path).to.eql("/");
+            expect(routes.childRoutes).to.eql([]);
         });
     });
 
@@ -39,65 +37,40 @@ describe("RoutingAdapter, given a list of registry entries", () => {
         context("and it has no viewmodels registered", () => {
             it("should add the area to the the list of routes", () => {
                 registry.add(FooIndexViewModel).forArea("Foo");
+                let routes = subject.routes();
 
-                expect(subject.routes()).to.eql({
-                    path: "/",
-                    component: null,
-                    indexRoute: {component: null},
-                    childRoutes: [{
-                        path: "foo",
-                        component: null
-                    }]
-                });
+                expect(routes.path).to.eql("/");
+                expect(routes.childRoutes[0].path).to.eql("foo");
             });
         });
 
         context("and it needs some parameters when constructed", () => {
             it("should append those parameters", () => {
                 registry.add(FooIndexViewModel, _ => null, ":id").forArea("Foo");
+                let routes = subject.routes();
 
-                expect(subject.routes()).to.eql({
-                    path: "/",
-                    component: null,
-                    indexRoute: {component: null},
-                    childRoutes: [{
-                        path: "foo/:id",
-                        component: null
-                    }]
-                });
+                expect(routes.path).to.eql("/");
+                expect(routes.childRoutes[0].path).to.eql("foo/:id");
             });
         });
 
         context("and it has some viewmodels registered", () => {
             it("should also add these viewmodels to the area registration", () => {
                 registry.add(BarViewModel).forArea("Foo");
+                let routes = subject.routes();
 
-                expect(subject.routes()).to.eql({
-                    path: "/",
-                    component: null,
-                    indexRoute: {component: null},
-                    childRoutes: [
-                        {
-                            path: "foo/bar",
-                            component: null
-                        }]
-                });
+                expect(routes.path).to.eql("/");
+                expect(routes.childRoutes[0].path).to.eql("foo/bar");
             });
         });
 
         context("and some parameters are registered for the corresponding viewmodel", () => {
             beforeEach(() => registry.add(BarViewModel, null, ":id/:subCategory").forArea("Foo"));
             it("should add these parameters to the constructed path", () => {
-                expect(subject.routes()).to.eql({
-                    path: "/",
-                    component: null,
-                    indexRoute: {component: null},
-                    childRoutes: [
-                        {
-                            path: "foo/bar/:id/:subCategory",
-                            component: null
-                        }]
-                });
+                let routes = subject.routes();
+
+                expect(routes.path).to.eql("/");
+                expect(routes.childRoutes[0].path).to.eql("foo/bar/:id/:subCategory");
             });
         });
     });
@@ -108,20 +81,11 @@ describe("RoutingAdapter, given a list of registry entries", () => {
             registry.notFound(BarViewModel);
         });
         it("should add a 404 handler to the routing", () => {
-            expect(subject.routes()).to.eql({
-                path: "/",
-                component: null,
-                indexRoute: {component: null},
-                childRoutes: [
-                    {
-                        path: "foo/bar/:id/:subCategory",
-                        component: null
-                    },
-                    {
-                        path: "*",
-                        component: null
-                    }]
-            });
+            let routes = subject.routes();
+
+            expect(routes.path).to.eql("/");
+            expect(routes.childRoutes[0].path).to.eql("foo/bar/:id/:subCategory");
+            expect(routes.childRoutes[1].path).to.eql("*");
         });
     });
 });
