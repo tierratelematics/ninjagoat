@@ -1,26 +1,13 @@
 {
-    "globalDependencies": {
-        "bluebird": "registry:dt/bluebird#2.0.0+20160319051630",
-        "inversify-dts": "npm:inversify-dts/inversify/inversify.d.ts",
-        "lodash": "registry:dt/lodash#3.10.0+20160330154726",
-        "node": "registry:dt/node#4.0.0+20160505172921",
-        "react": "registry:dt/react#0.14.0+20161203201537",
-        "react-dom": "registry:dt/react-dom#0.14.0+20160412154040",
-        "react-router": "registry:dt/react-router#2.0.0+20161117134353",
-        "react-router/history": "registry:dt/react-router/history#2.0.0+20160830150755",
-        "reflect-metadata": "npm:reflect-metadata/reflect-metadata.d.ts",
-        "rx": "npm:rx/ts/rx.all.d.ts",
-        "whatwg-fetch": "registry:dt/whatwg-fetch#0.0.0+20160412133644"
-    },
-    "globalDevDependencies": {
-        "expect.js": "registry:dt/expect.js#0.3.1+20160317120654",
-        "mocha": "registry:dt/mocha#2.2.5+20160317120654",
-        "sinon": "registry:dt/sinon#1.16.0+20160317120654"
-    },
-    "resolution": {
-        "browser": "typings"
-    },
-    "dependencies": {
-        "bivio": "npm:bivio/dts/bivio.d.ts"
-    }
+  "globalDependencies": {
+    "inversify-dts": "npm:inversify-dts/inversify/inversify.d.ts",
+    "react-router/history": "registry:dt/react-router/history#2.0.0+20160830150755",
+    "reflect-metadata": "npm:reflect-metadata/reflect-metadata.d.ts"
+  },
+  "resolution": {
+    "browser": "typings"
+  },
+  "dependencies": {
+    "bivio": "npm:bivio/dts/bivio.d.ts"
+  }
 }

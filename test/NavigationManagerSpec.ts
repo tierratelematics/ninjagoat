@@ -1,6 +1,5 @@
 import expect = require("expect.js");
-import sinon = require("sinon");
-import SinonStub = Sinon.SinonStub;
+import * as sinon from "sinon";
 import INavigationManager from "../scripts/navigation/INavigationManager";
 import NavigationManager from "../scripts/navigation/NavigationManager";
 import ILocationHandler from "../scripts/navigation/ILocationHandler";
@@ -13,7 +12,7 @@ describe("NavigationManager, given an area", () => {
 
     let subject:INavigationManager;
     let locationHandler:ILocationHandler;
-    let locationStub:SinonStub;
+    let locationStub:sinon.SinonStub;
     let registry:IViewModelRegistry;
 
     beforeEach(() => {
