@@ -35,5 +35,6 @@
   "main": "dist/ninjagoat.js",
   "scripts": {
     "test": "smild test"
-  }
+  },
+  "typings": "./declarations/ninjagoat.d.ts"
 }

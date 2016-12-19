@@ -1,5 +1,3 @@
-/// <reference path="../typings/index.d.ts" />
-
 import {interfaces} from "inversify";
 import * as Rx from "rx";
 import * as React from "react";
@@ -10,7 +8,7 @@ import {RouterState} from "react-router";
 declare module ninjagoat {
 
     export class Application {
-        protected kernel:interfaces.Kernel;
+        protected container:interfaces.Container;
 
         run(overrides?:any);
 
@@ -26,7 +24,7 @@ declare module ninjagoat {
     }
 
     export interface IModule {
-        modules?:(Kernel:interfaces.Kernel) => void;
+        modules?:(container:interfaces.Container) => void;
         register(registry:IViewModelRegistry, serviceLocator?:IServiceLocator, overrides?:any):void;
     }
 
@@ -42,7 +40,7 @@ declare module ninjagoat {
 
     export class ObjectContainer implements IObjectContainer {
 
-        constructor(kernel:interfaces.Kernel);
+        constructor(kernel:interfaces.Container);
 
         get<T>(key:string, name?:string):T;
 
@@ -61,7 +59,7 @@ declare module ninjagoat {
     export interface IViewModelRegistry {
         master<T>(construct: interfaces.Newable<IViewModel<T>>, observable?: (context: ViewModelContext) => Rx.IObservable<T>): AreaRegistry;
         index<T>(construct: interfaces.Newable<IViewModel<T>>, observable?: (context: ViewModelContext) => Rx.IObservable<T>): AreaRegistry;
-        notFound<T>(construct:inversify.interfaces.Newable<IViewModel<T>>, observable?:(context:ViewModelContext)=>Rx.IObservable<T>):AreaRegistry;
+        notFound<T>(construct:interfaces.Newable<IViewModel<T>>, observable?:(context:ViewModelContext)=>Rx.IObservable<T>):AreaRegistry;
         add<T>(construct: interfaces.Newable<IViewModel<T>>, observable?: (context: ViewModelContext) => Rx.IObservable<T>, parameters?: string): IViewModelRegistry;
         forArea(area: string): AreaRegistry;
         getArea(areaId: string): AreaRegistry;
