@@ -9,7 +9,6 @@
     "@types/react": "^0.14.55",
     "@types/react-dom": "^0.14.19",
     "@types/react-router": "^2.0.41",
-    "@types/rx": "^2.5.34",
     "@types/whatwg-fetch": "0.0.33",
     "bivio": "^0.1.0",
     "bluebird": "^3.3.4",
