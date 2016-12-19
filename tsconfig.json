@@ -3,7 +3,7 @@
     "lib": [
       "es5",
       "dom",
-      "es2015.promise"
+      "es6"
     ],
     "target": "es5",
     "jsx": "react",
@@ -17,6 +17,7 @@
     ]
   },
   "include": [
-    "node_modules/rx/ts/rx.all.d.ts"
+    "node_modules/rx/ts/rx.all.d.ts",
+    "node_modules/bivio/dts/bivio.d.ts"
   ]
 }

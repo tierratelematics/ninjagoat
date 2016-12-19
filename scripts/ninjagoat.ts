@@ -1,4 +1,3 @@
-/// <reference path="../typings/index.d.ts" />
 export {default as Application}  from "./bootstrap/Application";
 export {default as ObservableViewModel}  from "./viewmodels/ObservableViewModel";
 export {default as View}  from "./views/View";
