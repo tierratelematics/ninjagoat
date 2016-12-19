@@ -5,7 +5,6 @@ import HttpResponse from "./HttpResponse";
 import {injectable} from "inversify";
 import Dictionary from "../util/Dictionary";
 import * as _ from "lodash";
-import * as Promise from "bluebird";
 
 @injectable()
 class HttpClient implements IHttpClient {
@@ -54,7 +53,7 @@ class HttpClient implements IHttpClient {
                     let httpResponse = new HttpResponse(JSON.parse(text), response.status, headers);
                     if (response.status >= 400)
                         return Promise.reject(httpResponse);
-                    return httpResponse;
+                    return Promise.resolve(httpResponse);
                 });
             })
         );

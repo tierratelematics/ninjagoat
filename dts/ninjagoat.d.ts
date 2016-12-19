@@ -4,7 +4,6 @@ import {interfaces} from "inversify";
 import * as Rx from "rx";
 import * as React from "react";
 import {PlainRoute} from "react-router";
-import * as Promise from "bluebird";
 import {RouterState} from "react-router";
 
 declare module ninjagoat {
