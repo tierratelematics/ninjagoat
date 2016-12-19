@@ -9,6 +9,11 @@
     "jsx": "react",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "module": "commonjs"
+    "module": "commonjs",
+    "types": [
+      "mocha",
+      "reflect-metadata",
+      "node"
+    ]
   }
 }

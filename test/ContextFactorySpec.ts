@@ -1,5 +1,4 @@
 import "reflect-metadata";
-import "bluebird";
 import expect = require("expect.js");
 import Rx = require("rx");
 import IContextFactory from "../scripts/components/IContextFactory";
