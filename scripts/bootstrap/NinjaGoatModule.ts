@@ -43,27 +43,27 @@ import VoidRouteStrategy from "../navigation/VoidRouteStrategy";
 
 class NinjaGoatModule implements IModule {
 
-    modules = (kernel:interfaces.Kernel) => {
-        kernel.bind<interfaces.Kernel>("Kernel").toConstantValue(kernel);
-        kernel.bind<IObjectContainer>("IObjectContainer").to(ObjectContainer).inSingletonScope();
-        kernel.bind<IViewModelRegistry>("IViewModelRegistry").to(ViewModelRegistry).inSingletonScope();
-        kernel.bind<IObservableFactory>("IObservableFactory").to(ObservableFactory).inSingletonScope();
-        kernel.bind<IUriResolver>("IUriResolver").to(UriResolver).inSingletonScope();
-        kernel.bind<IViewResolver>("IViewResolver").to(ViewResolver).inSingletonScope();
-        kernel.bind<IContextFactory>("IContextFactory").to(ContextFactory).inSingletonScope();
-        kernel.bind<IComponentFactory>("IComponentFactory").to(ComponentFactory).inSingletonScope();
-        kernel.bind<IRoutingAdapter>("IRoutingAdapter").to(RoutingAdapter).inSingletonScope();
-        kernel.bind<IViewModelFactory>("IViewModelFactory").to(ViewModelFactory).inSingletonScope();
-        kernel.bind<IHttpClient>("IHttpClient").to(HttpClient).inSingletonScope();
-        kernel.bind<ISerializer<Dictionary<string>, string>>("ISerializer").to(QuerySerializer).inSingletonScope();
-        kernel.bind<IDateRetriever>("IDateRetriever").to(DateRetriever).inSingletonScope();
-        kernel.bind<IGUIDGenerator>("IGUIDGenerator").to(GUIDGenerator).inSingletonScope();
-        kernel.bind<ILogger>("ILogger").to(ConsoleLogger).inSingletonScope();
-        kernel.bind<INavigationManager>("INavigationManager").to(NavigationManager).inSingletonScope();
-        kernel.bind<ILocationHandler>("ILocationHandler").to(LocationHandler).inSingletonScope();
-        kernel.bind<ISettingsManager>("ISettingsManager").to(StorageSettingsManager).inSingletonScope();
-        kernel.bind<ILocationListener>("ILocationListener").to(LocationListener).inSingletonScope();
-        kernel.bind<IRouteStrategy>("IRouteStrategy").to(VoidRouteStrategy).inSingletonScope();
+    modules = (container:interfaces.Container) => {
+        container.bind<interfaces.Container>("Container").toConstantValue(container);
+        container.bind<IObjectContainer>("IObjectContainer").to(ObjectContainer).inSingletonScope();
+        container.bind<IViewModelRegistry>("IViewModelRegistry").to(ViewModelRegistry).inSingletonScope();
+        container.bind<IObservableFactory>("IObservableFactory").to(ObservableFactory).inSingletonScope();
+        container.bind<IUriResolver>("IUriResolver").to(UriResolver).inSingletonScope();
+        container.bind<IViewResolver>("IViewResolver").to(ViewResolver).inSingletonScope();
+        container.bind<IContextFactory>("IContextFactory").to(ContextFactory).inSingletonScope();
+        container.bind<IComponentFactory>("IComponentFactory").to(ComponentFactory).inSingletonScope();
+        container.bind<IRoutingAdapter>("IRoutingAdapter").to(RoutingAdapter).inSingletonScope();
+        container.bind<IViewModelFactory>("IViewModelFactory").to(ViewModelFactory).inSingletonScope();
+        container.bind<IHttpClient>("IHttpClient").to(HttpClient).inSingletonScope();
+        container.bind<ISerializer<Dictionary<string>, string>>("ISerializer").to(QuerySerializer).inSingletonScope();
+        container.bind<IDateRetriever>("IDateRetriever").to(DateRetriever).inSingletonScope();
+        container.bind<IGUIDGenerator>("IGUIDGenerator").to(GUIDGenerator).inSingletonScope();
+        container.bind<ILogger>("ILogger").to(ConsoleLogger).inSingletonScope();
+        container.bind<INavigationManager>("INavigationManager").to(NavigationManager).inSingletonScope();
+        container.bind<ILocationHandler>("ILocationHandler").to(LocationHandler).inSingletonScope();
+        container.bind<ISettingsManager>("ISettingsManager").to(StorageSettingsManager).inSingletonScope();
+        container.bind<ILocationListener>("ILocationListener").to(LocationListener).inSingletonScope();
+        container.bind<IRouteStrategy>("IRouteStrategy").to(VoidRouteStrategy).inSingletonScope();
     };
 
     register(registry:IViewModelRegistry, serviceLocator?:IServiceLocator, overrides?:any):void {

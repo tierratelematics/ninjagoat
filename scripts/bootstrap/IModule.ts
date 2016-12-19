@@ -3,7 +3,7 @@ import IViewModelRegistry from "../registry/IViewModelRegistry";
 import IServiceLocator from "./IServiceLocator";
 
 interface IModule {
-    modules?:(Kernel:interfaces.Kernel) => void;
+    modules?:(container:interfaces.Container) => void;
     register(registry:IViewModelRegistry, serviceLocator?:IServiceLocator, overrides?:any):void;
 }
 

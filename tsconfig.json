@@ -10,13 +10,5 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "module": "commonjs"
-  },
-  "exclude": [
-    "node_modules",
-    "test",
-    "dts"
-  ],
-  "files": [
-    "typings/index.d.ts"
-  ]
+  }
 }
