@@ -2,6 +2,7 @@
   "name": "ninjagoat",
   "version": "0.14.0",
   "dependencies": {
+    "@types/bluebird": "^3.0.36",
     "@types/history": "^2.0.41",
     "@types/lodash": "^4.14.43",
     "@types/node": "^6.0.52",
@@ -11,6 +12,7 @@
     "@types/rx": "^2.5.34",
     "@types/whatwg-fetch": "0.0.33",
     "bivio": "^0.1.0",
+    "bluebird": "^3.3.4",
     "inversify": "~3.0.0-rc.2",
     "lodash": "^4.10.0",
     "reflect-metadata": "0.1.8",

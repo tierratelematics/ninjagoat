@@ -1,6 +1,7 @@
 import ISettingsManager from "./ISettingsManager";
 import {injectable} from "inversify";
 import ISettingsManagerAsync from "./ISettingsManagerAsync";
+import * as Promise from "bluebird";
 
 @injectable()
 class StorageSettingsManager implements ISettingsManager, ISettingsManagerAsync {
