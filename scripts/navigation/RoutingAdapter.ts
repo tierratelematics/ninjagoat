@@ -2,7 +2,6 @@ import IRoutingAdapter from "./IRoutingAdapter";
 import IViewModelRegistry from "../registry/IViewModelRegistry";
 import AreaRegistry from "../registry/AreaRegistry";
 import * as _ from "lodash";
-import * as path from "path";
 import {inject, injectable} from "inversify";
 import * as Area from "../config/Area";
 import IComponentFactory from "../components/IComponentFactory";
@@ -53,7 +52,10 @@ class RoutingAdapter implements IRoutingAdapter {
         return <PlainRoute[]>_(area.entries)
             .reduce((routes, entry) => {
                 let id = entry.id.indexOf(Area.Index) > -1 ? "" : entry.id.toLowerCase(),
-                    route = path.join(area.area.toLowerCase(), id, entry.parameters || "");
+                    parameters = entry.parameters || "",
+                    route = area.area.toLowerCase();
+                if (id) route += "/" + id;
+                if (parameters) route += "/" + parameters;
                 routes.push({
                     component: this.componentFactory.componentForUri(route),
                     path: route,
