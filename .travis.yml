@@ -4,7 +4,9 @@ node_js:
 install:
   - npm install smild -g
   - npm install
-script: smild js
+script:
+  - smild test
+  - smild build
 deploy:
   skip_cleanup: true
   provider: npm
