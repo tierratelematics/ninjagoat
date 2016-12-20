@@ -10,7 +10,7 @@
     "@types/react-dom": "~0.14.19",
     "@types/react-router": "~2.0.41",
     "@types/whatwg-fetch": "0.0.33",
-    "bivio": "~0.1.0",
+    "bivio": "~0.2.0",
     "bluebird": "~3.3.4",
     "inversify": "~3.0.0-rc.2",
     "lodash": "~4.10.0",
