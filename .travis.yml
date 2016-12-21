@@ -19,7 +19,9 @@ deploy:
     repo: tierratelematics/ninjagoat
     tags: false
 notifications:
-  slack:
-    branch: develop
+  on:
+    branch: master
+    repo: tierratelematics/ninjagoat
     tags: false
+  slack:
     secure: om/E6qN2AQVJxk6gJd3P7D6fsqF69o5aGaa5dSUUDR+CXJhWeqZwIsYI/r8ZXzd4uyFp2xRhXlGIoif11YoRxdIH2/+leyT1bBnP7AWgjrCqLAjadir7AeIOFbWeVZaTObAnepa68eiFUg+9KscCCLf409cv3vYi2e2rNKJcrLhRcKs9v3q0DGRnoocBZE4nq86WSDHgipDpIPml5LOJfmGLiyI7oVdwDJ7rEMHo6pqOtspN4yFFFHkfPwmyZvhp/XcY2Roz5cpUn/mhu/hnA3zqU+HZzqXL8Ddk9JBdH1fxMUibKXtOg7U5xiS9G4xdVd5eXjSXtP9iCehVwJcx7/1Ofk/DolG4ncXk+LCiNWZbifUcHzBcIRBBEQ/85bnZrpTZ7ZD85jE7CWJ6Nbklrrqj1MvSjf5J8NxW137FOz2xnKGqm8rZDFPo8140yaUAoKntzgXXzLeg/K+P49uoniKWEBFF5U7QTEwo8n9k0nQibnMkQiL/x118o2xE2h+8tvjEjj0QyPBXE9nJSxu/Gc6EuKeJ5BJXD3yZNvEPs360376Rj7mjoncOgCxZ0OmhRf6wrEdp5C3ehpZHdbgZ24lTLfLmFwYrCcr/ZG23TKUx2GfTjAnwFeM2hcZlMCnHb+yVqfn7MW2w/r5VRdDV8BcNLGIVwOGMHSQuRNkxZMk=
