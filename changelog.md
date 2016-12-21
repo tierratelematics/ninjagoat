@@ -1,3 +1,8 @@
+#0.15.0
+
+typescript 2.1 support
+update to smild 4
+
 #0.14.0
 
 add async interface for settings manager
