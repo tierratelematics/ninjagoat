@@ -1,8 +1,6 @@
 import expect = require("expect.js");
 import * as sinon from "sinon";
 import * as Rx from "rx";
-import SinonStub = Sinon.SinonStub;
-import SinonSpy = Sinon.SinonSpy;
 import BarViewModel from "../fixtures/viewmodels/BarViewModel";
 
 describe("Given an ObservableViewModel", () => {
@@ -40,7 +38,7 @@ describe("Given an ObservableViewModel", () => {
 
         context("and there is an error while processing it", () => {
 
-            let stub:SinonStub;
+            let stub:sinon.SinonStub;
 
             beforeEach(() => {
                 notifications = [];

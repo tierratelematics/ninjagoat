@@ -10,3 +10,4 @@ coverage
 .git
 .idea
 .travis.yml
+.nyc_output

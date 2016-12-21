@@ -1,7 +1,5 @@
 import "reflect-metadata";
-import "bluebird";
 import expect = require("expect.js");
-import Rx = require("rx");
 import IContextFactory from "../scripts/components/IContextFactory";
 import ContextFactory from "../scripts/components/ContextFactory";
 import IViewModelRegistry from "../scripts/registry/IViewModelRegistry";
@@ -23,7 +21,7 @@ import IViewModelFactory from "../scripts/viewmodels/IViewModelFactory";
 import ViewModelContext from "../scripts/registry/ViewModelContext";
 import MockObjectContainer from "./fixtures/MockObjectContainer";
 import IndexViewModel from "./fixtures/viewmodels/IndexViewModel";
-import {Index} from "../scripts/config/Area";
+import {Observable} from "rx";
 import * as Area from "../scripts/config/Area";
 import MasterView from "./fixtures/views/Master";
 import QuerySerializer from "../scripts/io/QuerySerializer";
@@ -47,7 +45,7 @@ describe("ContextFactory, given an URI", () => {
         viewResolver = new ViewResolver(require("./fixtures/views/export"));
         subject = new ContextFactory(uriResolver, viewResolver, factory, new QuerySerializer());
 
-        observableFactory.register<number>("Bar", (context:ViewModelContext) => Rx.Observable.just(context.parameters.id));
+        observableFactory.register<number>("Bar", (context:ViewModelContext) => Observable.just(context.parameters.id));
 
         registry.master(RootViewModel);
         registry.index(IndexViewModel);

@@ -1,5 +1,5 @@
 import expect = require("expect.js");
-import * as Rx from "rx";
+import {Subject} from "rx";
 import IObservableFactory from "../scripts/viewmodels/IObservableFactory";
 import ObservableFactory from "../scripts/viewmodels/ObservableFactory";
 
@@ -15,7 +15,7 @@ describe("ObservableFactory, given a viewmodel id", () => {
 
     context("when the corresponding observable should be retrieved", () => {
         it("should construct the right observable", () => {
-            let dataSubject = new Rx.Subject<number>();
+            let dataSubject = new Subject<number>();
             dataSubject.subscribe(data => dataEmitted.push(data));
             subject.register<number>("Foo", parameters => {
                 dataSubject.onNext(parameters.counter);

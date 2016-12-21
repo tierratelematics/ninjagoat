@@ -18,11 +18,11 @@ class ViewModelRegistry implements IViewModelRegistry {
         return this.add(construct, observable).forArea(Area.Master);
     }
 
-    index<T>(construct:inversify.interfaces.Newable<IViewModel<T>>, observable?:(context:ViewModelContext)=>Rx.IObservable<T>):AreaRegistry {
+    index<T>(construct:interfaces.Newable<IViewModel<T>>, observable?:(context:ViewModelContext)=>Rx.IObservable<T>):AreaRegistry {
         return this.add(construct, observable).forArea(Area.Index);
     }
 
-    notFound<T>(construct:inversify.interfaces.Newable<IViewModel<T>>, observable?:(context:ViewModelContext)=>Rx.IObservable<T>):AreaRegistry {
+    notFound<T>(construct:interfaces.Newable<IViewModel<T>>, observable?:(context:ViewModelContext)=>Rx.IObservable<T>):AreaRegistry {
         return this.add(construct, observable).forArea(Area.NotFound);
     }
 
