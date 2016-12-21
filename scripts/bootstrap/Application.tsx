@@ -1,4 +1,4 @@
-import {Kernel} from "inversify";
+import {Container} from "inversify";
 import IModule from "./IModule";
 import IViewModelRegistry from "../registry/IViewModelRegistry";
 import * as _ from "lodash";
@@ -12,20 +12,20 @@ import {IFeatureChecker, FeatureChecker} from "bivio";
 
 class Application {
 
-    protected kernel = new Kernel();
+    protected container = new Container();
     private modules:IModule[] = [];
     private routingAdapter:IRoutingAdapter;
     private featureChecker = new FeatureChecker();
 
     constructor() {
         this.register(new NinjaGoatModule());
-        this.kernel.bind<IFeatureChecker>("IFeatureChecker").toConstantValue(this.featureChecker);
+        this.container.bind<IFeatureChecker>("IFeatureChecker").toConstantValue(this.featureChecker);
     }
 
     register(module:IModule):boolean {
         if (!this.featureChecker.canCheck(module.constructor) || this.featureChecker.check(module.constructor)) {
             if (module.modules)
-                module.modules(this.kernel);
+                module.modules(this.container);
             this.modules.push(module);
             return true;
         }
@@ -38,13 +38,13 @@ class Application {
     }
 
     boot(overrides?:any) {
-        let registry = this.kernel.get<IViewModelRegistry>("IViewModelRegistry");
-        this.routingAdapter = this.kernel.get<IRoutingAdapter>("IRoutingAdapter");
-        _.forEach(this.modules, (module:IModule) => module.register(registry, this.kernel, overrides));
+        let registry = this.container.get<IViewModelRegistry>("IViewModelRegistry");
+        this.routingAdapter = this.container.get<IRoutingAdapter>("IRoutingAdapter");
+        _.forEach(this.modules, (module:IModule) => module.register(registry, this.container, overrides));
     }
 
     protected rootComponent():React.ReactElement<any> {
-        let locationListener = this.kernel.get<ILocationListener>("ILocationListener");
+        let locationListener = this.container.get<ILocationListener>("ILocationListener");
         browserHistory.listen(event => locationListener.pushLocation(event.pathname));
         return <Router history={browserHistory} routes={this.routingAdapter.routes()}/>
     }

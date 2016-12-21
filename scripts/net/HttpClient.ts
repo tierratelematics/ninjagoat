@@ -43,14 +43,14 @@ class HttpClient implements IHttpClient {
                 method: method,
                 body: body,
                 headers: headers
-            }).then(response => {
+            }).then<HttpResponse>(response => {
                 let headers:Dictionary<string> = {};
                 response.headers.forEach((value, name) => {
                     headers[name] = value;
                 });
                 return response.text().then(text => {
                     if (response.status === 204)
-                        return Promise.resolve(new HttpResponse(null, response.status, headers));
+                        return new HttpResponse(null, response.status, headers);
                     let httpResponse = new HttpResponse(JSON.parse(text), response.status, headers);
                     if (response.status >= 400)
                         return Promise.reject(httpResponse);

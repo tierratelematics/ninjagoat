@@ -1,5 +1,4 @@
 import "reflect-metadata";
-import "bluebird";
 import expect = require("expect.js");
 import Application from "../scripts/bootstrap/Application";
 import {DisabledModule, ValidModule, WithoutFTModule} from "./fixtures/Modules";

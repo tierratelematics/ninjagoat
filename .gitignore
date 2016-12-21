@@ -5,3 +5,5 @@ dist
 tmp
 coverage
 views/export.js
+.nyc_output
+npm-debug.log

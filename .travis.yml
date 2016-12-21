@@ -2,12 +2,12 @@ language: node_js
 node_js:
   - "6"
 install:
-  - npm install smild -g
-  - npm install typings -g
+  - npm install smild@~4.1.0 -g
+  - npm install react@15.4.1 react-dom@15.4.1 react-router@3.0.0
   - npm install
-  - rm -rf typings
-  - typings install
-script: smild js
+script:
+  - smild test
+  - smild build
 deploy:
   skip_cleanup: true
   provider: npm
@@ -17,3 +17,4 @@ deploy:
   on:
     branch: master
     repo: tierratelematics/ninjagoat
+    tags: false
