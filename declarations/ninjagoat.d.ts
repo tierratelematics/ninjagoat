@@ -95,6 +95,8 @@ export abstract class ObservableViewModel<T> implements IViewModel<T> {
 
     observe(observable: Rx.IObservable<T>);
 
+    protected abstract onData(data: T): void;
+
     subscribe(observer: Rx.IObserver<void>): Rx.IDisposable
     subscribe(onNext?: (value: void) => void, onError?: (exception: any) => void, onCompleted?: () => void): Rx.IDisposable;
 
