@@ -1,3 +1,4 @@
+import "reflect-metadata";
 import expect = require("expect.js");
 import * as sinon from "sinon";
 import * as Rx from "rx";
@@ -5,10 +6,10 @@ import BarViewModel from "../fixtures/viewmodels/BarViewModel";
 
 describe("Given an ObservableViewModel", () => {
 
-    let subject:BarViewModel;
+    let subject: BarViewModel;
     let modelSubject;
-    let notifications:void[];
-    let notificationError:any;
+    let notifications: void[];
+    let notificationError: any;
     let notificationsCompleted;
 
     beforeEach(() => {
@@ -38,7 +39,7 @@ describe("Given an ObservableViewModel", () => {
 
         context("and there is an error while processing it", () => {
 
-            let stub:sinon.SinonStub;
+            let stub: sinon.SinonStub;
 
             beforeEach(() => {
                 notifications = [];
@@ -93,10 +94,20 @@ describe("Given an ObservableViewModel", () => {
     });
 
     context("when a method is marked with a refresh annotation", () => {
-        it("should notify that the model has been changed", () => {
-            subject.operateOnData();
-            
-            expect(notifications).to.have.length(1);
+        context("and the method is not async", () => {
+            it("should notify that the model has been changed", () => {
+                subject.operateOnData();
+
+                expect(notifications).to.have.length(1);
+            });
+        });
+        context("and the method is async", () => {
+            it("should notify that the model has been changed correctly", async () => {
+                await subject.asyncOperation();
+
+                expect(subject.async).to.be(true);
+                expect(notifications).to.have.length(1);
+            });
         });
     });
 });
