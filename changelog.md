@@ -1,3 +1,7 @@
+#0.15.1
+
+Make refresh decorator work this standard Promise
+
 #0.15.0
 
 typescript 2.1 support

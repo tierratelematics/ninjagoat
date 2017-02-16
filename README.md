@@ -47,10 +47,8 @@ As Ninjagoat is written in Typescript, you can find the type definitions here:
 If you've made it so far, you might be interested in one of these excellent topics:
 
 
-* [Getting started](gettingstarted.md) - will show you how to get up and running with Ninjagoat, with the classic hello world example.
-* [Architecture](architecture.md) - will tell you a bit more about how Ninjagoat does things internally. This might be boring stuff for you, if what you need is just use the library, so feel free to skip it.
-* [Roadmap](roadmap.md) - here you will find a few insights about where we want to go and what is planned for future versions
-* [Contribute!](contribute.md) - welcome to Duloc [such a perfect town](https://www.youtube.com/watch?v=X81AoBcVnaA), here we have some rules, let us lay them down...
+* [Getting started](https://github.com/tierratelematics/ninjagoat/wiki/Getting-started) - will show you how to get up and running with Ninjagoat, with the classic hello world example.
+* Contribute! - welcome to Duloc [such a perfect town](https://www.youtube.com/watch?v=X81AoBcVnaA), here we have some rules, let us lay them down...
 
 ## License
 
