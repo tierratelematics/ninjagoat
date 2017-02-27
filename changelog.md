@@ -1,3 +1,7 @@
+#1.0.0
+
+Remove bluebird
+
 #0.15.1
 
 Make refresh decorator work this standard Promise
