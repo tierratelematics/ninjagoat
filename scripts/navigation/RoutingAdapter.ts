@@ -71,7 +71,7 @@ class RoutingAdapter implements IRoutingAdapter {
     private handleOnEnter(entry: RegistryEntry<any>, nextState:RouterState, replace:RedirectFunction, callback: Function) {
         this.routeStrategy.enter(entry,  nextState).then(url => {
             if (url) replace(url);
-        }).finally(() => callback());
+        }).then(() => callback());
     }
 }
 
