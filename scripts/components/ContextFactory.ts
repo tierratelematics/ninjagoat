@@ -16,7 +16,7 @@ class ContextFactory implements IContextFactory {
         @inject("IUriResolver") private uriResolver: IUriResolver,
         @inject("IViewResolver") private viewResolver: IViewResolver,
         @inject("IViewModelFactory") private viewModelFactory: IViewModelFactory,
-        @inject("ISerializer") private serializer:ISerializer<Dictionary<string>, string>) {
+        @inject("QuerySerializer") private serializer:ISerializer<Dictionary<string>, string>) {
     }
 
     contextFor<T extends IViewModel<any>>(uri: string, parameters?: any): { view: View<T>, viewmodel: T } {

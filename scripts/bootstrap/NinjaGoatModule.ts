@@ -55,7 +55,7 @@ class NinjaGoatModule implements IModule {
         container.bind<IRoutingAdapter>("IRoutingAdapter").to(RoutingAdapter).inSingletonScope();
         container.bind<IViewModelFactory>("IViewModelFactory").to(ViewModelFactory).inSingletonScope();
         container.bind<IHttpClient>("IHttpClient").to(HttpClient).inSingletonScope();
-        container.bind<ISerializer<Dictionary<string>, string>>("ISerializer").to(QuerySerializer).inSingletonScope();
+        container.bind<ISerializer<Dictionary<string>, string>>("QuerySerializer").to(QuerySerializer).inSingletonScope();
         container.bind<IDateRetriever>("IDateRetriever").to(DateRetriever).inSingletonScope();
         container.bind<IGUIDGenerator>("IGUIDGenerator").to(GUIDGenerator).inSingletonScope();
         container.bind<ILogger>("ILogger").to(ConsoleLogger).inSingletonScope();
