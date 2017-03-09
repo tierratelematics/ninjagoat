@@ -48,7 +48,6 @@ export class ObjectContainer implements IObjectContainer {
     remove(key: string): void;
 }
 
-
 interface IBaseConfig {
     endpoint: string;
 }
@@ -64,7 +63,6 @@ export interface IViewModelRegistry {
     getEntry<T>(area: string, id: string): {area: string, viewmodel: RegistryEntry<T>};
 }
 
-
 export class AreaRegistry {
     area: string;
     entries: RegistryEntry<IViewModel<any>>[];
@@ -75,6 +73,11 @@ export class RegistryEntry<T> {
     id: string;
     observableFactory: (context: ViewModelContext) => Rx.IObservable<T>;
     parameters: string;
+
+    constructor(construct: interfaces.Newable<IViewModel<T>>,
+                id: string,
+                observableFactory: (context: ViewModelContext) => Rx.IObservable<T>,
+                parameters: string);
 }
 
 export class ViewModelContext {
@@ -83,6 +86,10 @@ export class ViewModelContext {
     parameters: any;
 
     constructor(area: string, viewmodelId: string, parameters?: any);
+}
+
+export interface IViewModelFactory {
+    create<T>(context: { area: string, viewmodel: RegistryEntry<T> }, parameters?: any): T;
 }
 
 export interface IViewModel<T> extends Rx.IDisposable, Rx.IObservable<void> {
