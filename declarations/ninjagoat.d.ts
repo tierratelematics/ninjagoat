@@ -48,10 +48,6 @@ export class ObjectContainer implements IObjectContainer {
     remove(key: string): void;
 }
 
-interface IBaseConfig {
-    endpoint: string;
-}
-
 export interface IViewModelRegistry {
     master<T>(construct: interfaces.Newable<IViewModel<T>>, observable?: (context: ViewModelContext) => Rx.IObservable<T>): AreaRegistry;
     index<T>(construct: interfaces.Newable<IViewModel<T>>, observable?: (context: ViewModelContext) => Rx.IObservable<T>): AreaRegistry;
