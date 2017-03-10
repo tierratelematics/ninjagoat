@@ -192,7 +192,7 @@ export class ComponentFactory implements IComponentFactory {
 }
 
 export interface IContextFactory {
-    contextFor<T extends IViewModel<any>>(uri: string, parameters?: any): {view: View<T>, viewmodel: T};
+    contextFor<T extends IViewModel<any>>(uri: string, parameters?: any): {view: interfaces.Newable<View<T>>, viewmodel: T};
 }
 
 export interface INavigationManager {

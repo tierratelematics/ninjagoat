@@ -1,33 +1,45 @@
 import "reflect-metadata";
 import expect = require("expect.js");
+import {IMock, Mock, It} from "typemoq";
 import IViewModelRegistry from "../scripts/registry/IViewModelRegistry";
 import IRoutingAdapter from "../scripts/navigation/IRoutingAdapter";
-import ViewModelRegistry from "../scripts/registry/ViewModelRegistry";
 import RoutingAdapter from "../scripts/navigation/RoutingAdapter";
 import IPageComponentFactory from "../scripts/components/IComponentFactory";
 import RootViewModel from "./fixtures/viewmodels/RootViewModel";
 import FooIndexViewModel from "./fixtures/viewmodels/FooIndexViewModel";
 import BarViewModel from "./fixtures/viewmodels/BarViewModel";
-import MockComponentFactory from "./fixtures/MockComponentFactory";
+import AreaRegistry from "../scripts/registry/AreaRegistry";
+import RegistryEntry from "../scripts/registry/RegistryEntry";
+import * as _ from "lodash";
 
 describe("RoutingAdapter, given a list of registry entries", () => {
 
-    let registry:IViewModelRegistry;
-    let subject:IRoutingAdapter;
-    let componentFactory:IPageComponentFactory;
+    let registry: IMock<IViewModelRegistry>;
+    let subject: IRoutingAdapter;
+    let componentFactory: IMock<IPageComponentFactory>;
+    let baseViewModels: AreaRegistry[] = [
+        new AreaRegistry("Master", [
+            new RegistryEntry<any>(RootViewModel, "Root", null, null)
+        ]),
+        new AreaRegistry("Index", [
+            new RegistryEntry<any>(RootViewModel, "Root", null, null)
+        ])
+    ];
 
     beforeEach(() => {
-        registry = new ViewModelRegistry();
-        componentFactory = new MockComponentFactory();
-        subject = new RoutingAdapter(registry, componentFactory, null);
-        registry.master(RootViewModel);
-        registry.index(RootViewModel);
+        registry = Mock.ofType<IViewModelRegistry>();
+        componentFactory = Mock.ofType<IPageComponentFactory>();
+        componentFactory.setup(c => c.componentForUri(It.isAny())).returns(() => null);
+        componentFactory.setup(c => c.componentForMaster()).returns(() => null);
+        componentFactory.setup(c => c.componentForNotFound()).returns(() => null);
+        subject = new RoutingAdapter(registry.object, componentFactory.object, null);
     });
 
     context("when the area is the index page", () => {
-
+        beforeEach(() => registry.setup(r => r.getAreas()).returns(() => baseViewModels));
         it("should correctly add it into the list of routes produced", () => {
             let routes = subject.routes();
+
             expect(routes.path).to.eql("/");
             expect(routes.childRoutes).to.eql([]);
         });
@@ -35,8 +47,12 @@ describe("RoutingAdapter, given a list of registry entries", () => {
 
     context("when it's the root of an area", () => {
         context("and it has no viewmodels registered", () => {
+            beforeEach(() => registry.setup(r => r.getAreas()).returns(() => _.union(baseViewModels, [
+                new AreaRegistry("Foo", [
+                    new RegistryEntry<any>(FooIndexViewModel, "FooIndex", null, null)
+                ])
+            ])));
             it("should add the area to the the list of routes", () => {
-                registry.add(FooIndexViewModel).forArea("Foo");
                 let routes = subject.routes();
 
                 expect(routes.path).to.eql("/");
@@ -45,8 +61,12 @@ describe("RoutingAdapter, given a list of registry entries", () => {
         });
 
         context("and it needs some parameters when constructed", () => {
+            beforeEach(() => registry.setup(r => r.getAreas()).returns(() => _.union(baseViewModels, [
+                new AreaRegistry("Foo", [
+                    new RegistryEntry<any>(FooIndexViewModel, "FooIndex", null, ":id")
+                ])
+            ])));
             it("should append those parameters", () => {
-                registry.add(FooIndexViewModel, _ => null, ":id").forArea("Foo");
                 let routes = subject.routes();
 
                 expect(routes.path).to.eql("/");
@@ -55,8 +75,12 @@ describe("RoutingAdapter, given a list of registry entries", () => {
         });
 
         context("and it has some viewmodels registered", () => {
+            beforeEach(() => registry.setup(r => r.getAreas()).returns(() => _.union(baseViewModels, [
+                new AreaRegistry("Foo", [
+                    new RegistryEntry<any>(BarViewModel, "Bar", null, null)
+                ])
+            ])));
             it("should also add these viewmodels to the area registration", () => {
-                registry.add(BarViewModel).forArea("Foo");
                 let routes = subject.routes();
 
                 expect(routes.path).to.eql("/");
@@ -65,7 +89,11 @@ describe("RoutingAdapter, given a list of registry entries", () => {
         });
 
         context("and some parameters are registered for the corresponding viewmodel", () => {
-            beforeEach(() => registry.add(BarViewModel, null, ":id/:subCategory").forArea("Foo"));
+            beforeEach(() => registry.setup(r => r.getAreas()).returns(() => _.union(baseViewModels, [
+                new AreaRegistry("Foo", [
+                    new RegistryEntry<any>(BarViewModel, "Bar", null, ":id/:subCategory")
+                ])
+            ])));
             it("should add these parameters to the constructed path", () => {
                 let routes = subject.routes();
 
@@ -77,8 +105,14 @@ describe("RoutingAdapter, given a list of registry entries", () => {
 
     context("when a not found page is present", () => {
         beforeEach(() => {
-            registry.add(BarViewModel, null, ":id/:subCategory").forArea("Foo");
-            registry.notFound(BarViewModel);
+            registry.setup(r => r.getAreas()).returns(() => _.union(baseViewModels, [
+                new AreaRegistry("Foo", [
+                    new RegistryEntry<any>(BarViewModel, "Bar", null, ":id/:subCategory")
+                ])
+            ]));
+            registry.setup(r => r.getArea("NotFound")).returns(() => new AreaRegistry("NotFound", [
+                new RegistryEntry<any>(BarViewModel, "Bar", null, null)
+            ]));
         });
         it("should add a 404 handler to the routing", () => {
             let routes = subject.routes();

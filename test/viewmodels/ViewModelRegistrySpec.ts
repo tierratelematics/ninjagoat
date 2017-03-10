@@ -1,3 +1,4 @@
+import "reflect-metadata";
 import expect = require("expect.js");
 import * as Rx from "rx";
 import IViewModelRegistry from "../../scripts/registry/IViewModelRegistry";

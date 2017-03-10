@@ -1,4 +1,6 @@
+import "reflect-metadata";
 import expect = require("expect.js");
+import {IMock, Mock, It, Times} from "typemoq";
 import ViewModelRegistry from "../scripts/registry/ViewModelRegistry";
 import IViewModelRegistry from "../scripts/registry/IViewModelRegistry";
 import IUriResolver from "../scripts/navigation/IUriResolver";
