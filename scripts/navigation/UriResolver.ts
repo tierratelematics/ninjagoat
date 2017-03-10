@@ -3,7 +3,7 @@ import IViewModelRegistry from "../registry/IViewModelRegistry";
 import RegistryEntry from "../registry/RegistryEntry";
 import * as _ from "lodash";
 import {inject, injectable} from "inversify";
-import * as Area from "../config/Area";
+import * as Area from "../registry/Area";
 
 @injectable()
 class UriResolver implements IUriResolver {

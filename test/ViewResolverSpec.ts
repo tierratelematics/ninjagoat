@@ -6,7 +6,7 @@ import Bar from "./fixtures/views/foo/Bar";
 import FooIndex from "./fixtures/views/foo/FooIndex";
 import RootIndex from "./fixtures/views/Index";
 import MasterView from "./fixtures/views/Master";
-import * as Area from "../scripts/config/Area";
+import * as Area from "../scripts/registry/Area";
 import NotFound from "./fixtures/views/NotFound";
 
 describe("ViewResolver,given a viewmodel identifier", () => {

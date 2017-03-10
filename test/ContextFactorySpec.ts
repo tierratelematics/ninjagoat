@@ -14,7 +14,7 @@ import RootViewModel from "./fixtures/viewmodels/RootViewModel";
 import IViewModelFactory from "../scripts/viewmodels/IViewModelFactory";
 import IndexViewModel from "./fixtures/viewmodels/IndexViewModel";
 import {Observable} from "rx";
-import * as Area from "../scripts/config/Area";
+import * as Area from "../scripts/registry/Area";
 import MasterView from "./fixtures/views/Master";
 import ISerializer from "../scripts/io/ISerializer";
 import Dictionary from "../scripts/util/Dictionary";

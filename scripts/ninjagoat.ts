@@ -8,10 +8,10 @@ export {default as Refresh}  from "./viewmodels/RefreshDecorator";
 export {default as HttpClient}  from "./net/HttpClient";
 export {default as ViewModelContext}  from "./registry/ViewModelContext"
 export {default as RegistryEntry}  from "./registry/RegistryEntry"
-export {default as LogLevel} from "./util/LogLevel";
+export {default as LogLevel} from "./log/LogLevel";
 export {default as ComponentFactory} from "./components/ComponentFactory";
 export {default as PresentationViewModel} from "./viewmodels/PresentationViewModel";
-export {default as ObjectContainer} from "./bootstrap/ObjectContainer";
+export {default as ObjectContainer} from "./ioc/ObjectContainer";
 export {default as VoidRouteStrategy} from "./navigation/VoidRouteStrategy";
 export {FeatureToggle} from "bivio";
 export {IFeatureChecker} from "bivio";

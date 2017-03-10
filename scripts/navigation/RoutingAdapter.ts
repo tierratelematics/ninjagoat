@@ -3,7 +3,7 @@ import IViewModelRegistry from "../registry/IViewModelRegistry";
 import AreaRegistry from "../registry/AreaRegistry";
 import * as _ from "lodash";
 import {inject, injectable} from "inversify";
-import * as Area from "../config/Area";
+import * as Area from "../registry/Area";
 import IComponentFactory from "../components/IComponentFactory";
 import {PlainRoute} from "react-router";
 import {RouterState} from "react-router";

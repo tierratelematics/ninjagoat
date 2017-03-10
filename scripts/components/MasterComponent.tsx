@@ -1,5 +1,5 @@
 import * as React from "react";
-import * as Area from "../config/Area";
+import * as Area from "../registry/Area";
 
 export default React.createClass({
     render() {
