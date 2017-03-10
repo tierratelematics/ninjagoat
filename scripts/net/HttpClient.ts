@@ -53,7 +53,7 @@ class HttpClient implements IHttpClient {
                     let json = JSON.parse(text),
                         httpResponse = new HttpResponse(json, response.status, headers);
                     if (response.status >= 400)
-                        throw new Error(json);
+                        throw httpResponse;
                     return httpResponse;
                 });
             })
