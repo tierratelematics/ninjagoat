@@ -45,9 +45,9 @@ describe("ContextFactory, given an URI", () => {
                     viewmodel: new RegistryEntry(BarViewModel, "Bar", null, null)
                 }
             });
-            factory.setup(f => f.create(It.isAny(), It.isAny())).returns((context, parameters: any) => {
+            factory.setup(f => f.create(It.isAny(), It.isAny(), It.isAny())).returns((context) => {
                 let viewmodel = new BarViewModel();
-                viewmodel.observe(Observable.just(parameters.id));
+                viewmodel.observe(Observable.just(context.parameters.id));
                 return viewmodel;
             });
         });
@@ -82,7 +82,7 @@ describe("ContextFactory, given an URI", () => {
                     viewmodel: new RegistryEntry(FooIndexViewModel, "FooIndex", null, null)
                 }
             });
-            factory.setup(f => f.create(It.isAny(), It.isAny())).returns(() => new FooIndexViewModel());
+            factory.setup(f => f.create(It.isAny(), It.isAny(), It.isAny())).returns(() => new FooIndexViewModel());
         });
         it("should return the correct area view and the associated viewmodel", () => {
             let context = subject.contextFor("/foo", {});
@@ -101,7 +101,7 @@ describe("ContextFactory, given an URI", () => {
                     viewmodel: new RegistryEntry(IndexViewModel, "Index", null, null)
                 }
             });
-            factory.setup(f => f.create(It.isAny(), It.isAny())).returns(() => new IndexViewModel());
+            factory.setup(f => f.create(It.isAny(), It.isAny(), It.isAny())).returns(() => new IndexViewModel());
         });
         context("but a factory function was not supplied to the viewmodel registration", () => {
             it("should not construct the dependencies", () => {
@@ -122,7 +122,7 @@ describe("ContextFactory, given an URI", () => {
                     viewmodel: new RegistryEntry(RootViewModel, "Root", null, null)
                 }
             });
-            factory.setup(f => f.create(It.isAny(), It.isAny())).returns(() => new RootViewModel());
+            factory.setup(f => f.create(It.isAny(), It.isAny(), It.isAny())).returns(() => new RootViewModel());
         });
         it("should return the master context", () => {
             let context = subject.contextFor(Area.Master);
