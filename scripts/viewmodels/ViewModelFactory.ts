@@ -4,13 +4,15 @@ import IObjectContainer from "../ioc/IObjectContainer";
 import ObservableViewModel from "./ObservableViewModel";
 import RegistryEntry from "../registry/RegistryEntry";
 import ViewModelContext from "../registry/ViewModelContext";
+import IViewModel from "./IViewModel";
 
 @injectable()
 class ViewModelFactory implements IViewModelFactory {
 
-    constructor( @inject("IObjectContainer") private container: IObjectContainer) { }
+    constructor(@inject("IObjectContainer") private container: IObjectContainer) {
+    }
 
-    create<T>(context: { area: string, viewmodel: RegistryEntry<T> }, parameters?: any): T {
+    create<T extends IViewModel<any>>(context: {area: string, viewmodel: RegistryEntry<T>}, parameters?: any): T {
         const key = `ninjagoat:viewmodels:${context.area}:${context.viewmodel.id}`;
         if (!this.container.contains(key))
             this.container.set(key, context.viewmodel.construct);
