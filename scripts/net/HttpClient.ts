@@ -43,9 +43,9 @@ class HttpClient implements IHttpClient {
                 body: body,
                 headers: headers
             }).then(response => {
-                let headers:Dictionary<string> = {};
+                let headers: Dictionary<string> = {};
                 response.headers.forEach((value, name) => {
-                    headers[name] = value.toLowerCase();
+                    headers[name.toString().toLowerCase()] = value;
                 });
                 return response.text().then(text => {
                     let payload = this.isJsonContentType(headers['content-type']) ? JSON.parse(text) : text;
