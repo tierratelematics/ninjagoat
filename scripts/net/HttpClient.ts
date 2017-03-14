@@ -37,26 +37,25 @@ class HttpClient implements IHttpClient {
     };
 
     private performNetworkCall(url: string, method: string, body?: any, headers?: Dictionary<string>): Rx.Observable<HttpResponse> {
-        return Rx.Observable.fromPromise(
-            window.fetch(url, {
-                method: method,
-                body: body,
-                headers: headers
-            }).then(response => {
-                let headers: Dictionary<string> = {};
-                response.headers.forEach((value, name) => {
-                    headers[name.toString().toLowerCase()] = value;
-                });
-                return response.text().then(text => {
-                    let payload = headers['content-type'].match("application/json") ? JSON.parse(text) : text;
-                    let httpResponse = new HttpResponse(payload, response.status, headers);
+        let promise = window.fetch(url, {
+            method: method,
+            body: body,
+            headers: headers
+        }).then(response => {
+            let headers: Dictionary<string> = {};
+            response.headers.forEach((value, name) => {
+                headers[name.toString().toLowerCase()] = value;
+            });
+            return response.text().then(text => {
+                let payload = headers['content-type'].match("application/json") ? JSON.parse(text) : text;
+                let httpResponse = new HttpResponse(payload, response.status, headers);
 
-                    if (response.status >= 400)
-                        throw httpResponse;
-                    return httpResponse;
-                });
-            })
-        );
+                if (response.status >= 400)
+                    throw httpResponse;
+                return httpResponse;
+            });
+        });
+        return Rx.Observable.fromPromise(promise);
     }
 }
 
