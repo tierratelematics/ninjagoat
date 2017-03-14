@@ -42,22 +42,25 @@ class HttpClient implements IHttpClient {
                 method: method,
                 body: body,
                 headers: headers
-            }).then<HttpResponse>(response => {
-                let headers: Dictionary<string> = {};
+            }).then(response => {
+                let headers:Dictionary<string> = {};
                 response.headers.forEach((value, name) => {
-                    headers[name] = value;
+                    headers[name] = value.toLowerCase();
                 });
                 return response.text().then(text => {
-                    if (response.status === 204)
-                        return new HttpResponse(null, response.status, headers);
-                    let json = JSON.parse(text),
-                        httpResponse = new HttpResponse(json, response.status, headers);
+                    let payload = this.isJsonContentType(headers['content-type']) ? JSON.parse(text) : text;
+                    let httpResponse = new HttpResponse(payload, response.status, headers);
+
                     if (response.status >= 400)
                         throw httpResponse;
                     return httpResponse;
                 });
             })
         );
+    }
+
+    private isJsonContentType(contentType: string):boolean {
+        return !!(contentType && contentType.match(/^(?:application|text)[/](?:[^+]+[+])?json(?:;.*)?$/));
     }
 }
 
