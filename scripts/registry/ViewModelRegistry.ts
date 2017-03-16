@@ -18,11 +18,11 @@ class ViewModelRegistry implements IViewModelRegistry {
         return this.add(construct, observable).forArea(Area.Master);
     }
 
-    index<T>(construct:interfaces.Newable<IViewModel<T>>, observable?:(context:ViewModelContext)=>Rx.IObservable<T>):AreaRegistry {
+    index<T>(construct: interfaces.Newable<IViewModel<T>>, observable?: (context: ViewModelContext) => Rx.IObservable<T>): AreaRegistry {
         return this.add(construct, observable).forArea(Area.Index);
     }
 
-    notFound<T>(construct:interfaces.Newable<IViewModel<T>>, observable?:(context:ViewModelContext)=>Rx.IObservable<T>):AreaRegistry {
+    notFound<T>(construct: interfaces.Newable<IViewModel<T>>, observable?: (context: ViewModelContext) => Rx.IObservable<T>): AreaRegistry {
         return this.add(construct, observable).forArea(Area.NotFound);
     }
 
@@ -50,14 +50,31 @@ class ViewModelRegistry implements IViewModelRegistry {
         return this.registry;
     }
 
-    getEntry<T>(area: string, id: string): { area: string, viewmodel: RegistryEntry<T> } {
-        //I'm returning also the area since I need the initially registered area (case sensitive)
-        let areaRegistry = this.getArea(area);
-        return {
-            area: areaRegistry.area,
-            viewmodel: _.find(areaRegistry.entries, (entry:RegistryEntry<any>) => entry.id.toLowerCase() === id.toLowerCase())
-        };
+    getEntry<T>(area: string, id: string): {area: string, viewmodel: RegistryEntry<T>};
+    getEntry<T>(construct: Function): {area: string; viewmodel: RegistryEntry<T>};
+    getEntry<T>(param: string|Function, id?: string): {area: string, viewmodel: RegistryEntry<T>} {
+        if (isArea(param)) {
+            let areaRegistry = this.getArea(param);
+            return {
+                area: areaRegistry.area,
+                viewmodel: _.find(areaRegistry.entries, (entry: RegistryEntry<any>) => entry.id.toLowerCase() === id.toLowerCase())
+            }
+        } else {
+            let item = null;
+            _.forEach(this.getAreas(), areaRegistry => {
+                let entry = _.find(areaRegistry.entries, entry => entry.construct === param);
+                if (entry) item = {
+                    area: areaRegistry.area,
+                    viewmodel: entry
+                }
+            });
+            return item;
+        }
     }
+}
+
+function isArea(param: string|Function): param is string {
+    return typeof param === "string";
 }
 
 export default ViewModelRegistry;

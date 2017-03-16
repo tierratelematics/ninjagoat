@@ -57,6 +57,7 @@ export interface IViewModelRegistry {
     getArea(areaId: string): AreaRegistry;
     getAreas(): AreaRegistry[];
     getEntry<T>(area: string, id: string): {area: string, viewmodel: RegistryEntry<T>};
+    getEntry<T>(construct: Function): {area: string, viewmodel: RegistryEntry<T>};
 }
 
 export class AreaRegistry {
