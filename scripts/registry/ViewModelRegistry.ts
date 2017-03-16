@@ -7,6 +7,7 @@ import IViewModel from "../viewmodels/IViewModel";
 import ViewModelContext from "../registry/ViewModelContext";
 import * as Rx from "rx";
 import * as Area from "./Area";
+import {ViewModelUtil} from "../viewmodels/ViewModelDecorator";
 
 @injectable()
 class ViewModelRegistry implements IViewModelRegistry {
@@ -27,7 +28,7 @@ class ViewModelRegistry implements IViewModelRegistry {
     }
 
     add<T>(construct: interfaces.Newable<IViewModel<T>>, observable?: (context: ViewModelContext) => Rx.IObservable<T>, parameters?: string): IViewModelRegistry {
-        let id = Reflect.getMetadata("ninjagoat:viewmodel", construct);
+        let id = ViewModelUtil.getViewModelName(construct);
         if (!id)
             throw new Error("Missing ViewModel decorator");
         this.unregisteredEntries.push(new RegistryEntry<T>(construct, id, observable, parameters));

@@ -87,7 +87,7 @@ export class ViewModelContext {
 
 export interface IViewModelFactory {
     create<T extends IViewModel<T>>(context: ViewModelContext, construct: interfaces.Newable<IViewModel<T>>,
-                                      observableFactory: (context: ViewModelContext) => Rx.IObservable<T>): T;
+                                    observableFactory: (context: ViewModelContext) => Rx.IObservable<T>): T;
 }
 
 export interface IViewModel<T> extends Rx.IDisposable, Rx.IObservable<void> {
@@ -114,6 +114,10 @@ export abstract class View<T> extends React.Component<{viewmodel: T}, {}> {
 }
 
 export function ViewModel(name: string);
+
+export class ViewModelUtil {
+    static getViewModelName(viewModel: Function): string;
+}
 
 export function Presentation(name: string);
 

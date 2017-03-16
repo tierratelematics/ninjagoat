@@ -1,6 +1,6 @@
 import ObservableViewModel from "../../../scripts/viewmodels/ObservableViewModel";
-import ViewModel from "../../../scripts/viewmodels/ViewModelDecorator";
 import Refresh from "../../../scripts/viewmodels/RefreshDecorator";
+import {ViewModel} from "../../../scripts/viewmodels/ViewModelDecorator";
 
 @ViewModel("Bar")
 export default class BarViewModel extends ObservableViewModel<number> {
