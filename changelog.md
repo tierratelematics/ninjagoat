@@ -1,3 +1,10 @@
+#2.0.0
+
+* internal refactor
+* parse json only with the right content type
+* throw httpResponse instead of json
+* remove IBaseConfig
+
 #1.0.0
 
 Remove bluebird
@@ -8,13 +15,13 @@ Make refresh decorator work this standard Promise
 
 #0.15.0
 
-typescript 2.1 support
-update to smild 4
+* typescript 2.1 support
+* update to smild 4
 
 #0.14.0
 
-add async interface for settings manager
-add IRouteStrategy
+* add async interface for settings manager
+* add IRouteStrategy
 
 #0.13.2
 
