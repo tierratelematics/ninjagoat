@@ -1,8 +1,8 @@
 import "reflect-metadata";
 import expect = require("expect.js");
-import * as sinon from "sinon";
 import * as Rx from "rx";
 import BarViewModel from "../fixtures/viewmodels/BarViewModel";
+import CrashViewModel from "../fixtures/viewmodels/CrashViewModel";
 
 describe("Given an ObservableViewModel", () => {
 
@@ -11,6 +11,7 @@ describe("Given an ObservableViewModel", () => {
     let notifications: void[];
     let notificationError: any;
     let notificationsCompleted;
+    let subscription: Rx.IDisposable;
 
     beforeEach(() => {
         modelSubject = new Rx.Subject<number>();
@@ -20,11 +21,10 @@ describe("Given an ObservableViewModel", () => {
         notifications = [];
         notificationError = null;
         notificationsCompleted = false;
-        subject.subscribe(_ => notifications.push(null), error => notificationError = error, () => notificationsCompleted = true);
+        subscription = subject.subscribe(_ => notifications.push(null), error => notificationError = error, () => notificationsCompleted = true);
     });
 
     context("when it receives a new model", () => {
-
         beforeEach(() => {
             modelSubject.onNext(10);
         });
@@ -38,14 +38,12 @@ describe("Given an ObservableViewModel", () => {
         });
 
         context("and there is an error while processing it", () => {
-
-            let stub: sinon.SinonStub;
-
             beforeEach(() => {
+                subscription.dispose();
                 notifications = [];
-                stub = sinon.stub(subject, "onData", () => {
-                    throw new Error();
-                });
+                let crashViewModel = new CrashViewModel();
+                crashViewModel.observe(modelSubject);
+                crashViewModel.subscribe(_ => notifications.push(null), error => notificationError = error, () => notificationsCompleted = true);
             });
 
             it("the error should be propagated to the system", () => {
@@ -65,7 +63,6 @@ describe("Given an ObservableViewModel", () => {
     });
 
     context("when it is not needed anymore", () => {
-
         beforeEach(() => {
             modelSubject.onNext(10);
             subject.dispose();
@@ -102,7 +99,7 @@ describe("Given an ObservableViewModel", () => {
             });
         });
         context("and the method is async", () => {
-            it("should notify that the model has been changed correctly", async () => {
+            it("should notify that the model has been changed correctly", async() => {
                 await subject.asyncOperation();
 
                 expect(subject.async).to.be(true);

@@ -13,7 +13,8 @@ interface IViewModelRegistry {
     forArea(area: string): AreaRegistry;
     getArea(areaId: string): AreaRegistry;
     getAreas(): AreaRegistry[];
-    getEntry<T>(area: string, id: string): { area: string, viewmodel: RegistryEntry<T> };
+    getEntry<T>(area: string, id: string): {area: string, viewmodel: RegistryEntry<T>};
+    getEntry<T>(construct: Function): {area: string, viewmodel: RegistryEntry<T>};
 }
 
 export default IViewModelRegistry;

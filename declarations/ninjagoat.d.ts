@@ -48,11 +48,6 @@ export class ObjectContainer implements IObjectContainer {
     remove(key: string): void;
 }
 
-
-interface IBaseConfig {
-    endpoint: string;
-}
-
 export interface IViewModelRegistry {
     master<T>(construct: interfaces.Newable<IViewModel<T>>, observable?: (context: ViewModelContext) => Rx.IObservable<T>): AreaRegistry;
     index<T>(construct: interfaces.Newable<IViewModel<T>>, observable?: (context: ViewModelContext) => Rx.IObservable<T>): AreaRegistry;
@@ -62,8 +57,8 @@ export interface IViewModelRegistry {
     getArea(areaId: string): AreaRegistry;
     getAreas(): AreaRegistry[];
     getEntry<T>(area: string, id: string): {area: string, viewmodel: RegistryEntry<T>};
+    getEntry<T>(construct: Function): {area: string, viewmodel: RegistryEntry<T>};
 }
-
 
 export class AreaRegistry {
     area: string;
@@ -75,6 +70,11 @@ export class RegistryEntry<T> {
     id: string;
     observableFactory: (context: ViewModelContext) => Rx.IObservable<T>;
     parameters: string;
+
+    constructor(construct: interfaces.Newable<IViewModel<T>>,
+                id: string,
+                observableFactory: (context: ViewModelContext) => Rx.IObservable<T>,
+                parameters: string);
 }
 
 export class ViewModelContext {
@@ -83,6 +83,11 @@ export class ViewModelContext {
     parameters: any;
 
     constructor(area: string, viewmodelId: string, parameters?: any);
+}
+
+export interface IViewModelFactory {
+    create<T extends IViewModel<T>>(context: ViewModelContext, construct: interfaces.Newable<IViewModel<T>>,
+                                    observableFactory: (context: ViewModelContext) => Rx.IObservable<T>): T;
 }
 
 export interface IViewModel<T> extends Rx.IDisposable, Rx.IObservable<void> {
@@ -109,6 +114,10 @@ export abstract class View<T> extends React.Component<{viewmodel: T}, {}> {
 }
 
 export function ViewModel(name: string);
+
+export class ViewModelUtil {
+    static getViewModelName(viewModel: Function): string;
+}
 
 export function Presentation(name: string);
 
@@ -185,7 +194,7 @@ export class ComponentFactory implements IComponentFactory {
 }
 
 export interface IContextFactory {
-    contextFor<T extends IViewModel<any>>(uri: string, parameters?: any): {view: View<T>, viewmodel: T};
+    contextFor<T extends IViewModel<any>>(uri: string, parameters?: any): {view: interfaces.Newable<View<T>>, viewmodel: T};
 }
 
 export interface INavigationManager {

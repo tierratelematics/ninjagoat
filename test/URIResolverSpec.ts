@@ -1,4 +1,6 @@
+import "reflect-metadata";
 import expect = require("expect.js");
+import {IMock, Mock, It, Times} from "typemoq";
 import ViewModelRegistry from "../scripts/registry/ViewModelRegistry";
 import IViewModelRegistry from "../scripts/registry/IViewModelRegistry";
 import IUriResolver from "../scripts/navigation/IUriResolver";
@@ -7,7 +9,7 @@ import BarViewModel from "./fixtures/viewmodels/BarViewModel";
 import FooIndexViewModel from "./fixtures/viewmodels/FooIndexViewModel";
 import IndexViewModel from "./fixtures/viewmodels/IndexViewModel";
 import RootViewModel from "./fixtures/viewmodels/RootViewModel";
-import * as Area from "../scripts/config/Area";
+import * as Area from "../scripts/registry/Area";
 
 describe("UriResolver, given an URI", () => {
 

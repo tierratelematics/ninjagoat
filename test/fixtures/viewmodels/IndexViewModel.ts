@@ -1,6 +1,6 @@
 import IViewModel from "../../../scripts/viewmodels/IViewModel";
 import * as Rx from "rx";
-import ViewModel from "../../../scripts/viewmodels/ViewModelDecorator";
+import {ViewModel} from "../../../scripts/viewmodels/ViewModelDecorator";
 
 @ViewModel("Index")
 class IndexViewModel implements IViewModel<number> {

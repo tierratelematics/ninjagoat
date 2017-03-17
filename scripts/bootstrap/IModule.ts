@@ -1,6 +1,6 @@
 import {interfaces} from "inversify";
 import IViewModelRegistry from "../registry/IViewModelRegistry";
-import IServiceLocator from "./IServiceLocator";
+import IServiceLocator from "../ioc/IServiceLocator";
 
 interface IModule {
     modules?:(container:interfaces.Container) => void;

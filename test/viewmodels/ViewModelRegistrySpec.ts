@@ -1,3 +1,4 @@
+import "reflect-metadata";
 import expect = require("expect.js");
 import * as Rx from "rx";
 import IViewModelRegistry from "../../scripts/registry/IViewModelRegistry";
@@ -9,7 +10,7 @@ import UnregisteredViewModel from '../fixtures/viewmodels/UnregisteredViewModel'
 
 describe("ViewModelRegistry, given a list of ViewModel identifiers", () => {
 
-    let registry:IViewModelRegistry;
+    let registry: IViewModelRegistry;
 
     beforeEach(() => {
         registry = new ViewModelRegistry();
@@ -84,6 +85,16 @@ describe("ViewModelRegistry, given a list of ViewModel identifiers", () => {
             registry.add(FooViewModel).add(BarViewModel).forArea("Admin");
 
             expect(registry.getEntry("admin", "Bar").viewmodel.id).to.eql("Bar");
+        });
+    });
+
+    context("when requested to return a specific entry passing its viewmodel", () => {
+        it("should find and return it", () => {
+            registry.add(FooViewModel).add(BarViewModel).forArea("Admin");
+            let entry = registry.getEntry(FooViewModel);
+
+            expect(entry.area).to.eql("Admin");
+            expect(entry.viewmodel.construct).to.be(FooViewModel);
         });
     });
 

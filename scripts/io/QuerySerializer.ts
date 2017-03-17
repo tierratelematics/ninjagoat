@@ -15,7 +15,7 @@ class QuerySerializer implements ISerializer<Dictionary<string>, string> {
             return {};
         let parameters = query.split("&"),
             values = _.map(parameters, function (value) {
-                var parts = value.split("=");
+                let parts = value.split("=");
                 return {
                     key: parts[0],
                     value: parts[1]

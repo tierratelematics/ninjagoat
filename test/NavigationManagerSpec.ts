@@ -1,82 +1,92 @@
+import "reflect-metadata";
+import {IMock, Mock, Times, It} from "typemoq";
 import expect = require("expect.js");
-import * as sinon from "sinon";
 import INavigationManager from "../scripts/navigation/INavigationManager";
 import NavigationManager from "../scripts/navigation/NavigationManager";
 import ILocationHandler from "../scripts/navigation/ILocationHandler";
-import LocationHandler from "../scripts/navigation/LocationHandler";
 import IViewModelRegistry from "../scripts/registry/IViewModelRegistry";
-import ViewModelRegistry from "../scripts/registry/ViewModelRegistry";
 import BarViewModel from "./fixtures/viewmodels/BarViewModel";
+import RegistryEntry from "../scripts/registry/RegistryEntry";
 
 describe("NavigationManager, given an area", () => {
 
-    let subject:INavigationManager;
-    let locationHandler:ILocationHandler;
-    let locationStub:sinon.SinonStub;
-    let registry:IViewModelRegistry;
+    let subject: INavigationManager;
+    let locationHandler: IMock<ILocationHandler>;
+    let registry: IMock<IViewModelRegistry>;
 
     beforeEach(() => {
-        registry = new ViewModelRegistry();
-        locationHandler = new LocationHandler();
-        subject = new NavigationManager(locationHandler, registry);
-        locationStub = sinon.stub(locationHandler, "changeLocation", url => {
-        });
-    });
-
-    afterEach(() => {
-        locationStub.restore();
+        registry = Mock.ofType<IViewModelRegistry>();
+        locationHandler = Mock.ofType<ILocationHandler>();
+        subject = new NavigationManager(locationHandler.object, registry.object);
     });
 
     context("when the area is the default one", () => {
         it("should navigate to the root page", () => {
             subject.navigate("Index");
-            expect(locationStub.calledWith("/")).to.be(true);
+
+            locationHandler.verify(l => l.changeLocation("/"), Times.once());
         });
     });
 
     context("when the area is not the default one", () => {
         it("should navigate to the corresponding url", () => {
             subject.navigate("Users");
-            expect(locationStub.calledWith("/users")).to.be(true);
+
+            locationHandler.verify(l => l.changeLocation("/users"), Times.once());
         });
 
         context("and a viewmodel identifier is provided", () => {
             it("should navigate to the specific page", () => {
                 subject.navigate("Users", "Bar");
-                expect(locationStub.calledWith("/users/bar")).to.be(true);
+
+                locationHandler.verify(l => l.changeLocation("/users/bar"), Times.once());
             });
 
             context("and some parameters needs to be passed to this page", () => {
-
-                beforeEach(() => {
-                    registry.add(BarViewModel, null, ":bar/:subCategory").forArea("Users");
-                });
-
                 it("should append these parameters", () => {
+                    registry.setup(r => r.getEntry("users", "bar")).returns(() => {
+                        return {
+                            area: "Users",
+                            viewmodel: new RegistryEntry(BarViewModel, "Bar", null, ":bar/:subCategory")
+                        }
+                    });
                     subject.navigate("Users", "Bar", {
                         bar: 20,
                         subCategory: "foo"
                     });
-                    expect(locationStub.calledWith("/users/bar/20/foo")).to.be(true);
+
+                    locationHandler.verify(l => l.changeLocation("/users/bar/20/foo"), Times.once());
                 });
 
                 context("when a parameter is optional", () => {
                     it("should correctly substitute it", () => {
-                        registry.add(BarViewModel, null, "(:bar)").forArea("Fake");
+                        registry.setup(r => r.getEntry("fake", "bar")).returns(() => {
+                            return {
+                                area: "Fake",
+                                viewmodel: new RegistryEntry(BarViewModel, "Bar", null, "(:bar)")
+                            }
+                        });
                         subject.navigate("Fake", "Bar", {
                             bar: 20
                         });
-                        expect(locationStub.calledWith("/fake/bar/20")).to.be(true);
+
+                        locationHandler.verify(l => l.changeLocation("/fake/bar/20"), Times.once());
                     });
                 });
 
                 context("when a required parameter is followed by an optional parameter", () => {
                     it("should correctly resolve the url", () => {
-                        registry.add(BarViewModel, null, ":id/(:bar)").forArea("Fake");
+                        registry.setup(r => r.getEntry("fake", "bar")).returns(() => {
+                            return {
+                                area: "Fake",
+                                viewmodel: new RegistryEntry(BarViewModel, "Bar", null, ":id/(:bar)")
+                            }
+                        });
                         subject.navigate("Fake", "Bar", {
                             id: 50
                         });
-                        expect(locationStub.calledWith("/fake/bar/50/")).to.be(true);
+
+                        locationHandler.verify(l => l.changeLocation("/fake/bar/50/"), Times.once());
                     });
                 });
             });
