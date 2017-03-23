@@ -1,11 +1,11 @@
-#Ninjagoat
+# Ninjagoat
 
 The not so baaaaaaad MVVM framework.
 
 ![](http://www.clker.com/cliparts/m/N/S/T/M/y/ninja-goat-md.png)
 ![](https://badge.fury.io/js/ninjagoat.svg)
-![](https://travis-ci.org/tierratelematics/ninjagoat.svg?branch=develop)
 ![](https://travis-ci.org/tierratelematics/ninjagoat.svg?branch=master)
+![](https://travis-ci.org/tierratelematics/ninjagoat.svg?branch=develop)
 ![](https://img.shields.io/badge/license-Apache%202.0-blue.svg)
 ![](https://img.shields.io/badge/goat-bikenjutsu-yellow.svg)
 
@@ -15,39 +15,16 @@ Ninjagoat is an attempt at writing a simple, lightweight, modular, reactive, con
 
 Ninjagoat is currently being developed internally for being used in our single page frontend applications, which require live updates of data coming from a server, and are composed of multiple modules. Besides being developed with [Event Sourcing](http://geteventstore.com) in mind, it can be used also in conventional scenarios.
 
-This is a work in progress, so if you will expect lots of changes you won't get disappointed.
+## Get started
 
-## Installation
+Please follow the seed available [here](https://github.com/tierratelematics/ninjagoat-seed) to get some tips and a starting skeleton to register some viewmodels.
 
-You can find Ninjagoat on npm:
-
-```sh
-npm install ninjagoat --save
-```
-
-If you are using Typescript you will have to add support for decorators in the `tsconfig.json` file, as we are using [InversifyJS](https://github.com/inversify/InversifyJS) as our IoC container.
-
-```
-{
-  "compilerOptions": {
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true
-  }
-}
-```
-
-As Ninjagoat is written in Typescript, you can find the type definitions here:
-
-```ts
-/// <reference path="node_modules/ninjagoat/dts/ninjagoat.d.ts" />
-```
-
-## Ok, I got it. What now?
+## What now?
 
 If you've made it so far, you might be interested in one of these excellent topics:
 
 
-* [Getting started](https://github.com/tierratelematics/ninjagoat/wiki/Getting-started) - will show you how to get up and running with Ninjagoat, with the classic hello world example.
+* [Wiki](https://github.com/tierratelematics/ninjagoat/wiki/Getting-started) - will show you how to get up and running with Ninjagoat, with the classic hello world example.
 * Contribute! - welcome to Duloc [such a perfect town](https://www.youtube.com/watch?v=X81AoBcVnaA), here we have some rules, let us lay them down...
 
 ## License
