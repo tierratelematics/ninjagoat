@@ -1,6 +1,6 @@
 {
   "name": "ninjagoat",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "dependencies": {
     "@types/history": "~2.0.41",
     "@types/lodash": "4.14.43",
