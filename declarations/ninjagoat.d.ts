@@ -16,6 +16,8 @@ export class Application {
     protected rootComponent(): React.ReactElement<any>;
 }
 
+export let lazyInject:(serviceIdentifier: string | symbol | interfaces.Newable<any> | interfaces.Abstract<any>) => (proto: any, key: string) => void;
+
 export interface Dictionary<T> {
     [index: string]: T
 }

@@ -1,4 +1,5 @@
-import {Container} from "inversify";
+import {Container, interfaces} from "inversify";
+import getDecorators from "inversify-inject-decorators";
 import IModule from "./IModule";
 import IViewModelRegistry from "../registry/IViewModelRegistry";
 import * as _ from "lodash";
@@ -10,7 +11,9 @@ import NinjaGoatModule from "./NinjaGoatModule";
 import ILocationListener from "../navigation/ILocationListener";
 import {IFeatureChecker, FeatureChecker} from "bivio";
 
-class Application {
+export let lazyInject:(serviceIdentifier: string | symbol | interfaces.Newable<any> | interfaces.Abstract<any>) => (proto: any, key: string) => void;
+
+export class Application {
 
     protected container = new Container();
     private modules:IModule[] = [];
@@ -41,6 +44,7 @@ class Application {
         let registry = this.container.get<IViewModelRegistry>("IViewModelRegistry");
         this.routingAdapter = this.container.get<IRoutingAdapter>("IRoutingAdapter");
         _.forEach(this.modules, (module:IModule) => module.register(registry, this.container, overrides));
+        lazyInject = getDecorators(this.container).lazyInject;
     }
 
     protected rootComponent():React.ReactElement<any> {
@@ -49,5 +53,3 @@ class Application {
         return <Router history={browserHistory} routes={this.routingAdapter.routes()}/>
     }
 }
-
-export default Application;
