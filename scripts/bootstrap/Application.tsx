@@ -1,4 +1,4 @@
-import {Container, interfaces} from "inversify";
+import {Container} from "inversify";
 import getDecorators from "inversify-inject-decorators";
 import IModule from "./IModule";
 import IViewModelRegistry from "../registry/IViewModelRegistry";
@@ -11,11 +11,12 @@ import NinjaGoatModule from "./NinjaGoatModule";
 import ILocationListener from "../navigation/ILocationListener";
 import {IFeatureChecker, FeatureChecker} from "bivio";
 
-export let lazyInject:(serviceIdentifier: string | symbol | interfaces.Newable<any> | interfaces.Abstract<any>) => (proto: any, key: string) => void;
+let container = new Container();
+export let {lazyInject} = getDecorators(container);
 
 export class Application {
 
-    protected container = new Container();
+    protected container = container ;
     private modules:IModule[] = [];
     private routingAdapter:IRoutingAdapter;
     private featureChecker = new FeatureChecker();
@@ -44,7 +45,6 @@ export class Application {
         let registry = this.container.get<IViewModelRegistry>("IViewModelRegistry");
         this.routingAdapter = this.container.get<IRoutingAdapter>("IRoutingAdapter");
         _.forEach(this.modules, (module:IModule) => module.register(registry, this.container, overrides));
-        lazyInject = getDecorators(this.container).lazyInject;
     }
 
     protected rootComponent():React.ReactElement<any> {
