@@ -1,7 +1,7 @@
 import "reflect-metadata";
 import expect = require("expect.js");
-import Application from "../scripts/bootstrap/Application";
 import {DisabledModule, ValidModule, WithoutFTModule} from "./fixtures/Modules";
+import {Application} from "../scripts/bootstrap/Application";
 
 describe("Application, given some modules", () => {
 
