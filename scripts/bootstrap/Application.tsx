@@ -1,4 +1,5 @@
 import {Container} from "inversify";
+import getDecorators from "inversify-inject-decorators";
 import IModule from "./IModule";
 import IViewModelRegistry from "../registry/IViewModelRegistry";
 import * as _ from "lodash";
@@ -10,9 +11,12 @@ import NinjaGoatModule from "./NinjaGoatModule";
 import ILocationListener from "../navigation/ILocationListener";
 import {IFeatureChecker, FeatureChecker} from "bivio";
 
-class Application {
+let container = new Container();
+export let {lazyInject} = getDecorators(container);
 
-    protected container = new Container();
+export class Application {
+
+    protected container = container ;
     private modules:IModule[] = [];
     private routingAdapter:IRoutingAdapter;
     private featureChecker = new FeatureChecker();
@@ -49,5 +53,3 @@ class Application {
         return <Router history={browserHistory} routes={this.routingAdapter.routes()}/>
     }
 }
-
-export default Application;

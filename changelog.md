@@ -1,3 +1,7 @@
+# 2.1.0
+
+Add inversify lazy inject
+
 # 2.0.1
 
 Fix lodash types
