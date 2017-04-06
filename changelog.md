@@ -1,3 +1,7 @@
+# 2.1.1
+
+Fix http client request headers merge and 204 management
+
 # 2.1.0
 
 Add inversify lazy inject
