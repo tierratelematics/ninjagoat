@@ -30,10 +30,10 @@ class HttpClient implements IHttpClient {
     }
 
     private addJsonHeaders(headers: Dictionary<string>) {
-        return _.merge(headers, {
+        return _.merge({}, {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
-        });
+        }, headers);
     };
 
     private performNetworkCall(url: string, method: string, body?: any, headers?: Dictionary<string>): Rx.Observable<HttpResponse> {
