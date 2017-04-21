@@ -1,3 +1,7 @@
+# 2.1.2
+
+Bump bivio version
+
 # 2.1.1
 
 Fix http client request headers merge and 204 management
