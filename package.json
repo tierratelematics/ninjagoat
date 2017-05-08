@@ -3,12 +3,11 @@
   "version": "2.1.2",
   "dependencies": {
     "@types/history": "~2.0.41",
-    "@types/lodash": "4.14.43",
+    "@types/lodash": "4.14.64",
     "@types/node": "~6.0.52",
     "@types/react": "~0.14.55",
     "@types/react-dom": "~0.14.19",
     "@types/react-router": "~2.0.41",
-    "@types/whatwg-fetch": "0.0.33",
     "bivio": "^0.3.2",
     "inversify": "~3.0.0-rc.2",
     "inversify-inject-decorators": "~3.0.1",
