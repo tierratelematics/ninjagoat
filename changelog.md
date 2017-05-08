@@ -1,3 +1,7 @@
+# 2.2.0
+
+Move to typescript 2.3
+
 # 2.1.2
 
 Bump bivio version
