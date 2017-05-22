@@ -10,9 +10,10 @@ abstract class PresentationViewModel<T> extends ObservableViewModel<T> {
     constructor(@inject("ILocationListener") locationListener:ILocationListener) {
         super();
         locationListener.pushLocation(location.pathname); //Push initial location
-        locationListener.changes().subscribe(data => {
-            this.updatePresentation(Reflect.getMetadata("ninjagoat:presentation", data.viewmodel.construct));
-        });
+        locationListener.changes()
+            .map(data => Reflect.getMetadata("ninjagoat:presentation", data.viewmodel.construct))
+            .distinctUntilChanged()
+            .subscribe(presentation => { this.updatePresentation(presentation); });
     }
 
     @Refresh
