@@ -1,3 +1,7 @@
+# 2.3.0
+
+React router is no more a peer dependency
+
 # 2.2.0
 
 Move to typescript 2.3
