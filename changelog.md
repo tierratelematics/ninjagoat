@@ -1,3 +1,7 @@
+# 2.3.1
+
+Trigger the updates of PresentationViewModel correctly
+
 # 2.3.0
 
 React router is no more a peer dependency
