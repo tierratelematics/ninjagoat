@@ -1,3 +1,7 @@
+# 2.3.2
+
+Fix the updates of viewmodels when using react's context
+
 # 2.3.1
 
 Trigger the updates of PresentationViewModel correctly
