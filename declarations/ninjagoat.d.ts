@@ -92,6 +92,14 @@ export interface IViewModelFactory {
                                     observableFactory: (context: ViewModelContext) => Rx.IObservable<T>): T;
 }
 
+export class ViewModelFactory implements IViewModelFactory {
+
+    constructor(container: IObjectContainer);
+
+    create<T extends IViewModel<T>>(context: ViewModelContext, construct: interfaces.Newable<IViewModel<T>>,
+                                    observableFactory: (context: ViewModelContext) => Rx.IObservable<T>): T;
+}
+
 export interface IViewModel<T> extends Rx.IDisposable, Rx.IObservable<void> {
     "force nominal type for IViewModel": T;
 }
