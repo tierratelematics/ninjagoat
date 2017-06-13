@@ -1,3 +1,7 @@
+# 2.3.3
+
+Export ViewModelFactory
+
 # 2.3.2
 
 Fix the updates of viewmodels when using react's context
