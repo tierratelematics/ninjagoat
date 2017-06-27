@@ -1,3 +1,7 @@
+# 2.3.4
+
+Fix router types
+
 # 2.3.3
 
 Export ViewModelFactory
