@@ -2,7 +2,7 @@ language: node_js
 node_js:
   - "6"
 install:
-  - npm install smild@~4.4.0 -g
+  - npm install smild@~4.7.1 -g
   - npm install react@15.4.1 react-dom@15.4.1
   - npm install
 script:
