@@ -12,7 +12,7 @@ import ILocationListener from "../navigation/ILocationListener";
 import {IFeatureChecker, FeatureChecker} from "bivio";
 
 let container = new Container();
-export let {lazyInject} = getDecorators(container);
+export let {lazyInject, lazyMultiInject} = getDecorators(container);
 
 export class Application {
 
