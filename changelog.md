@@ -1,3 +1,8 @@
+# 2.4.0
+
+* Update react types
+* Add lazyMultiInject
+
 # 2.3.4
 
 Fix router types
