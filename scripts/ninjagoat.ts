@@ -1,5 +1,5 @@
 export {Application} from "./bootstrap/Application";
-export {lazyInject} from "./bootstrap/Application";
+export {lazyInject, lazyMultiInject} from "./bootstrap/Application";
 export {default as ObservableViewModel}  from "./viewmodels/ObservableViewModel";
 export {default as View}  from "./views/View";
 export {ViewModel, ViewModelUtil}  from "./viewmodels/ViewModelDecorator";
