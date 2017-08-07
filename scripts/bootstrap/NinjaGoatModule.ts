@@ -36,7 +36,8 @@ import ILocationListener from "../navigation/ILocationListener";
 import LocationListener from "../navigation/LocationListener";
 import IRouteStrategy from "../navigation/IRouteStrategy";
 import VoidRouteStrategy from "../navigation/VoidRouteStrategy";
-import {IViewModelFactory, ViewModelFactory} from "../viewmodels/ViewModelFactory";
+import {IViewModelFactory, IViewModelFactoryExtender, ViewModelFactory} from "../viewmodels/ViewModelFactory";
+import ObservableFactoryExtender from "../viewmodels/ObservableFactoryExtender";
 
 class NinjaGoatModule implements IModule {
 
@@ -50,6 +51,7 @@ class NinjaGoatModule implements IModule {
         container.bind<IComponentFactory>("IComponentFactory").to(ComponentFactory).inSingletonScope();
         container.bind<IRoutingAdapter>("IRoutingAdapter").to(RoutingAdapter).inSingletonScope();
         container.bind<IViewModelFactory>("IViewModelFactory").to(ViewModelFactory).inSingletonScope();
+        container.bind<IViewModelFactoryExtender>("IViewModelFactoryExtender").to(ObservableFactoryExtender).inSingletonScope();
         container.bind<IHttpClient>("IHttpClient").to(HttpClient).inSingletonScope();
         container.bind<ISerializer<Dictionary<string>, string>>("QuerySerializer").to(QuerySerializer).inSingletonScope();
         container.bind<IDateRetriever>("IDateRetriever").to(DateRetriever).inSingletonScope();
