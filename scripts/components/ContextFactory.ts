@@ -27,7 +27,7 @@ class ContextFactory implements IContextFactory {
         let viewModel = context.viewmodel;
         return {
             view: view,
-            viewmodel: this.viewModelFactory.create<T>(viewModelContext, viewModel.construct, viewModel.observableFactory)
+            viewmodel: this.viewModelFactory.create<T>(viewModelContext, <interfaces.Newable<T>>viewModel.construct, viewModel.observableFactory)
         };
     }
 }

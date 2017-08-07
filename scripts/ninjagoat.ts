@@ -18,4 +18,4 @@ export {FeatureToggle} from "bivio";
 export {IFeatureChecker} from "bivio";
 export {FeatureChecker} from "bivio";
 export {Predicates as FeaturePredicates} from "bivio";
-export {default as ViewModelFactory} from "./viewmodels/ViewModelFactory";
+export {ViewModelFactory} from "./viewmodels/ViewModelFactory";
