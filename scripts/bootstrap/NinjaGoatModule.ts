@@ -10,8 +10,6 @@ import IContextFactory from "../components/IContextFactory";
 import ContextFactory from "../components/ContextFactory";
 import IRoutingAdapter from "../navigation/IRoutingAdapter";
 import RoutingAdapter from "../navigation/RoutingAdapter";
-import IViewModelFactory from "../viewmodels/IViewModelFactory";
-import ViewModelFactory from "../viewmodels/ViewModelFactory";
 import IObjectContainer from "../ioc/IObjectContainer";
 import ObjectContainer from "../ioc/ObjectContainer";
 import IComponentFactory from "../components/IComponentFactory";
@@ -38,6 +36,7 @@ import ILocationListener from "../navigation/ILocationListener";
 import LocationListener from "../navigation/LocationListener";
 import IRouteStrategy from "../navigation/IRouteStrategy";
 import VoidRouteStrategy from "../navigation/VoidRouteStrategy";
+import {IViewModelFactory, ViewModelFactory} from "../viewmodels/ViewModelFactory";
 
 class NinjaGoatModule implements IModule {
 

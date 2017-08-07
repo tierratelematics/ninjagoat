@@ -11,7 +11,6 @@ import FooIndex from "./fixtures/views/foo/FooIndex";
 import BarViewModel from "./fixtures/viewmodels/BarViewModel";
 import FooIndexViewModel from "./fixtures/viewmodels/FooIndexViewModel";
 import RootViewModel from "./fixtures/viewmodels/RootViewModel";
-import IViewModelFactory from "../scripts/viewmodels/IViewModelFactory";
 import IndexViewModel from "./fixtures/viewmodels/IndexViewModel";
 import {Observable} from "rx";
 import * as Area from "../scripts/registry/Area";
@@ -19,6 +18,7 @@ import MasterView from "./fixtures/views/Master";
 import ISerializer from "../scripts/io/ISerializer";
 import Dictionary from "../scripts/util/Dictionary";
 import RegistryEntry from "../scripts/registry/RegistryEntry";
+import {IViewModelFactory} from "../scripts/viewmodels/ViewModelFactory";
 
 describe("ContextFactory, given an URI", () => {
 
