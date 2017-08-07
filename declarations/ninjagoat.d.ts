@@ -21,7 +21,7 @@ export let lazyInject: (serviceIdentifier: string | symbol | interfaces.Newable<
 export let lazyMultiInject: (serviceIdentifier: string | symbol | interfaces.Newable<any> | interfaces.Abstract<any>) => (proto: any, key: string) => void;
 
 export interface Dictionary<T> {
-    [index: string]: T
+    [index: string]: T;
 }
 
 export interface IModule {
@@ -90,16 +90,20 @@ export class ViewModelContext {
 }
 
 export interface IViewModelFactory {
-    create<T extends IViewModel<T>>(context: ViewModelContext, construct: interfaces.Newable<IViewModel<T>>,
-                                    observableFactory: (context: ViewModelContext) => Rx.IObservable<T>): T;
+    create<T>(context: ViewModelContext, construct: interfaces.Newable<IViewModel<T>>,
+              observableFactory: (context: ViewModelContext) => Rx.Observable<T>): IViewModel<T>;
+}
+
+export interface IViewModelFactoryExtender {
+    extend<T>(viewmodel: T, context: ViewModelContext, source: Rx.Observable<T>);
 }
 
 export class ViewModelFactory implements IViewModelFactory {
 
-    constructor(container: IObjectContainer);
+    constructor(container: IObjectContainer, extenders: IViewModelFactoryExtender[]);
 
-    create<T extends IViewModel<T>>(context: ViewModelContext, construct: interfaces.Newable<IViewModel<T>>,
-                                    observableFactory: (context: ViewModelContext) => Rx.IObservable<T>): T;
+    create<T>(context: ViewModelContext, construct: interfaces.Newable<IViewModel<T>>,
+              observableFactory: (context: ViewModelContext) => Rx.Observable<T>): IViewModel<T>;
 }
 
 export interface IViewModel<T> extends Rx.IDisposable, Rx.IObservable<void> {
