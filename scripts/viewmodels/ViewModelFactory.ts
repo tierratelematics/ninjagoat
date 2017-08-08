@@ -28,7 +28,7 @@ export class ViewModelFactory implements IViewModelFactory {
             this.container.set(key, construct);
 
         let viewModel = this.container.get<T>(key),
-            source = observableFactory(context).shareReplay(1);
+            source = observableFactory(context);
 
         forEach(this.extenders, extender => extender.extend(viewModel, context, source));
 
