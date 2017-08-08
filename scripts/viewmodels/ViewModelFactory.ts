@@ -1,4 +1,4 @@
-import {injectable, inject, interfaces, multiInject} from "inversify";
+import {injectable, inject, interfaces, multiInject, optional} from "inversify";
 import IObjectContainer from "../ioc/IObjectContainer";
 import ViewModelContext from "../registry/ViewModelContext";
 import IViewModel from "./IViewModel";
@@ -18,7 +18,7 @@ export interface IViewModelFactoryExtender {
 export class ViewModelFactory implements IViewModelFactory {
 
     constructor(@inject("IObjectContainer") private container: IObjectContainer,
-                @multiInject("IViewModelFactoryExtender") private extenders: IViewModelFactoryExtender[]) {
+                @multiInject("IViewModelFactoryExtender") @optional() private extenders: IViewModelFactoryExtender[] = []) {
     }
 
     create<T extends IViewModel<any>>(context: ViewModelContext, construct: interfaces.Newable<T>,
