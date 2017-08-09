@@ -58,7 +58,7 @@ export interface IViewModelRegistry {
     notFound<T>(construct: interfaces.Newable<IViewModel<T>>, observable?: (context: ViewModelContext) => Rx.IObservable<T>): AreaRegistry;
     add<T>(construct: interfaces.Newable<IViewModel<T>>, observable?: (context: ViewModelContext) => Rx.IObservable<T>, parameters?: string): IViewModelRegistry;
     withParameters(parameters: string): IViewModelRegistry;
-    notifyBy(notify: (context: ViewModelContext) => string): IViewModelRegistry;
+    notifyBy(notify: (parameters: any) => string): IViewModelRegistry;
     forArea(area: string): AreaRegistry;
     getArea(areaId: string): AreaRegistry;
     getAreas(): AreaRegistry[];
@@ -77,7 +77,7 @@ export class RegistryEntry<T> {
     id: string;
     observableFactory: (context: ViewModelContext) => Rx.IObservable<T>;
     parameters?: string;
-    notify?: (context: ViewModelContext) => string;
+    notify?: (parameters: any) => string;
 
     constructor(construct: interfaces.Newable<IViewModel<T>>, id: string,
                 observableFactory: (context: ViewModelContext) => Rx.IObservable<T>, parameters?: string);

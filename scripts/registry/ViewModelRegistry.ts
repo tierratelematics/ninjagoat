@@ -41,7 +41,7 @@ class ViewModelRegistry implements IViewModelRegistry {
         return this;
     }
 
-    notifyBy(notify: (context: ViewModelContext) => string): IViewModelRegistry {
+    notifyBy(notify: (parameters: any) => string): IViewModelRegistry {
         let entry = _.last(this.unregisteredEntries);
         entry.notify = notify;
         return this;

@@ -9,7 +9,7 @@ class RegistryEntry<T> {
     id: string;
     observableFactory: (context: ViewModelContext) => Rx.IObservable<T>;
     parameters?: string;
-    notify?: (context: ViewModelContext) => string;
+    notify?: (parameters: any) => string;
 
     constructor(construct: interfaces.Newable<IViewModel<T>>, id: string,
                 observableFactory: (context: ViewModelContext) => Rx.IObservable<T>, parameters?: string) {
