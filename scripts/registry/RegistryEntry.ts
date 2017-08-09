@@ -5,10 +5,18 @@ import * as Rx from "rx";
 
 class RegistryEntry<T> {
 
-    constructor(public construct: interfaces.Newable<IViewModel<T>>,
-        public id: string,
-        public observableFactory: (context: ViewModelContext) => Rx.IObservable<T>,
-        public parameters: string) {
+    construct: interfaces.Newable<IViewModel<T>>;
+    id: string;
+    observableFactory: (context: ViewModelContext) => Rx.IObservable<T>;
+    parameters?: string;
+    notify?: (parameters: any) => string;
+
+    constructor(construct: interfaces.Newable<IViewModel<T>>, id: string,
+                observableFactory: (context: ViewModelContext) => Rx.IObservable<T>, parameters?: string) {
+        this.construct = construct;
+        this.id = id;
+        this.observableFactory = observableFactory;
+        this.parameters = parameters;
     }
 }
 

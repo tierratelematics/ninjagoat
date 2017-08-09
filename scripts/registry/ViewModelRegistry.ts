@@ -35,6 +35,18 @@ class ViewModelRegistry implements IViewModelRegistry {
         return this;
     }
 
+    withParameters(parameters: string): IViewModelRegistry {
+        let entry = _.last(this.unregisteredEntries);
+        entry.parameters = parameters;
+        return this;
+    }
+
+    notifyBy(notify: (parameters: any) => string): IViewModelRegistry {
+        let entry = _.last(this.unregisteredEntries);
+        entry.notify = notify;
+        return this;
+    }
+
     forArea(area: string): AreaRegistry {
         _.remove(this.registry, (entry: AreaRegistry) => entry.area === area);
         let areaRegistry = new AreaRegistry(area, this.unregisteredEntries);
@@ -51,15 +63,15 @@ class ViewModelRegistry implements IViewModelRegistry {
         return this.registry;
     }
 
-    getEntry<T>(area: string, id: string): {area: string, viewmodel: RegistryEntry<T>};
-    getEntry<T>(construct: Function): {area: string; viewmodel: RegistryEntry<T>};
-    getEntry<T>(param: string|Function, id?: string): {area: string, viewmodel: RegistryEntry<T>} {
+    getEntry<T>(area: string, id: string): { area: string, viewmodel: RegistryEntry<T> };
+    getEntry<T>(construct: Function): { area: string; viewmodel: RegistryEntry<T> };
+    getEntry<T>(param: string | Function, id?: string): { area: string, viewmodel: RegistryEntry<T> } {
         if (isArea(param)) {
             let areaRegistry = this.getArea(param);
             return {
                 area: areaRegistry.area,
                 viewmodel: _.find(areaRegistry.entries, (entry: RegistryEntry<any>) => entry.id.toLowerCase() === id.toLowerCase())
-            }
+            };
         } else {
             let item = null;
             _.forEach(this.getAreas(), areaRegistry => {
@@ -67,14 +79,14 @@ class ViewModelRegistry implements IViewModelRegistry {
                 if (entry) item = {
                     area: areaRegistry.area,
                     viewmodel: entry
-                }
+                };
             });
             return item;
         }
     }
 }
 
-function isArea(param: string|Function): param is string {
+function isArea(param: string | Function): param is string {
     return typeof param === "string";
 }
 

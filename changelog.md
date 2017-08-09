@@ -1,3 +1,8 @@
+# 2.5.0
+
+* Extendable ViewModels factory
+* Ability to register notifyBy clause
+
 # 2.4.0
 
 * Update react types

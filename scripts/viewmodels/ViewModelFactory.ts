@@ -1,29 +1,37 @@
-import IViewModelFactory from "./IViewModelFactory";
-import {injectable, inject, interfaces} from "inversify";
+import {injectable, inject, interfaces, multiInject, optional} from "inversify";
 import IObjectContainer from "../ioc/IObjectContainer";
-import ObservableViewModel from "./ObservableViewModel";
 import ViewModelContext from "../registry/ViewModelContext";
 import IViewModel from "./IViewModel";
-import {IObservable} from "rx";
+import {Observable} from "rx";
+import {forEach} from "lodash";
+
+export interface IViewModelFactory {
+    create<T extends IViewModel<any>>(context: ViewModelContext, construct: interfaces.Newable<T>,
+                                    observableFactory: (context: ViewModelContext) => Observable<any>): T;
+}
+
+export interface IViewModelFactoryExtender {
+    extend<T>(viewmodel: T, context: ViewModelContext, source: Observable<T>);
+}
 
 @injectable()
-class ViewModelFactory implements IViewModelFactory {
+export class ViewModelFactory implements IViewModelFactory {
 
-    constructor(@inject("IObjectContainer") private container: IObjectContainer) {
+    constructor(@inject("IObjectContainer") private container: IObjectContainer,
+                @multiInject("IViewModelFactoryExtender") @optional() private extenders: IViewModelFactoryExtender[] = []) {
     }
 
-    create<T extends IViewModel<T>>(context: ViewModelContext, construct: interfaces.Newable<IViewModel<T>>,
-                                      observableFactory: (context: ViewModelContext) => IObservable<T>): T {
+    create<T extends IViewModel<any>>(context: ViewModelContext, construct: interfaces.Newable<T>,
+                                    observableFactory: (context: ViewModelContext) => Observable<any>): T {
         const key = `ninjagoat:viewmodels:${context.area}:${context.viewmodelId}`;
         if (!this.container.contains(key))
             this.container.set(key, construct);
 
-        let viewModel = this.container.get<T>(key);
-        if (viewModel instanceof ObservableViewModel)
-            (<any>viewModel).observe(observableFactory(context));
+        let viewModel = this.container.get<T>(key),
+            source = observableFactory(context);
+
+        forEach(this.extenders, extender => extender.extend(viewModel, context, source));
 
         return viewModel;
     }
 }
-
-export default ViewModelFactory;
