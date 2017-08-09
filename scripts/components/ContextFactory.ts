@@ -4,11 +4,11 @@ import IViewModel from "../viewmodels/IViewModel";
 import IUriResolver from "../navigation/IUriResolver";
 import IViewResolver from "../views/IViewResolver";
 import {inject, injectable, interfaces} from "inversify";
-import IViewModelFactory from "../viewmodels/IViewModelFactory";
 import * as _ from "lodash";
 import ISerializer from "../io/ISerializer";
 import Dictionary from "../util/Dictionary";
 import ViewModelContext from "../registry/ViewModelContext";
+import {IViewModelFactory} from "../viewmodels/ViewModelFactory";
 
 @injectable()
 class ContextFactory implements IContextFactory {
@@ -19,7 +19,7 @@ class ContextFactory implements IContextFactory {
                 @inject("QuerySerializer") private serializer: ISerializer<Dictionary<string>, string>) {
     }
 
-    contextFor<T extends IViewModel<any>>(uri: string, parameters?: any): {view: interfaces.Newable<View<T>>, viewmodel: T} {
+    contextFor<T extends IViewModel<any>>(uri: string, parameters?: any): { view: interfaces.Newable<View<T>>, viewmodel: T } {
         let context = this.uriResolver.resolve<T>(uri);
         let view = this.viewResolver.resolve<T>(context.area, context.viewmodel.id);
         let contextParameters = _.assign({}, parameters, this.serializer.deserialize(uri.split("?")[1]));
@@ -27,7 +27,7 @@ class ContextFactory implements IContextFactory {
         let viewModel = context.viewmodel;
         return {
             view: view,
-            viewmodel: this.viewModelFactory.create<T>(viewModelContext, viewModel.construct, viewModel.observableFactory)
+            viewmodel: this.viewModelFactory.create<T>(viewModelContext, <interfaces.Newable<T>>viewModel.construct, viewModel.observableFactory)
         };
     }
 }

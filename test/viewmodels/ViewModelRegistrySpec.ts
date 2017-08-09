@@ -7,6 +7,7 @@ import FooViewModel from "../fixtures/viewmodels/FooViewModel";
 import BarViewModel from "../fixtures/viewmodels/BarViewModel";
 import RootViewModel from "../fixtures/viewmodels/RootViewModel";
 import UnregisteredViewModel from '../fixtures/viewmodels/UnregisteredViewModel';
+import ViewModelContext from "../../scripts/registry/ViewModelContext";
 
 describe("ViewModelRegistry, given a list of ViewModel identifiers", () => {
 
@@ -34,10 +35,17 @@ describe("ViewModelRegistry, given a list of ViewModel identifiers", () => {
                 expect(area.entries[0].id).to.eql("Foo");
                 expect(area.entries[0].parameters).to.eql(":id");
             });
+
+            it("should add such parameters also via a builder method", () => {
+                let area = registry.add(FooViewModel, null).withParameters(":id").forArea("Admin");
+
+                expect(area.entries[0].id).to.eql("Foo");
+                expect(area.entries[0].parameters).to.eql(":id");
+            });
         });
     });
 
-    context("when the root viewmodel have to be registered", () => {
+    context("when the root viewmodel has to be registered", () => {
         it("should be registered as a default in the registry", () => {
             registry.index(BarViewModel);
 
@@ -45,11 +53,20 @@ describe("ViewModelRegistry, given a list of ViewModel identifiers", () => {
         });
     });
 
-    context("when the master application container viewmodel have to be registered", () => {
+    context("when the master application container viewmodel has to be registered", () => {
         it("should be registered as a default in the registry", () => {
             registry.master(BarViewModel);
 
             expect(registry.getArea("Master").entries[0].id).to.eql("Bar");
+        });
+    });
+
+    context("when a custom notify function is provided", () => {
+        it("should be set on the viewmodel", () => {
+            let notify = (context: ViewModelContext) => "foo";
+            let area = registry.add(FooViewModel, null).notifyBy(notify).forArea("Admin");
+
+            expect(area.entries[0].notify).to.be(notify);
         });
     });
 

@@ -2,8 +2,6 @@ import IModule from "./IModule";
 import IViewModelRegistry from "../registry/IViewModelRegistry";
 import {interfaces} from "inversify";
 import ViewModelRegistry from "../registry/ViewModelRegistry";
-import IObservableFactory from "../viewmodels/IObservableFactory";
-import ObservableFactory from "../viewmodels/ObservableFactory";
 import IUriResolver from "../navigation/IUriResolver";
 import UriResolver from "../navigation/UriResolver";
 import IViewResolver from "../views/IViewResolver";
@@ -12,8 +10,6 @@ import IContextFactory from "../components/IContextFactory";
 import ContextFactory from "../components/ContextFactory";
 import IRoutingAdapter from "../navigation/IRoutingAdapter";
 import RoutingAdapter from "../navigation/RoutingAdapter";
-import IViewModelFactory from "../viewmodels/IViewModelFactory";
-import ViewModelFactory from "../viewmodels/ViewModelFactory";
 import IObjectContainer from "../ioc/IObjectContainer";
 import ObjectContainer from "../ioc/ObjectContainer";
 import IComponentFactory from "../components/IComponentFactory";
@@ -40,20 +36,22 @@ import ILocationListener from "../navigation/ILocationListener";
 import LocationListener from "../navigation/LocationListener";
 import IRouteStrategy from "../navigation/IRouteStrategy";
 import VoidRouteStrategy from "../navigation/VoidRouteStrategy";
+import {IViewModelFactory, IViewModelFactoryExtender, ViewModelFactory} from "../viewmodels/ViewModelFactory";
+import ObservableFactoryExtender from "../viewmodels/ObservableFactoryExtender";
 
 class NinjaGoatModule implements IModule {
 
-    modules = (container:interfaces.Container) => {
+    modules = (container: interfaces.Container) => {
         container.bind<interfaces.Container>("Container").toConstantValue(container);
         container.bind<IObjectContainer>("IObjectContainer").to(ObjectContainer).inSingletonScope();
         container.bind<IViewModelRegistry>("IViewModelRegistry").to(ViewModelRegistry).inSingletonScope();
-        container.bind<IObservableFactory>("IObservableFactory").to(ObservableFactory).inSingletonScope();
         container.bind<IUriResolver>("IUriResolver").to(UriResolver).inSingletonScope();
         container.bind<IViewResolver>("IViewResolver").to(ViewResolver).inSingletonScope();
         container.bind<IContextFactory>("IContextFactory").to(ContextFactory).inSingletonScope();
         container.bind<IComponentFactory>("IComponentFactory").to(ComponentFactory).inSingletonScope();
         container.bind<IRoutingAdapter>("IRoutingAdapter").to(RoutingAdapter).inSingletonScope();
         container.bind<IViewModelFactory>("IViewModelFactory").to(ViewModelFactory).inSingletonScope();
+        container.bind<IViewModelFactoryExtender>("IViewModelFactoryExtender").to(ObservableFactoryExtender).inSingletonScope();
         container.bind<IHttpClient>("IHttpClient").to(HttpClient).inSingletonScope();
         container.bind<ISerializer<Dictionary<string>, string>>("QuerySerializer").to(QuerySerializer).inSingletonScope();
         container.bind<IDateRetriever>("IDateRetriever").to(DateRetriever).inSingletonScope();
@@ -66,7 +64,7 @@ class NinjaGoatModule implements IModule {
         container.bind<IRouteStrategy>("IRouteStrategy").to(VoidRouteStrategy).inSingletonScope();
     };
 
-    register(registry:IViewModelRegistry, serviceLocator?:IServiceLocator, overrides?:any):void {
+    register(registry: IViewModelRegistry, serviceLocator?: IServiceLocator, overrides?: any): void {
 
     }
 }

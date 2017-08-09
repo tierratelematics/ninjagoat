@@ -10,7 +10,7 @@ class ViewResolver implements IViewResolver {
     constructor(@inject("Views") private views:{[index:string]:any}) {
     }
 
-    resolve<T extends IViewModel<T>>(area:string, viewmodelId?:string):interfaces.Newable<View<T>> {
+    resolve<T extends IViewModel<any>>(area:string, viewmodelId?:string):interfaces.Newable<View<T>> {
         area = area[0].toUpperCase() + area.slice(1);
         let viewsForArea = this.views[area];
         if (area === Area.Index || area === Area.Master || area === Area.NotFound)
