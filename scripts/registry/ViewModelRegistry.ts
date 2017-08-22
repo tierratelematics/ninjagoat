@@ -68,6 +68,9 @@ class ViewModelRegistry implements IViewModelRegistry {
     getEntry<T>(param: string | Function, id?: string): { area: string, viewmodel: RegistryEntry<T> } {
         if (isArea(param)) {
             let areaRegistry = this.getArea(param);
+            if (!areaRegistry) {
+                return {area: null, viewmodel: null};
+            }
             return {
                 area: areaRegistry.area,
                 viewmodel: _.find(areaRegistry.entries, (entry: RegistryEntry<any>) => entry.id.toLowerCase() === id.toLowerCase())

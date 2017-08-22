@@ -95,6 +95,14 @@ describe("ViewModelRegistry, given a list of ViewModel identifiers", () => {
                 expect(registry.getArea("admin").entries[1].id).to.eql("Bar");
             });
         });
+
+        context("when the area does not exist", () => {
+            it("should return an empty lookup", () => {
+                let lookup = registry.getEntry("Test", "ViewModel");
+
+                expect(lookup).to.eql({area: null, viewmodel: null});
+            });
+        });
     });
 
     context("when requested to return a specific entry", () => {
