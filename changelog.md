@@ -1,3 +1,7 @@
+# 2.5.1
+
+Bugfix on viewmodel lookup
+
 # 2.5.0
 
 * Extendable ViewModels factory
