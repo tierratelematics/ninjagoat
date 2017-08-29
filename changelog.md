@@ -1,3 +1,7 @@
+# 2.5.2
+
+Move types to dev deps
+
 # 2.5.1
 
 Bugfix on viewmodel lookup
