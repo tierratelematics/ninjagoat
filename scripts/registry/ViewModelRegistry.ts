@@ -1,4 +1,4 @@
-import IViewModelRegistry from "./IViewModelRegistry";
+import {IViewModelRegistry} from "./IViewModelRegistry";
 import RegistryEntry from "./RegistryEntry";
 import * as _ from "lodash";
 import AreaRegistry from "./AreaRegistry";

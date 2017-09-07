@@ -1,5 +1,4 @@
 import IModule from "./IModule";
-import IViewModelRegistry from "../registry/IViewModelRegistry";
 import {interfaces} from "inversify";
 import ViewModelRegistry from "../registry/ViewModelRegistry";
 import IUriResolver from "../navigation/IUriResolver";
@@ -38,6 +37,7 @@ import IRouteStrategy from "../navigation/IRouteStrategy";
 import VoidRouteStrategy from "../navigation/VoidRouteStrategy";
 import {IViewModelFactory, IViewModelFactoryExtender, ViewModelFactory} from "../viewmodels/ViewModelFactory";
 import ObservableFactoryExtender from "../viewmodels/ObservableFactoryExtender";
+import {IViewModelRegistry} from "../registry/IViewModelRegistry";
 
 class NinjaGoatModule implements IModule {
 

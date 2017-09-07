@@ -4,7 +4,7 @@ import expect = require("expect.js");
 import INavigationManager from "../scripts/navigation/INavigationManager";
 import NavigationManager from "../scripts/navigation/NavigationManager";
 import ILocationHandler from "../scripts/navigation/ILocationHandler";
-import IViewModelRegistry from "../scripts/registry/IViewModelRegistry";
+import {IViewModelRegistry} from "../scripts/registry/IViewModelRegistry";
 import BarViewModel from "./fixtures/viewmodels/BarViewModel";
 import RegistryEntry from "../scripts/registry/RegistryEntry";
 

@@ -7,7 +7,7 @@ export {default as IObjectContainer} from "./ioc/IObjectContainer";
 export {default as IComponentFactory} from "./components/IComponentFactory";
 export {default as ComponentFactory} from "./components/ComponentFactory";
 export {default as IContextFactory} from "./components/IContextFactory";
-export {default as IViewModelRegistry} from "./registry/IViewModelRegistry";
+export {IViewModelRegistry} from "./registry/IViewModelRegistry";
 export {default as RegistryEntry}  from "./registry/RegistryEntry";
 export {default as View}  from "./views/View";
 export {default as IViewModel}  from "./viewmodels/IViewModel";

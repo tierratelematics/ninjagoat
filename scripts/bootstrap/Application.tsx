@@ -1,7 +1,6 @@
 import {Container, interfaces} from "inversify";
 import getDecorators from "inversify-inject-decorators";
 import IModule from "./IModule";
-import IViewModelRegistry from "../registry/IViewModelRegistry";
 import * as _ from "lodash";
 import IRoutingAdapter from "../navigation/IRoutingAdapter";
 import * as React from "react";
@@ -10,6 +9,7 @@ import {Router, browserHistory} from "react-router";
 import NinjaGoatModule from "./NinjaGoatModule";
 import ILocationListener from "../navigation/ILocationListener";
 import {IFeatureChecker, FeatureChecker} from "bivio";
+import {IViewModelRegistry} from "../registry/IViewModelRegistry";
 
 let container = new Container();
 

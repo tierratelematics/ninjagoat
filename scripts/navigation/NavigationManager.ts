@@ -1,6 +1,6 @@
 import INavigationManager from "./INavigationManager";
 import ILocationHandler from "./ILocationHandler";
-import IViewModelRegistry from "../registry/IViewModelRegistry";
+import {IViewModelRegistry} from "../registry/IViewModelRegistry";
 import * as _ from "lodash";
 import * as Area from "../registry/Area";
 import Dictionary from "../util/Dictionary";

@@ -1,5 +1,5 @@
 import IUriResolver from "./IUriResolver";
-import IViewModelRegistry from "../registry/IViewModelRegistry";
+import {IViewModelRegistry} from "../registry/IViewModelRegistry";
 import RegistryEntry from "../registry/RegistryEntry";
 import * as _ from "lodash";
 import {inject, injectable} from "inversify";

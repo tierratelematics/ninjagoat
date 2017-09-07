@@ -1,7 +1,7 @@
 import "reflect-metadata";
 import expect = require("expect.js");
 import {IMock, Mock, It} from "typemoq";
-import IViewModelRegistry from "../scripts/registry/IViewModelRegistry";
+import {IViewModelRegistry} from "../scripts/registry/IViewModelRegistry";
 import IRoutingAdapter from "../scripts/navigation/IRoutingAdapter";
 import RoutingAdapter from "../scripts/navigation/RoutingAdapter";
 import IPageComponentFactory from "../scripts/components/IComponentFactory";

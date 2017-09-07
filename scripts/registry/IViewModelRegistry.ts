@@ -5,9 +5,7 @@ import ViewModelContext from "../registry/ViewModelContext";
 import {interfaces} from "inversify";
 import * as Rx from "rx";
 
-
-
-interface IViewModelRegistry {
+export interface IViewModelRegistry {
     master<T>(construct: interfaces.Newable<IViewModel<T>>, observable?: (context: ViewModelContext) => Rx.IObservable<T>): AreaRegistry;
     index<T>(construct: interfaces.Newable<IViewModel<T>>, observable?: (context: ViewModelContext) => Rx.IObservable<T>): AreaRegistry;
     notFound<T>(construct: interfaces.Newable<IViewModel<T>>, observable?: (context: ViewModelContext) => Rx.IObservable<T>): AreaRegistry;
@@ -21,5 +19,4 @@ interface IViewModelRegistry {
     getEntry<T>(construct: Function): {area: string, viewmodel: RegistryEntry<T>};
 }
 
-export default IViewModelRegistry
 
