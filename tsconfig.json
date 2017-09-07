@@ -14,6 +14,7 @@
       "mocha",
       "reflect-metadata",
       "node"
-    ]
+    ],
+    "declaration": true
   }
 }

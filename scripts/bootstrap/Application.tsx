@@ -1,4 +1,4 @@
-import {Container} from "inversify";
+import {Container, interfaces} from "inversify";
 import getDecorators from "inversify-inject-decorators";
 import IModule from "./IModule";
 import IViewModelRegistry from "../registry/IViewModelRegistry";
@@ -6,19 +6,25 @@ import * as _ from "lodash";
 import IRoutingAdapter from "../navigation/IRoutingAdapter";
 import * as React from "react";
 import {render} from "react-dom";
-import {Router, browserHistory} from "react-router"
+import {Router, browserHistory} from "react-router";
 import NinjaGoatModule from "./NinjaGoatModule";
 import ILocationListener from "../navigation/ILocationListener";
 import {IFeatureChecker, FeatureChecker} from "bivio";
 
 let container = new Container();
-export let {lazyInject, lazyMultiInject} = getDecorators(container);
+
+export type lazyInjectType = (serviceIdentifier: string | symbol | interfaces.Newable<any> | interfaces.Abstract<any>) => (proto: any, key: string) => void;
+export type lazyMultiInjectType = (serviceIdentifier: string | symbol | interfaces.Newable<any> | interfaces.Abstract<any>) => (proto: any, key: string) => void;
+
+let decorators = getDecorators(container);
+export let lazyInject: lazyInjectType = decorators.lazyInject;
+export let lazyMultiInject: lazyMultiInjectType = decorators.lazyMultiInject;
 
 export class Application {
 
-    protected container = container ;
-    private modules:IModule[] = [];
-    private routingAdapter:IRoutingAdapter;
+    protected container = container;
+    private modules: IModule[] = [];
+    private routingAdapter: IRoutingAdapter;
     private featureChecker = new FeatureChecker();
 
     constructor() {
@@ -26,7 +32,7 @@ export class Application {
         this.container.bind<IFeatureChecker>("IFeatureChecker").toConstantValue(this.featureChecker);
     }
 
-    register(module:IModule):boolean {
+    register(module: IModule): boolean {
         if (!this.featureChecker.canCheck(module.constructor) || this.featureChecker.check(module.constructor)) {
             if (module.modules)
                 module.modules(this.container);
@@ -36,18 +42,18 @@ export class Application {
         return false;
     }
 
-    run(overrides?:any) {
+    run(overrides?: any) {
         this.boot(overrides);
         render(this.rootComponent(), document.getElementById("root"));
     }
 
-    boot(overrides?:any) {
+    boot(overrides?: any) {
         let registry = this.container.get<IViewModelRegistry>("IViewModelRegistry");
         this.routingAdapter = this.container.get<IRoutingAdapter>("IRoutingAdapter");
-        _.forEach(this.modules, (module:IModule) => module.register(registry, this.container, overrides));
+        _.forEach(this.modules, (module: IModule) => module.register(registry, this.container, overrides));
     }
 
-    protected rootComponent():React.ReactElement<any> {
+    protected rootComponent(): React.ReactElement<any> {
         let locationListener = this.container.get<ILocationListener>("ILocationListener");
         browserHistory.listen(event => locationListener.pushLocation(event.pathname));
         return <Router history={browserHistory} routes={this.routingAdapter.routes()}/>

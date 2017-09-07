@@ -21,4 +21,5 @@ interface IViewModelRegistry {
     getEntry<T>(construct: Function): {area: string, viewmodel: RegistryEntry<T>};
 }
 
-export default IViewModelRegistry;
+export default IViewModelRegistry
+
