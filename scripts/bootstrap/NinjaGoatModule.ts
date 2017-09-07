@@ -36,8 +36,8 @@ import LocationListener from "../navigation/LocationListener";
 import IRouteStrategy from "../navigation/IRouteStrategy";
 import VoidRouteStrategy from "../navigation/VoidRouteStrategy";
 import {IViewModelFactory, IViewModelFactoryExtender, ViewModelFactory} from "../viewmodels/ViewModelFactory";
-import ObservableFactoryExtender from "../viewmodels/ObservableFactoryExtender";
-import {IViewModelRegistry} from "../registry/IViewModelRegistry";
+import ObservableFactoryExtender from "../observable/ObservableFactoryExtender";
+import {IViewModelRegistry, IViewModelRegistrySetter} from "../registry/IViewModelRegistry";
 
 class NinjaGoatModule implements IModule {
 
@@ -64,8 +64,8 @@ class NinjaGoatModule implements IModule {
         container.bind<IRouteStrategy>("IRouteStrategy").to(VoidRouteStrategy).inSingletonScope();
     };
 
-    register(registry: IViewModelRegistry, serviceLocator?: IServiceLocator, overrides?: any): void {
-
+    register(registry: IViewModelRegistrySetter, serviceLocator?: IServiceLocator, overrides?: any): void {
+        
     }
 }
 

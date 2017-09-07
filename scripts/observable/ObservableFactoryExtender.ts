@@ -1,4 +1,4 @@
-import {IViewModelFactoryExtender} from "./ViewModelFactory";
+import {IViewModelFactoryExtender} from "../viewmodels/ViewModelFactory";
 import ViewModelContext from "../registry/ViewModelContext";
 import {Observable} from "rx";
 import ObservableViewModel from "./ObservableViewModel";

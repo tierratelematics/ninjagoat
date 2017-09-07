@@ -1,4 +1,4 @@
-import ObservableViewModel from "../../../scripts/viewmodels/ObservableViewModel";
+import ObservableViewModel from "../../../scripts/observable/ObservableViewModel";
 
 export default class UnregisteredViewModel extends ObservableViewModel<number> {
 
