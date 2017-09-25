@@ -1,6 +1,5 @@
 import {IViewModelFactoryExtender} from "../viewmodels/ViewModelFactory";
 import ViewModelContext from "../registry/ViewModelContext";
-import ObservableViewModel from "./ObservableViewModel";
 import {injectable} from "inversify";
 import {ObservableOrController} from "../registry/IViewModelRegistry";
 
@@ -8,11 +7,12 @@ import {ObservableOrController} from "../registry/IViewModelRegistry";
 class ObservableFactoryExtender implements IViewModelFactoryExtender {
 
     extend<T>(viewmodel: T, context: ViewModelContext, source: ObservableOrController<T>) {
-        if (!(viewmodel instanceof ObservableViewModel)) return;
+        let vm = <any>viewmodel;
+        if (!vm.observe) return;
         if (source.refresh)
-            (<any>viewmodel).observe(source.model);
+            vm.observe(source.model);
         else
-            (<any>viewmodel).observe(source);
+            vm.observe(source);
     }
 }
 
