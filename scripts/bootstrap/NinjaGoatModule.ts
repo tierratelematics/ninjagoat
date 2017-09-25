@@ -65,7 +65,7 @@ class NinjaGoatModule implements IModule {
     };
 
     register(registry: IViewModelRegistrySetter, serviceLocator?: IServiceLocator, overrides?: any): void {
-        
+
     }
 }
 
