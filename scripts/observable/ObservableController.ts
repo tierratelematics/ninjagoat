@@ -12,3 +12,7 @@ export interface ObservableController<T> extends IModelController {
 export interface ObservableControllerFactory<T> {
     (context: ViewModelContext): ObservableController<T>;
 }
+
+export interface ControllableViewModel {
+    onControllerReceived(controller: IModelController);
+}
