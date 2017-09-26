@@ -7,7 +7,7 @@ class RegistryEntry<T = any> {
     notify?: (parameters: any) => string;
 
     constructor(public construct: interfaces.Newable<IViewModel<T>>, public id?: string,
-                public observableFactory?: ObservableOrControllerFactory<any>, public parameters?: string) {
+                public source?: ObservableOrControllerFactory<any>, public parameters?: string) {
     }
 }
 

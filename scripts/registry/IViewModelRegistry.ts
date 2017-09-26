@@ -11,13 +11,13 @@ export type ObservableOrController<T> = Observable<T> | ObservableController<T>;
 export type ObservableOrControllerFactory<T> = ObservableFactory<T> | ObservableControllerFactory<T>;
 
 export interface IViewModelRegistrySetter {
-    master<T>(construct: interfaces.Newable<IViewModel<T>>, observable?: ObservableFactory<T>): AreaRegistry;
+    master<T>(construct: interfaces.Newable<IViewModel<T>> | RegistryEntry<T>, observable?: ObservableFactory<T>): AreaRegistry;
 
-    index<T>(construct: interfaces.Newable<IViewModel<T>>, observable?: ObservableFactory<T>): AreaRegistry;
+    index<T>(construct: interfaces.Newable<IViewModel<T>> | RegistryEntry<T>, observable?: ObservableFactory<T>): AreaRegistry;
 
-    notFound<T>(construct: interfaces.Newable<IViewModel<T>>, observable?: ObservableFactory<T>): AreaRegistry;
+    notFound<T>(construct: interfaces.Newable<IViewModel<T>> | RegistryEntry<T>, observable?: ObservableFactory<T>): AreaRegistry;
 
-    add<T>(construct: interfaces.Newable<IViewModel<T>>, observable?: ObservableFactory<T>, parameters?: string): IViewModelRegistrySetter;
+    add<T>(construct: interfaces.Newable<IViewModel<T>> | RegistryEntry<T>, observable?: ObservableFactory<T>, parameters?: string): IViewModelRegistrySetter;
 
     withParameters(parameters: string): IViewModelRegistrySetter;
 
