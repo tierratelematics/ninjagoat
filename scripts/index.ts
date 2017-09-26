@@ -12,7 +12,7 @@ export {default as RegistryEntry}  from "./registry/RegistryEntry";
 export {default as View}  from "./views/View";
 export {default as IViewModel}  from "./viewmodels/IViewModel";
 export {default as ObservableViewModel}  from "./observable/ObservableViewModel";
-export {IModelController, ObservableController}  from "./observable/ObservableController";
+export {IModelController, ObservableController, ControllableViewModel}  from "./observable/ObservableController";
 export {ViewModel, ViewModelUtil}  from "./viewmodels/ViewModelDecorator";
 export {default as Refresh}  from "./viewmodels/RefreshDecorator";
 export {default as Presentation}  from "./viewmodels/PresentationDecorator";

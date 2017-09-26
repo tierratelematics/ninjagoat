@@ -13,7 +13,7 @@ import {ViewModelUtil} from "../viewmodels/ViewModelDecorator";
 class ViewModelRegistry implements IViewModelRegistry {
 
     private registry: AreaRegistry[] = []; // Better than a Dictionary implementation since I can easy track case sensitive names
-    private unregisteredEntries: RegistryEntry<any>[] = [];
+    private unregisteredEntries: RegistryEntry[] = [];
 
     master<T>(construct: interfaces.Newable<IViewModel<T>>, observable?: (context: ViewModelContext) => Rx.IObservable<T>): AreaRegistry {
         return this.add(construct, observable).forArea(Area.Master);
@@ -73,7 +73,7 @@ class ViewModelRegistry implements IViewModelRegistry {
             }
             return {
                 area: areaRegistry.area,
-                viewmodel: _.find(areaRegistry.entries, (entry: RegistryEntry<any>) => entry.id.toLowerCase() === id.toLowerCase())
+                viewmodel: _.find(areaRegistry.entries, (entry: RegistryEntry) => entry.id.toLowerCase() === id.toLowerCase())
             };
         } else {
             let item = null;

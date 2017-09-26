@@ -1,23 +1,14 @@
 import IViewModel from "../viewmodels/IViewModel";
-import ViewModelContext from "../registry/ViewModelContext";
 import {interfaces} from "inversify";
-import * as Rx from "rx";
+import {ObservableOrControllerFactory} from "./IViewModelRegistry";
 
-class RegistryEntry<T> {
+class RegistryEntry<T = any> {
 
-    construct: interfaces.Newable<IViewModel<T>>;
-    id: string;
-    observableFactory: (context: ViewModelContext) => Rx.IObservable<T>;
-    parameters?: string;
     notify?: (parameters: any) => string;
 
-    constructor(construct: interfaces.Newable<IViewModel<T>>, id: string,
-                observableFactory: (context: ViewModelContext) => Rx.IObservable<T>, parameters?: string) {
-        this.construct = construct;
-        this.id = id;
-        this.observableFactory = observableFactory;
-        this.parameters = parameters;
+    constructor(public construct: interfaces.Newable<IViewModel<T>>, public id?: string,
+                public observableFactory?: ObservableOrControllerFactory<any>, public parameters?: string) {
     }
 }
 
-export default RegistryEntry;
+export default RegistryEntry
