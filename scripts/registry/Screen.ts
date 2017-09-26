@@ -5,25 +5,27 @@ import {ObservableControllerFactory} from "../observable/ObservableController";
 
 export class Screen {
 
-    static withViewModel<T>(construct: interfaces.Newable<IViewModel<T>>): IScreen<T> {
+    static withViewModel<T>(construct: interfaces.Newable<IViewModel<T>>): IScreenController<T> {
         return new ScreenEntry(construct);
     }
 }
 
-export interface IScreen<T> {
-    addController(controller: ObservableControllerFactory<T>): IScreen<T>;
-
-    withParameters(parameters: string): IScreen<T>;
+export interface IScreenController<T> {
+    addController(controller: ObservableControllerFactory<T>): IScreenParameters;
 }
 
-export class ScreenEntry<T = any> extends RegistryEntry<T> implements IScreen<T> {
+export interface IScreenParameters {
+    withParameters(parameters: string);
+}
 
-    addController(controller: ObservableControllerFactory<T>): IScreen<T> {
+export class ScreenEntry<T = any> extends RegistryEntry<T> implements IScreenController<T>, IScreenParameters {
+
+    addController(controller: ObservableControllerFactory<T>): IScreenParameters {
         this.observableFactory = controller;
         return this;
     }
 
-    withParameters(parameters: string): IScreen<T> {
+    withParameters(parameters: string) {
         this.parameters = parameters;
         return this;
     }
