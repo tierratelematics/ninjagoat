@@ -8,19 +8,25 @@ export {default as IComponentFactory} from "./components/IComponentFactory";
 export {default as ComponentFactory} from "./components/ComponentFactory";
 export {default as IContextFactory} from "./components/IContextFactory";
 export {IViewModelRegistry} from "./registry/IViewModelRegistry";
-export {default as RegistryEntry}  from "./registry/RegistryEntry";
-export {default as View}  from "./views/View";
-export {default as IViewModel}  from "./viewmodels/IViewModel";
-export {default as ObservableViewModel}  from "./observable/ObservableViewModel";
-export {IModelController, ObservableController, ControllableViewModel}  from "./observable/ObservableController";
-export {ViewModel, ViewModelUtil}  from "./viewmodels/ViewModelDecorator";
-export {default as Refresh}  from "./viewmodels/RefreshDecorator";
-export {default as Presentation}  from "./viewmodels/PresentationDecorator";
+export {default as RegistryEntry} from "./registry/RegistryEntry";
+export {Screen} from "./registry/Screen";
+export {default as View} from "./views/View";
+export {default as IViewModel} from "./viewmodels/IViewModel";
+export {default as ObservableViewModel} from "./observable/ObservableViewModel";
+export {
+    IModelController,
+    ObservableController,
+    ControllableViewModel,
+    controllerFromObservable
+} from "./observable/ObservableController";
+export {ViewModel, ViewModelUtil} from "./viewmodels/ViewModelDecorator";
+export {default as Refresh} from "./viewmodels/RefreshDecorator";
+export {default as Presentation} from "./viewmodels/PresentationDecorator";
 export {ViewModelFactory, IViewModelFactory, IViewModelFactoryExtender} from "./viewmodels/ViewModelFactory";
-export {default as ViewModelContext}  from "./registry/ViewModelContext";
-export {default as HttpResponse}  from "./net/HttpResponse";
-export {default as IHttpClient}  from "./net/IHttpClient";
-export {default as HttpClient}  from "./net/HttpClient";
+export {default as ViewModelContext} from "./registry/ViewModelContext";
+export {default as HttpResponse} from "./net/HttpResponse";
+export {default as IHttpClient} from "./net/IHttpClient";
+export {default as HttpClient} from "./net/HttpClient";
 export {default as PresentationViewModel} from "./viewmodels/PresentationViewModel";
 export {default as ObjectContainer} from "./ioc/ObjectContainer";
 export {default as VoidRouteStrategy} from "./navigation/VoidRouteStrategy";

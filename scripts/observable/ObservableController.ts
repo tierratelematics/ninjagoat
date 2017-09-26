@@ -16,3 +16,10 @@ export interface ObservableControllerFactory<T> {
 export interface ControllableViewModel {
     onControllerReceived(controller: IModelController);
 }
+
+export function controllerFromObservable<T>(observable: Observable<T>): ObservableController<T> {
+    return {
+        model: observable,
+        refresh: parameters => null
+    };
+}
