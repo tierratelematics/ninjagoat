@@ -1,3 +1,8 @@
+# 2.6.0
+
+* Observable controller
+* Fluent registration of viewmodels
+
 # 2.5.2
 
 Move types to dev deps
