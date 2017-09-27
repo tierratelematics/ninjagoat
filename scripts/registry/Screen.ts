@@ -12,7 +12,7 @@ export class Screen {
 
 export class ScreenEntry<T = any> extends RegistryEntry<T> {
 
-    useController(controller: ObservableControllerFactory<T>): ScreenEntry<T> {
+    usingController(controller: ObservableControllerFactory<T>): ScreenEntry<T> {
         this.source = controller;
         return this;
     }
