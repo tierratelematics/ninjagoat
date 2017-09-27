@@ -1,4 +1,4 @@
-import ObservableViewModel from "./ObservableViewModel";
+import ObservableViewModel from "../observable/ObservableViewModel";
 import {injectable, inject} from "inversify";
 import ILocationListener from "../navigation/ILocationListener";
 import Refresh from "./RefreshDecorator";

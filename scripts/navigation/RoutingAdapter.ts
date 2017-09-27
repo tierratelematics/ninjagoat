@@ -1,5 +1,5 @@
 import IRoutingAdapter from "./IRoutingAdapter";
-import IViewModelRegistry from "../registry/IViewModelRegistry";
+import {IViewModelRegistry} from "../registry/IViewModelRegistry";
 import AreaRegistry from "../registry/AreaRegistry";
 import * as _ from "lodash";
 import {inject, injectable} from "inversify";
@@ -19,10 +19,10 @@ class RoutingAdapter implements IRoutingAdapter {
                 @inject("IRouteStrategy") private routeStrategy:IRouteStrategy) {
     }
 
-    routes():PlainRoute {
+    routes(): PlainRoute {
         let areas = this.registry.getAreas(),
             routes = this.getRoutes(areas);
-        if (this.registry.getArea(Area.NotFound)) //If there's a 404 handler
+        if (this.registry.getArea(Area.NotFound)) // If there's a 404 handler
             routes.push({
                 path: "*",
                 component: this.componentFactory.componentForNotFound()

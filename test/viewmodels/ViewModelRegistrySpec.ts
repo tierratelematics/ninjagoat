@@ -1,13 +1,14 @@
 import "reflect-metadata";
 import expect = require("expect.js");
 import * as Rx from "rx";
-import IViewModelRegistry from "../../scripts/registry/IViewModelRegistry";
+import {IViewModelRegistry} from "../../scripts/registry/IViewModelRegistry";
 import ViewModelRegistry from "../../scripts/registry/ViewModelRegistry";
 import FooViewModel from "../fixtures/viewmodels/FooViewModel";
 import BarViewModel from "../fixtures/viewmodels/BarViewModel";
 import RootViewModel from "../fixtures/viewmodels/RootViewModel";
-import UnregisteredViewModel from '../fixtures/viewmodels/UnregisteredViewModel';
+import UnregisteredViewModel from "../fixtures/viewmodels/UnregisteredViewModel";
 import ViewModelContext from "../../scripts/registry/ViewModelContext";
+import {Screen} from "../../scripts/registry/Screen";
 
 describe("ViewModelRegistry, given a list of ViewModel identifiers", () => {
 
@@ -41,6 +42,29 @@ describe("ViewModelRegistry, given a list of ViewModel identifiers", () => {
 
                 expect(area.entries[0].id).to.eql("Foo");
                 expect(area.entries[0].parameters).to.eql(":id");
+            });
+        });
+
+        context("when a fluent registration is used", () => {
+            it("should add the viewmodel to the registry", () => {
+                let area = registry.add(Screen.forViewModel(FooViewModel)).forArea("Admin");
+
+                expect(area.entries[0].id).to.eql("Foo");
+            });
+
+            it("should set an observable controller on it", () => {
+                let controller = (context) => ({model: null, refresh: null});
+                let area = registry.add(Screen.forViewModel(FooViewModel).useController(controller)).forArea("Admin");
+
+                expect(area.entries[0].id).to.eql("Foo");
+                expect(area.entries[0].source).to.be(controller);
+            });
+
+            it("should set custom routing parameters on it", () => {
+                let area = registry.add(Screen.forViewModel(FooViewModel).withParameters(":test")).forArea("Admin");
+
+                expect(area.entries[0].id).to.eql("Foo");
+                expect(area.entries[0].parameters).to.be(":test");
             });
         });
     });
@@ -138,7 +162,7 @@ describe("ViewModelRegistry, given a list of ViewModel identifiers", () => {
     context("when a factory function that specifies what the viewmodel's parameters will be is supplied", () => {
         it("should register this specific viewmodel", () => {
             registry.add(FooViewModel, parameters => Rx.Observable.just(10), ":counter").forArea("Admin");
-            let factory = registry.getEntry("Admin", "Foo").viewmodel.observableFactory;
+            let factory = registry.getEntry("Admin", "Foo").viewmodel.source;
 
             expect(factory).to.not.be(null);
         });

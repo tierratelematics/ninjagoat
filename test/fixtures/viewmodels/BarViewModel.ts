@@ -1,4 +1,4 @@
-import ObservableViewModel from "../../../scripts/viewmodels/ObservableViewModel";
+import ObservableViewModel from "../../../scripts/observable/ObservableViewModel";
 import Refresh from "../../../scripts/viewmodels/RefreshDecorator";
 import {ViewModel} from "../../../scripts/viewmodels/ViewModelDecorator";
 
