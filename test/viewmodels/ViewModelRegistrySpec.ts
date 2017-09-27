@@ -54,7 +54,7 @@ describe("ViewModelRegistry, given a list of ViewModel identifiers", () => {
 
             it("should set an observable controller on it", () => {
                 let controller = (context) => ({model: null, refresh: null});
-                let area = registry.add(Screen.forViewModel(FooViewModel).addController(controller)).forArea("Admin");
+                let area = registry.add(Screen.forViewModel(FooViewModel).useController(controller)).forArea("Admin");
 
                 expect(area.entries[0].id).to.eql("Foo");
                 expect(area.entries[0].source).to.be(controller);
