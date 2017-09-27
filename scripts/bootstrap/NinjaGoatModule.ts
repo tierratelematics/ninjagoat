@@ -38,6 +38,7 @@ import VoidRouteStrategy from "../navigation/VoidRouteStrategy";
 import {IViewModelFactory, IViewModelFactoryExtender, ViewModelFactory} from "../viewmodels/ViewModelFactory";
 import ObservableFactoryExtender from "../observable/ObservableFactoryExtender";
 import {IViewModelRegistry, IViewModelRegistrySetter} from "../registry/IViewModelRegistry";
+import ControllerFactoryExtender from "../observable/ControllerFactoryExtender";
 
 class NinjaGoatModule implements IModule {
 
@@ -52,6 +53,7 @@ class NinjaGoatModule implements IModule {
         container.bind<IRoutingAdapter>("IRoutingAdapter").to(RoutingAdapter).inSingletonScope();
         container.bind<IViewModelFactory>("IViewModelFactory").to(ViewModelFactory).inSingletonScope();
         container.bind<IViewModelFactoryExtender>("IViewModelFactoryExtender").to(ObservableFactoryExtender).inSingletonScope();
+        container.bind<IViewModelFactoryExtender>("IViewModelFactoryExtender").to(ControllerFactoryExtender).inSingletonScope();
         container.bind<IHttpClient>("IHttpClient").to(HttpClient).inSingletonScope();
         container.bind<ISerializer<Dictionary<string>, string>>("QuerySerializer").to(QuerySerializer).inSingletonScope();
         container.bind<IDateRetriever>("IDateRetriever").to(DateRetriever).inSingletonScope();
