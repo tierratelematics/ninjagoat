@@ -1,5 +1,5 @@
 import * as Rx from "rx";
-import IViewModel from "./IViewModel";
+import IViewModel from "../viewmodels/IViewModel";
 import {injectable} from "inversify";
 
 @injectable()

@@ -5,7 +5,7 @@ import IObjectContainer from "../../scripts/ioc/IObjectContainer";
 import {IViewModelFactoryExtender, ViewModelFactory} from "../../scripts/viewmodels/ViewModelFactory";
 import ViewModelContext from "../../scripts/registry/ViewModelContext";
 import BarViewModel from "../fixtures/viewmodels/BarViewModel";
-import ObservableViewModel from "../../scripts/viewmodels/ObservableViewModel";
+import ObservableViewModel from "../../scripts/observable/ObservableViewModel";
 import {Observable} from "rx";
 
 describe("Given a viewmodel factory", () => {

@@ -1,4 +1,4 @@
-import IViewModelRegistry from "./IViewModelRegistry";
+import {IViewModelRegistry} from "./IViewModelRegistry";
 import RegistryEntry from "./RegistryEntry";
 import * as _ from "lodash";
 import AreaRegistry from "./AreaRegistry";
@@ -13,25 +13,32 @@ import {ViewModelUtil} from "../viewmodels/ViewModelDecorator";
 class ViewModelRegistry implements IViewModelRegistry {
 
     private registry: AreaRegistry[] = []; // Better than a Dictionary implementation since I can easy track case sensitive names
-    private unregisteredEntries: RegistryEntry<any>[] = [];
+    private unregisteredEntries: RegistryEntry[] = [];
 
-    master<T>(construct: interfaces.Newable<IViewModel<T>>, observable?: (context: ViewModelContext) => Rx.IObservable<T>): AreaRegistry {
+    master<T>(construct: interfaces.Newable<IViewModel<T>> | RegistryEntry<T>, observable?: (context: ViewModelContext) => Rx.IObservable<T>): AreaRegistry {
         return this.add(construct, observable).forArea(Area.Master);
     }
 
-    index<T>(construct: interfaces.Newable<IViewModel<T>>, observable?: (context: ViewModelContext) => Rx.IObservable<T>): AreaRegistry {
+    index<T>(construct: interfaces.Newable<IViewModel<T>> | RegistryEntry<T>, observable?: (context: ViewModelContext) => Rx.IObservable<T>): AreaRegistry {
         return this.add(construct, observable).forArea(Area.Index);
     }
 
-    notFound<T>(construct: interfaces.Newable<IViewModel<T>>, observable?: (context: ViewModelContext) => Rx.IObservable<T>): AreaRegistry {
+    notFound<T>(construct: interfaces.Newable<IViewModel<T>> | RegistryEntry<T>, observable?: (context: ViewModelContext) => Rx.IObservable<T>): AreaRegistry {
         return this.add(construct, observable).forArea(Area.NotFound);
     }
 
-    add<T>(construct: interfaces.Newable<IViewModel<T>>, observable?: (context: ViewModelContext) => Rx.IObservable<T>, parameters?: string): IViewModelRegistry {
+    add<T>(entry: interfaces.Newable<IViewModel<T>> | RegistryEntry<T>, observable?: (context: ViewModelContext) => Rx.IObservable<T>, parameters?: string): IViewModelRegistry {
+        let construct = entry instanceof RegistryEntry ? entry.construct : entry;
+        let regEntry = entry instanceof RegistryEntry ? entry : new RegistryEntry(construct);
         let id = ViewModelUtil.getViewModelName(construct);
         if (!id)
             throw new Error("Missing ViewModel decorator");
-        this.unregisteredEntries.push(new RegistryEntry<T>(construct, id, observable, parameters));
+        regEntry.id = id;
+        if (!(entry instanceof RegistryEntry)) {
+            regEntry.source = observable;
+            regEntry.parameters = parameters;
+        }
+        this.unregisteredEntries.push(regEntry);
         return this;
     }
 
@@ -73,7 +80,7 @@ class ViewModelRegistry implements IViewModelRegistry {
             }
             return {
                 area: areaRegistry.area,
-                viewmodel: _.find(areaRegistry.entries, (entry: RegistryEntry<any>) => entry.id.toLowerCase() === id.toLowerCase())
+                viewmodel: _.find(areaRegistry.entries, (entry: RegistryEntry) => entry.id.toLowerCase() === id.toLowerCase())
             };
         } else {
             let item = null;
