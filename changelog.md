@@ -1,3 +1,7 @@
+# 2.7.0
+
+Add ability to extend props of View
+
 # 2.6.0
 
 * Observable controller
