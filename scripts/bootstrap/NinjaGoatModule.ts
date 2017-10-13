@@ -37,7 +37,7 @@ import {IViewModelFactory, IViewModelFactoryExtender, ViewModelFactory} from "..
 import ObservableFactoryExtender from "../observable/ObservableFactoryExtender";
 import {IViewModelRegistry, IViewModelRegistrySetter} from "../registry/IViewModelRegistry";
 import ControllerFactoryExtender from "../observable/ControllerFactoryExtender";
-import {bindLoggingInto} from "inversify-logging";
+import {activateLogging} from "inversify-logging";
 
 class NinjaGoatModule implements IModule {
 
@@ -62,7 +62,7 @@ class NinjaGoatModule implements IModule {
         container.bind<ISettingsManager>("ISettingsManager").to(StorageSettingsManager).inSingletonScope();
         container.bind<ILocationListener>("ILocationListener").to(LocationListener).inSingletonScope();
         container.bind<IRouteStrategy>("IRouteStrategy").to(VoidRouteStrategy).inSingletonScope();
-        bindLoggingInto(container);
+        activateLogging(container);
     };
 
     register(registry: IViewModelRegistrySetter, serviceLocator?: IServiceLocator, overrides?: any): void {
