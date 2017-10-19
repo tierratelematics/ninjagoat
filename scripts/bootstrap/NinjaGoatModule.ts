@@ -23,8 +23,6 @@ import DateRetriever from "../util/DateRetriever";
 import GUIDGenerator from "../util/GUIDGenerator";
 import IGUIDGenerator from "../util/IGUIDGenerator";
 import Dictionary from "../util/Dictionary";
-import ConsoleLogger from "../log/ConsoleLogger";
-import ILogger from "../log/ILogger";
 import INavigationManager from "../navigation/INavigationManager";
 import NavigationManager from "../navigation/NavigationManager";
 import ILocationHandler from "../navigation/ILocationHandler";
@@ -39,6 +37,7 @@ import {IViewModelFactory, IViewModelFactoryExtender, ViewModelFactory} from "..
 import ObservableFactoryExtender from "../observable/ObservableFactoryExtender";
 import {IViewModelRegistry, IViewModelRegistrySetter} from "../registry/IViewModelRegistry";
 import ControllerFactoryExtender from "../observable/ControllerFactoryExtender";
+import {activateLogging} from "inversify-logging";
 
 class NinjaGoatModule implements IModule {
 
@@ -58,12 +57,12 @@ class NinjaGoatModule implements IModule {
         container.bind<ISerializer<Dictionary<string>, string>>("QuerySerializer").to(QuerySerializer).inSingletonScope();
         container.bind<IDateRetriever>("IDateRetriever").to(DateRetriever).inSingletonScope();
         container.bind<IGUIDGenerator>("IGUIDGenerator").to(GUIDGenerator).inSingletonScope();
-        container.bind<ILogger>("ILogger").to(ConsoleLogger).inSingletonScope();
         container.bind<INavigationManager>("INavigationManager").to(NavigationManager).inSingletonScope();
         container.bind<ILocationHandler>("ILocationHandler").to(LocationHandler).inSingletonScope();
         container.bind<ISettingsManager>("ISettingsManager").to(StorageSettingsManager).inSingletonScope();
         container.bind<ILocationListener>("ILocationListener").to(LocationListener).inSingletonScope();
         container.bind<IRouteStrategy>("IRouteStrategy").to(VoidRouteStrategy).inSingletonScope();
+        activateLogging(container);
     };
 
     register(registry: IViewModelRegistrySetter, serviceLocator?: IServiceLocator, overrides?: any): void {
