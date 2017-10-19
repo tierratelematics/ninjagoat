@@ -1,3 +1,7 @@
+# 2.8.0
+
+Add contextual logging
+
 # 2.7.0
 
 Add ability to extend props of View
