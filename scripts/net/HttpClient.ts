@@ -2,16 +2,12 @@ import IHttpClient from "./IHttpClient";
 import * as Rx from "rx";
 import "whatwg-fetch";
 import HttpResponse from "./HttpResponse";
-import {inject, injectable} from "inversify";
+import {injectable} from "inversify";
 import Dictionary from "../util/Dictionary";
 import * as _ from "lodash";
-import {ILogger, NullLogger, LoggingContext} from "inversify-logging";
 
 @injectable()
-@LoggingContext("HttpClient")
 class HttpClient implements IHttpClient {
-
-    @inject("ILogger") private logger: ILogger;
 
     get(url: string, headers?: Dictionary<string>): Rx.Observable<HttpResponse> {
         return this.performNetworkCall(url, 'get', undefined, headers);
@@ -51,11 +47,10 @@ class HttpClient implements IHttpClient {
                 headers[name.toString().toLowerCase()] = value;
             });
             return response.text().then(text => {
-                let contentType = headers["content-type"] || "";
+                let contentType = headers['content-type'] || "";
                 let payload = contentType.match("application/json") ? JSON.parse(text) : text;
                 let httpResponse = new HttpResponse(payload, response.status, headers);
 
-                this.logger.debug(`HTTP request result ${JSON.stringify(httpResponse)}`);
                 if (response.status >= 400)
                     throw httpResponse;
                 return httpResponse;
