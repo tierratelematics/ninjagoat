@@ -1,3 +1,7 @@
+# 2.8.2
+
+Avoid multiple slashes in URLs
+
 # 2.8.0 - 2.8.1
 
 Add contextual logging
