@@ -89,6 +89,23 @@ describe("NavigationManager, given an area", () => {
                         locationHandler.verify(l => l.changeLocation("/fake/bar/50/"), Times.once());
                     });
                 });
+
+                context("when some optional parameter is missing", () => {
+                    it("should correctly resolve the url", () => {
+                        registry.setup(r => r.getEntry("fake", "bar")).returns(() => {
+                            return {
+                                area: "Fake",
+                                viewmodel: new RegistryEntry(BarViewModel, "Bar", null, ":id/(:bar)/(:foo)")
+                            }
+                        });
+
+                        subject.navigate("Fake", "Bar", {
+                            id: 50
+                        });
+
+                        locationHandler.verify(l => l.changeLocation("/fake/bar/50/"), Times.once());
+                    });
+                });
             });
         });
     });
