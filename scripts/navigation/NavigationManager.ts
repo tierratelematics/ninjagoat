@@ -44,7 +44,7 @@ class NavigationManager implements INavigationManager {
         _.forEach(pathParts, value => {
             path = path.replace(value, parameters[value.replace(/(\(|\)|:)/gi, "")] || "");
         });
-        return path;
+        return path.replace(/\/{2,}/g, "/");
     }
 }
 
