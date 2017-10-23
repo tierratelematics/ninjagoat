@@ -1,6 +1,6 @@
 {
   "name": "ninjagoat",
-  "version": "2.8.1",
+  "version": "2.8.2",
   "dependencies": {
     "bivio": "^0.3.2",
     "inversify": "^4.3.0",
