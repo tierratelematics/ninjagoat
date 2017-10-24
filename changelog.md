@@ -1,4 +1,4 @@
-# 2.8.2
+# 2.8.3
 
 Avoid multiple slashes in URLs
 
