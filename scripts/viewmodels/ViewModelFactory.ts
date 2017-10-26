@@ -3,15 +3,15 @@ import IObjectContainer from "../ioc/IObjectContainer";
 import ViewModelContext from "../registry/ViewModelContext";
 import IViewModel from "./IViewModel";
 import {forEach} from "lodash";
-import {ObservableOrController, ObservableOrControllerFactory} from "../registry/IViewModelRegistry";
+import {ObservableController, ObservableControllerFactory} from "../observable/ObservableController";
 
 export interface IViewModelFactory {
     create<T extends IViewModel<any>>(context: ViewModelContext, construct: interfaces.Newable<T>,
-                                    factory: ObservableOrControllerFactory<any>): T;
+                                    factory: ObservableControllerFactory<any>): T;
 }
 
 export interface IViewModelFactoryExtender {
-    extend<T>(viewmodel: T, context: ViewModelContext, source: ObservableOrController<T>);
+    extend<T>(viewmodel: T, context: ViewModelContext, source: ObservableController<T>);
 }
 
 @injectable()
@@ -22,7 +22,7 @@ export class ViewModelFactory implements IViewModelFactory {
     }
 
     create<T extends IViewModel<any>>(context: ViewModelContext, construct: interfaces.Newable<T>,
-                                      factory: ObservableOrControllerFactory<any>): T {
+                                      factory: ObservableControllerFactory<any>): T {
         const key = `ninjagoat:viewmodels:${context.area}:${context.viewmodelId}`;
         if (!this.container.contains(key))
             this.container.set(key, construct);
