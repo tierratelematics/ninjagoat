@@ -13,8 +13,8 @@ import * as Area from "../scripts/registry/Area";
 
 describe("UriResolver, given an URI", () => {
 
-    let registry:IViewModelRegistry;
-    let subject:IUriResolver;
+    let registry: IViewModelRegistry;
+    let subject: IUriResolver;
 
     beforeEach(() => {
         registry = new ViewModelRegistry();
