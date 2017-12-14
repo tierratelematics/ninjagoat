@@ -1,3 +1,7 @@
+# 3.0.0
+
+Keep only the controller registrations
+
 # 2.8.3
 
 Avoid multiple slashes in URLs
