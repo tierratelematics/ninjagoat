@@ -1,5 +1,4 @@
 import "reflect-metadata";
-import expect = require("expect.js");
 import {IMock, Mock, Times, It} from "typemoq";
 import {Observable} from "rx";
 import ObservableFactoryExtender from "../scripts/observable/ObservableFactoryExtender";
@@ -13,15 +12,6 @@ describe("Given an observable extender", () => {
     beforeEach(() => {
         viewmodel = Mock.ofType<ObservableViewModel<any>>();
         subject = new ObservableFactoryExtender();
-    });
-
-    context("when an observable is provided", () => {
-        it("should be passed to the viewmodel", () => {
-            let obs = Observable.empty();
-            subject.extend(viewmodel.object, null, obs);
-
-            viewmodel.verify(v => v.observe(It.isValue(obs)), Times.once());
-        });
     });
 
     context("when a controller is provided", () => {
