@@ -1,6 +1,5 @@
 import "reflect-metadata";
 import expect = require("expect.js");
-import {IMock, Mock, It, Times} from "typemoq";
 import ViewModelRegistry from "../scripts/registry/ViewModelRegistry";
 import {IViewModelRegistry} from "../scripts/registry/IViewModelRegistry";
 import IUriResolver from "../scripts/navigation/IUriResolver";
@@ -10,11 +9,12 @@ import FooIndexViewModel from "./fixtures/viewmodels/FooIndexViewModel";
 import IndexViewModel from "./fixtures/viewmodels/IndexViewModel";
 import RootViewModel from "./fixtures/viewmodels/RootViewModel";
 import * as Area from "../scripts/registry/Area";
+import {Screen} from "../scripts/registry/Screen";
 
 describe("UriResolver, given an URI", () => {
 
-    let registry:IViewModelRegistry;
-    let subject:IUriResolver;
+    let registry: IViewModelRegistry;
+    let subject: IUriResolver;
 
     beforeEach(() => {
         registry = new ViewModelRegistry();
@@ -24,7 +24,7 @@ describe("UriResolver, given an URI", () => {
     context("when there are no parameters", () => {
 
         beforeEach(() => {
-            registry.add(BarViewModel).forArea("Admin");
+            registry.add(Screen.forViewModel(BarViewModel)).forArea("Admin");
         });
 
         it("should return the corresponding viewmodel identifier", () => {
@@ -35,7 +35,7 @@ describe("UriResolver, given an URI", () => {
 
         context("and the viewmodel has been registered in a lower case area", () => {
             it("should return the correct area identifier", () => {
-                registry.add(BarViewModel).forArea("tools");
+                registry.add(Screen.forViewModel(BarViewModel)).forArea("tools");
                 let resource = subject.resolve("/tools/bar");
 
                 expect(resource.area).to.be("tools");
@@ -46,7 +46,7 @@ describe("UriResolver, given an URI", () => {
     context("when it contains some parameters", () => {
 
         beforeEach(() => {
-            registry.add(BarViewModel, null, ":id/:subCategory").forArea("Admin");
+            registry.add(Screen.forViewModel(BarViewModel).withParameters(":id/:subCategory")).forArea("Admin");
         });
 
         it("should return the corresponding viewmodel identifier and the parameters", () => {
@@ -61,7 +61,7 @@ describe("UriResolver, given an URI", () => {
     context("when it's the root of an area", () => {
         context("and there is a specific Index viewmodel associated", () => {
             it("should return the viewmodel identifier composed by the name of the area plus Index", () => {
-                registry.add(FooIndexViewModel).forArea("Foo");
+                registry.add(Screen.forViewModel(FooIndexViewModel)).forArea("Foo");
                 let resource = subject.resolve("/foo");
 
                 expect(resource.viewmodel.id).to.be("FooIndex");
@@ -70,7 +70,7 @@ describe("UriResolver, given an URI", () => {
 
         context("and this area needs some parameters", () => {
             it("should correctly resolve the viewmodel", () => {
-                registry.add(FooIndexViewModel, _ => null, ":id").forArea("Foo");
+                registry.add(Screen.forViewModel(FooIndexViewModel).withParameters(":id")).forArea("Foo");
                 let resource = subject.resolve("/foo/25");
 
                 expect(resource.viewmodel.id).to.be("FooIndex");
@@ -81,7 +81,7 @@ describe("UriResolver, given an URI", () => {
         context("and there is not a specific Index viewmodel associated", () => {
 
             beforeEach(() => {
-                registry.add(IndexViewModel).forArea("Admin");
+                registry.add(Screen.forViewModel(IndexViewModel)).forArea("Admin");
             });
 
             it("should return the Index viewmodel identifier", () => {
@@ -96,7 +96,7 @@ describe("UriResolver, given an URI", () => {
         context("when it's registered with the standard Index name", () => {
 
             beforeEach(() => {
-                registry.index(IndexViewModel);
+                registry.index(Screen.forViewModel(IndexViewModel));
             });
 
             it("should return the Index viewmodel identifier", () => {
@@ -110,7 +110,7 @@ describe("UriResolver, given an URI", () => {
         context("when it's registered with a name different than index", () => {
 
             beforeEach(() => {
-                registry.index(RootViewModel);
+                registry.index(Screen.forViewModel(RootViewModel));
             });
 
             it("should return the Index viewmodel identifier", () => {
@@ -124,17 +124,17 @@ describe("UriResolver, given an URI", () => {
 
     context("when it's the master application container", () => {
         it("should return the master viewmodel identifier", () => {
-            registry.master(RootViewModel);
+            registry.master(Screen.forViewModel(RootViewModel));
             let resource = subject.resolve(Area.Master);
 
             expect(resource.area).to.be(Area.Master);
             expect(resource.viewmodel.id).to.be("Root");
-        })
+        });
     });
 
     context("when the uri contains some query string parameters", () => {
         it("should ignore those parameters during the uri resolution", () => {
-            registry.add(FooIndexViewModel).forArea("Foo");
+            registry.add(Screen.forViewModel(FooIndexViewModel)).forArea("Foo");
             let resource = subject.resolve("/foo?id=20");
 
             expect(resource.viewmodel.id).to.be("FooIndex");
@@ -142,7 +142,7 @@ describe("UriResolver, given an URI", () => {
     });
 
     context("when it's a page that does not exists", () => {
-        beforeEach(() => registry.notFound(RootViewModel));
+        beforeEach(() => registry.notFound(Screen.forViewModel(RootViewModel)));
         it("should return the 404 handler", () => {
             let resource = subject.resolve("/inexistent");
 
@@ -170,7 +170,7 @@ describe("UriResolver, given an URI", () => {
 
         context("but it contains a registered area", () => {
             beforeEach(() => {
-                registry.add(BarViewModel).forArea("Admin");
+                registry.add(Screen.forViewModel(BarViewModel)).forArea("Admin");
             });
 
             it("should return the 404 handler", () => {

@@ -10,19 +10,19 @@ import * as _ from "lodash";
 class HttpClient implements IHttpClient {
 
     get(url: string, headers?: Dictionary<string>): Rx.Observable<HttpResponse> {
-        return this.performNetworkCall(url, 'get', undefined, headers);
+        return this.performNetworkCall(url, "get", undefined, headers);
     }
 
     post(url: string, body: {}|FormData, headers?: Dictionary<string>): Rx.Observable<HttpResponse> {
-        return this.performNetworkCall(url, 'post', this.getJsonBody(body), this.addJsonHeaders(headers));
+        return this.performNetworkCall(url, "post", this.getJsonBody(body), this.addJsonHeaders(headers));
     }
 
     put(url: string, body: {}, headers?: Dictionary<string>): Rx.Observable<HttpResponse> {
-        return this.performNetworkCall(url, 'put', this.getJsonBody(body), this.addJsonHeaders(headers));
+        return this.performNetworkCall(url, "put", this.getJsonBody(body), this.addJsonHeaders(headers));
     }
 
     delete(url: string, headers?: Dictionary<string>): Rx.Observable<HttpResponse> {
-        return this.performNetworkCall(url, 'delete', undefined, headers);
+        return this.performNetworkCall(url, "delete", undefined, headers);
     }
 
     private getJsonBody(body: {}|FormData) {
@@ -31,8 +31,8 @@ class HttpClient implements IHttpClient {
 
     private addJsonHeaders(headers: Dictionary<string>) {
         return _.merge({}, {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            "Accept": "application/json",
+            "Content-Type": "application/json"
         }, headers);
     };
 
@@ -40,14 +40,14 @@ class HttpClient implements IHttpClient {
         let promise = window.fetch(url, {
             method: method,
             body: body,
-            headers: headers
+            headers: <any>headers
         }).then(response => {
             let headers: Dictionary<string> = {};
             response.headers.forEach((value, name) => {
                 headers[name.toString().toLowerCase()] = value;
             });
             return response.text().then(text => {
-                let contentType = headers['content-type'] || "";
+                let contentType = headers["content-type"] || "";
                 let payload = contentType.match("application/json") ? JSON.parse(text) : text;
                 let httpResponse = new HttpResponse(payload, response.status, headers);
 
