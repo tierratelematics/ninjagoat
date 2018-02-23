@@ -24,7 +24,6 @@
       "inversify": [
         "../../inversify-logging/node_modules/inversify"
       ]
-    },
-    "skipLibCheck": true
+    }
   }
 }
