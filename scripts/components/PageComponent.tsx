@@ -1,26 +1,32 @@
-import * as _ from "lodash";
+import { interfaces } from "inversify";
+import { isEqual } from "lodash";
 import * as React from "react";
+import { IObservable } from "rx";
 
-export default React.createClass({
-    render() {
-        let View = this.view;
-        let ViewModel = this.viewmodel;
-        let key = JSON.stringify(this.props.params);
-        return View ? <View viewmodel={ViewModel} key={key} /> : <div></div>;
-    },
+import View from "../views/View";
+import IContextFactory from "./IContextFactory";
+
+export interface IPageComponentProps {
+    contextFactory: IContextFactory;
+    params?: any;
+}
+
+class PageComponent extends React.Component<IPageComponentProps> {
+    viewmodel: IObservable<any>;    view: interfaces.Newable<View<any>>;
+
     componentWillMount() {
         this.setupPage(this.props);
-    },
+    }
     componentWillReceiveProps(props: any) {
         // Deadly patch to avoid duplicated render cycle due to an improper edit of context [see MaterialUi | MuiThemeProvider]
-        if (_.isEqual(props.params, this.props.params)) return;
+        if (isEqual(props.params, this.props.params)) return;
 
         this.viewmodel.dispose();
         this.setupPage(props);
-    },
+    }
     componentWillUnmount() {
         if (this.viewmodel) this.viewmodel.dispose();
-    },
+    }
     setupPage(props: any) {
         let context = props.contextFactory.contextFor(
             window.location.pathname + window.location.search,
@@ -31,4 +37,13 @@ export default React.createClass({
         this.setState(this.viewmodel);
         context.viewmodel.subscribe(() => this.setState(context.viewmodel));
     }
-});
+
+    render() {
+        let ViewComponent = this.view;
+        let ViewModel = this.viewmodel;
+        let key = JSON.stringify(this.props.params);
+        return ViewComponent ? <ViewComponent viewmodel={ViewModel} key={key} /> : <div></div>;
+    }
+}
+
+export default PageComponent;
