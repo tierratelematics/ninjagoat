@@ -1,3 +1,7 @@
+# 4.0.0
+
+Update React to v16
+
 # 3.0.0
 
 Keep only the controller registrations
