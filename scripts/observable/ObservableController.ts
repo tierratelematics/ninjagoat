@@ -3,6 +3,7 @@ import ViewModelContext from "../registry/ViewModelContext";
 
 export interface IModelController {
     refresh(parameters?: object);
+    updates?(): Observable<object>; // Expose the method in order to do some actions on the observable passed to the viewmodel
 }
 
 export interface ObservableController<T> extends IModelController {
@@ -20,6 +21,7 @@ export interface ControllableViewModel {
 export function controllerFromObservable<T>(observable: Observable<T>): ObservableController<T> {
     return {
         model: observable,
-        refresh: parameters => null
+        refresh: parameters => null,
+        updates: () => Observable.empty()
     };
 }

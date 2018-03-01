@@ -1,3 +1,7 @@
+# 4.0.2
+
+Expose updates method of IModelController
+
 # 4.0.0 - 4.0.1
 
 Update React to v16
