@@ -15,15 +15,6 @@
       "reflect-metadata",
       "node"
     ],
-    "declaration": true,
-    "baseUrl": ".",
-    "paths": {
-      "inversify-logging": [
-        "../../inversify-logging"
-      ],
-      "inversify": [
-        "../../inversify-logging/node_modules/inversify"
-      ]
-    }
+    "declaration": true
   }
 }
