@@ -5,7 +5,7 @@
     "bivio": "^0.3.2",
     "inversify": "^4.3.0",
     "inversify-inject-decorators": "^3.0.1",
-    "inversify-logging": "~0.1.0",
+    "inversify-logging": "^0.2.0",
     "lodash": "^4.17.5",
     "react-router": "^3.0.0",
     "reflect-metadata": "0.1.8",

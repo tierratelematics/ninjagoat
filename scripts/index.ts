@@ -41,4 +41,4 @@ export {default as ISettingsManagerAsync} from "./io/ISettingsManagerAsync";
 export {FeatureToggle, IFeatureChecker, FeatureChecker, CheckPredicate, Predicates as FeaturePredicates} from "bivio";
 export {default as IDateRetriever} from "./util/IDateRetriever";
 export {default as IGUIDGenerator} from "./util/IGUIDGenerator";
-export {ILogger, ConsoleLogger, NullLogger, LoggingContext, LogLevel, activateLogging} from "inversify-logging";
+export {ILogger, ConsoleLogger, NullLogger, LoggingContext, LogLevel, activateLogging, ILoggerConfig} from "inversify-logging";
