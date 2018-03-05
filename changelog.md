@@ -1,3 +1,7 @@
+# 4.0.3
+
+Avoid duplicated lodash versions
+
 # 4.0.2
 
 Expose updates method of IModelController
