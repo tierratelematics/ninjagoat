@@ -57,9 +57,7 @@ export class Application {
 
     protected rootComponent(): React.ReactElement<any> {
         let locationListener = this.container.get<ILocationListener>("ILocationListener");
-        let routerConfig = this.container.get<IRouterConfig>("IRouterConfig");
-        const history = createHistory(routerConfig);
-        history.listen(event => locationListener.pushLocation(event.pathname));
-        return <Router history={history} routes={this.routingAdapter.routes()}/>
+        browserHistory.listen(event => locationListener.pushLocation(event.pathname));
+        return <Router history={browserHistory} routes={this.routingAdapter.routes()}/>
     }
 }
