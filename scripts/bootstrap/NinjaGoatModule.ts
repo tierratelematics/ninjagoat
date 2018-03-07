@@ -38,7 +38,7 @@ import ObservableFactoryExtender from "../observable/ObservableFactoryExtender";
 import {IViewModelRegistry, IViewModelRegistrySetter} from "../registry/IViewModelRegistry";
 import ControllerFactoryExtender from "../observable/ControllerFactoryExtender";
 import {activateLogging} from "inversify-logging";
-import { IRouterConfig } from "../../dist";
+import { IRouterConfig } from "../navigation/IRouterConfig";
 
 class NinjaGoatModule implements IModule {
 
