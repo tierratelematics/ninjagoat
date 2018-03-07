@@ -38,6 +38,7 @@ import ObservableFactoryExtender from "../observable/ObservableFactoryExtender";
 import {IViewModelRegistry, IViewModelRegistrySetter} from "../registry/IViewModelRegistry";
 import ControllerFactoryExtender from "../observable/ControllerFactoryExtender";
 import {activateLogging} from "inversify-logging";
+import { IRouterConfig } from "../../dist";
 
 class NinjaGoatModule implements IModule {
 
@@ -62,6 +63,7 @@ class NinjaGoatModule implements IModule {
         container.bind<ISettingsManager>("ISettingsManager").to(StorageSettingsManager).inSingletonScope();
         container.bind<ILocationListener>("ILocationListener").to(LocationListener).inSingletonScope();
         container.bind<IRouteStrategy>("IRouteStrategy").to(VoidRouteStrategy).inSingletonScope();
+        container.bind<IRouterConfig>("IRouterConfig").toConstantValue({basename: "/"});
         activateLogging(container);
     };
 
