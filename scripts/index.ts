@@ -1,3 +1,4 @@
+export { IRouterConfig } from "./navigation/IRouterConfig";
 export {default as Dictionary} from "./util/Dictionary";
 export {Application} from "./bootstrap/Application";
 export {lazyInject, lazyMultiInject} from "./bootstrap/Application";
