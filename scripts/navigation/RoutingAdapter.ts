@@ -10,13 +10,15 @@ import {RouterState} from "react-router";
 import {RedirectFunction} from "react-router";
 import IRouteStrategy from "./IRouteStrategy";
 import RegistryEntry from "../registry/RegistryEntry";
+import { IRouterConfig } from "..";
 
 @injectable()
 class RoutingAdapter implements IRoutingAdapter {
 
     constructor(@inject("IViewModelRegistry") private registry:IViewModelRegistry,
                 @inject("IComponentFactory") private componentFactory:IComponentFactory,
-                @inject("IRouteStrategy") private routeStrategy:IRouteStrategy) {
+                @inject("IRouteStrategy") private routeStrategy:IRouteStrategy,
+                @inject("IRouterConfig") private routeConfig: IRouterConfig) {
     }
 
     routes(): PlainRoute {
@@ -31,7 +33,7 @@ class RoutingAdapter implements IRoutingAdapter {
             childRoutes: routes,
             component: this.componentFactory.componentForMaster(),
             indexRoute: {component: this.componentFactory.componentForUri("/")},
-            path: "/",
+            path: this.routeConfig.basename,
             onEnter: (nextState:RouterState, replace:RedirectFunction, callback: Function) => {
                 this.handleOnEnter(this.registry.getArea("Index").entries[0], nextState, replace, callback);
             }

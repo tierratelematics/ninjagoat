@@ -18,7 +18,7 @@ describe("UriResolver, given an URI", () => {
 
     beforeEach(() => {
         registry = new ViewModelRegistry();
-        subject = new UriResolver(registry);
+        subject = new UriResolver(registry, {basename: "/app/"});
     });
 
     context("when there are no parameters", () => {

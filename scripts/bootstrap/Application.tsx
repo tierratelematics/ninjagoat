@@ -10,6 +10,8 @@ import NinjaGoatModule from "./NinjaGoatModule";
 import ILocationListener from "../navigation/ILocationListener";
 import {IFeatureChecker, FeatureChecker} from "bivio";
 import {IViewModelRegistry} from "../registry/IViewModelRegistry";
+import { createHistory } from "history";
+import { IRouterConfig } from "../navigation/IRouterConfig";
 
 let container = new Container();
 
