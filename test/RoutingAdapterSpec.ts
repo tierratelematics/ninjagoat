@@ -32,7 +32,7 @@ describe("RoutingAdapter, given a list of registry entries", () => {
         componentFactory.setup(c => c.componentForUri(It.isAny())).returns(() => null);
         componentFactory.setup(c => c.componentForMaster()).returns(() => null);
         componentFactory.setup(c => c.componentForNotFound()).returns(() => null);
-        subject = new RoutingAdapter(registry.object, componentFactory.object, null);
+        subject = new RoutingAdapter(registry.object, componentFactory.object, null, {basename: "/app/"});
     });
 
     context("when the area is the index page", () => {
@@ -40,7 +40,7 @@ describe("RoutingAdapter, given a list of registry entries", () => {
         it("should correctly add it into the list of routes produced", () => {
             let routes = subject.routes();
 
-            expect(routes.path).to.eql("/");
+            expect(routes.path).to.eql("/app/");
             expect(routes.childRoutes).to.eql([]);
         });
     });
@@ -55,7 +55,7 @@ describe("RoutingAdapter, given a list of registry entries", () => {
             it("should add the area to the the list of routes", () => {
                 let routes = subject.routes();
 
-                expect(routes.path).to.eql("/");
+                expect(routes.path).to.eql("/app/");
                 expect(routes.childRoutes[0].path).to.eql("foo");
             });
         });
@@ -69,7 +69,7 @@ describe("RoutingAdapter, given a list of registry entries", () => {
             it("should append those parameters", () => {
                 let routes = subject.routes();
 
-                expect(routes.path).to.eql("/");
+                expect(routes.path).to.eql("/app/");
                 expect(routes.childRoutes[0].path).to.eql("foo/:id");
             });
         });
@@ -83,7 +83,7 @@ describe("RoutingAdapter, given a list of registry entries", () => {
             it("should also add these viewmodels to the area registration", () => {
                 let routes = subject.routes();
 
-                expect(routes.path).to.eql("/");
+                expect(routes.path).to.eql("/app/");
                 expect(routes.childRoutes[0].path).to.eql("foo/bar");
             });
         });
@@ -97,7 +97,7 @@ describe("RoutingAdapter, given a list of registry entries", () => {
             it("should add these parameters to the constructed path", () => {
                 let routes = subject.routes();
 
-                expect(routes.path).to.eql("/");
+                expect(routes.path).to.eql("/app/");
                 expect(routes.childRoutes[0].path).to.eql("foo/bar/:id/:subCategory");
             });
         });
@@ -117,7 +117,7 @@ describe("RoutingAdapter, given a list of registry entries", () => {
         it("should add a 404 handler to the routing", () => {
             let routes = subject.routes();
 
-            expect(routes.path).to.eql("/");
+            expect(routes.path).to.eql("/app/");
             expect(routes.childRoutes[0].path).to.eql("foo/bar/:id/:subCategory");
             expect(routes.childRoutes[1].path).to.eql("*");
         });
