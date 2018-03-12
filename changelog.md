@@ -1,3 +1,7 @@
+# 4.1.0
+
+Add support for serving the application under a prefix
+
 # 4.0.3
 
 Avoid duplicated lodash versions

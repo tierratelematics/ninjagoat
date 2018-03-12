@@ -7,3 +7,5 @@ coverage
 views/export.js
 .nyc_output
 npm-debug.log
+.yalc
+.vscode

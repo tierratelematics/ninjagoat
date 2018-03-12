@@ -4,15 +4,17 @@ import RegistryEntry from "../registry/RegistryEntry";
 import * as _ from "lodash";
 import {inject, injectable} from "inversify";
 import * as Area from "../registry/Area";
+import { IRouterConfig } from "./IRouterConfig";
 
 @injectable()
 class UriResolver implements IUriResolver {
 
-    constructor(@inject("IViewModelRegistry") private registry: IViewModelRegistry) {
+    constructor(@inject("IViewModelRegistry") private registry: IViewModelRegistry,
+                @inject("IRouterConfig") private routerConfig: IRouterConfig) {
     }
 
     resolve<T>(uri: string): { area: string, viewmodel: RegistryEntry<T> } {
-        let uriParts: string[] = _.compact(uri.split("?")[0].split("/"));
+        let uriParts: string[] = _.compact(uri.replace(this.routerConfig.basename, "/").split("?")[0].split("/"));
         let area: string = uriParts[0];
         let viewmodelId: string = uriParts[1];
 
