@@ -10,6 +10,8 @@ import NinjaGoatModule from "./NinjaGoatModule";
 import ILocationListener from "../navigation/ILocationListener";
 import {IFeatureChecker, FeatureChecker} from "bivio";
 import {IViewModelRegistry} from "../registry/IViewModelRegistry";
+import { useBasename } from "history";
+import { IRouterConfig } from "../navigation/IRouterConfig";
 
 let container = new Container();
 
@@ -55,7 +57,10 @@ export class Application {
 
     protected rootComponent(): React.ReactElement<any> {
         let locationListener = this.container.get<ILocationListener>("ILocationListener");
-        browserHistory.listen(event => locationListener.pushLocation(event.pathname));
-        return <Router history={browserHistory} routes={this.routingAdapter.routes()}/>
+        let routerConfig = this.container.get<IRouterConfig>("IRouterConfig");
+        const history = useBasename(() => browserHistory)(routerConfig);
+
+        history.listen(event => locationListener.pushLocation(event.pathname));
+        return <Router history={history} routes={this.routingAdapter.routes()}/>
     }
 }

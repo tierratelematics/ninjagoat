@@ -18,7 +18,7 @@ describe("UriResolver, given an URI", () => {
 
     beforeEach(() => {
         registry = new ViewModelRegistry();
-        subject = new UriResolver(registry);
+        subject = new UriResolver(registry, {basename: "/app/"});
     });
 
     context("when there are no parameters", () => {
@@ -28,7 +28,7 @@ describe("UriResolver, given an URI", () => {
         });
 
         it("should return the corresponding viewmodel identifier", () => {
-            let resource = subject.resolve("/admin/bar");
+            let resource = subject.resolve("/app/admin/bar");
 
             expect(resource.viewmodel.id).to.be("Bar");
         });
@@ -36,7 +36,7 @@ describe("UriResolver, given an URI", () => {
         context("and the viewmodel has been registered in a lower case area", () => {
             it("should return the correct area identifier", () => {
                 registry.add(Screen.forViewModel(BarViewModel)).forArea("tools");
-                let resource = subject.resolve("/tools/bar");
+                let resource = subject.resolve("/app/tools/bar");
 
                 expect(resource.area).to.be("tools");
             });
@@ -50,7 +50,7 @@ describe("UriResolver, given an URI", () => {
         });
 
         it("should return the corresponding viewmodel identifier and the parameters", () => {
-            let resource = subject.resolve("/admin/bar/25/56");
+            let resource = subject.resolve("/app/admin/bar/25/56");
 
             expect(resource.area).to.be("Admin");
             expect(resource.viewmodel.id).to.be("Bar");
@@ -62,7 +62,7 @@ describe("UriResolver, given an URI", () => {
         context("and there is a specific Index viewmodel associated", () => {
             it("should return the viewmodel identifier composed by the name of the area plus Index", () => {
                 registry.add(Screen.forViewModel(FooIndexViewModel)).forArea("Foo");
-                let resource = subject.resolve("/foo");
+                let resource = subject.resolve("/app/foo");
 
                 expect(resource.viewmodel.id).to.be("FooIndex");
             });
@@ -71,7 +71,7 @@ describe("UriResolver, given an URI", () => {
         context("and this area needs some parameters", () => {
             it("should correctly resolve the viewmodel", () => {
                 registry.add(Screen.forViewModel(FooIndexViewModel).withParameters(":id")).forArea("Foo");
-                let resource = subject.resolve("/foo/25");
+                let resource = subject.resolve("/app/foo/25");
 
                 expect(resource.viewmodel.id).to.be("FooIndex");
                 expect(resource.viewmodel.parameters).to.be(":id");
@@ -85,7 +85,7 @@ describe("UriResolver, given an URI", () => {
             });
 
             it("should return the Index viewmodel identifier", () => {
-                let resource = subject.resolve("/admin");
+                let resource = subject.resolve("/app/admin");
 
                 expect(resource.viewmodel.id).to.be("Index");
             });
@@ -100,7 +100,7 @@ describe("UriResolver, given an URI", () => {
             });
 
             it("should return the Index viewmodel identifier", () => {
-                let resource = subject.resolve("/");
+                let resource = subject.resolve("/app/");
 
                 expect(resource.area).to.be("Index");
                 expect(resource.viewmodel.id).to.be("Index");
@@ -114,7 +114,7 @@ describe("UriResolver, given an URI", () => {
             });
 
             it("should return the Index viewmodel identifier", () => {
-                let resource = subject.resolve("/");
+                let resource = subject.resolve("/app/");
 
                 expect(resource.area).to.be("Index");
                 expect(resource.viewmodel.id).to.be("Root");
@@ -135,7 +135,7 @@ describe("UriResolver, given an URI", () => {
     context("when the uri contains some query string parameters", () => {
         it("should ignore those parameters during the uri resolution", () => {
             registry.add(Screen.forViewModel(FooIndexViewModel)).forArea("Foo");
-            let resource = subject.resolve("/foo?id=20");
+            let resource = subject.resolve("/app/foo?id=20");
 
             expect(resource.viewmodel.id).to.be("FooIndex");
         });
@@ -144,7 +144,7 @@ describe("UriResolver, given an URI", () => {
     context("when it's a page that does not exists", () => {
         beforeEach(() => registry.notFound(Screen.forViewModel(RootViewModel)));
         it("should return the 404 handler", () => {
-            let resource = subject.resolve("/inexistent");
+            let resource = subject.resolve("/app/inexistent");
 
             expect(resource.area).to.be(Area.NotFound);
             expect(resource.viewmodel.id).to.be("Root");
@@ -152,7 +152,7 @@ describe("UriResolver, given an URI", () => {
 
         context("and it contains a viewmodel identifier", () => {
             it("should return the 404 handler", () => {
-                let resource = subject.resolve("/inexistent/testViewmodel");
+                let resource = subject.resolve("/app/inexistent/testViewmodel");
 
                 expect(resource.area).to.be(Area.NotFound);
                 expect(resource.viewmodel.id).to.be("Root");
@@ -174,7 +174,7 @@ describe("UriResolver, given an URI", () => {
             });
 
             it("should return the 404 handler", () => {
-                let resource = subject.resolve("/admin/inexistent");
+                let resource = subject.resolve("/app/admin/inexistent");
 
                 expect(resource.area).to.be(Area.NotFound);
                 expect(resource.viewmodel.id).to.be("Root");
