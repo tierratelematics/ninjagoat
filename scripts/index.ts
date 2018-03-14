@@ -42,3 +42,4 @@ export {FeatureToggle, IFeatureChecker, FeatureChecker, CheckPredicate, Predicat
 export {default as IDateRetriever} from "./util/IDateRetriever";
 export {default as IGUIDGenerator} from "./util/IGUIDGenerator";
 export {ILogger, ConsoleLogger, NullLogger, LoggingContext, LogLevel, activateLogging, ILoggerConfig} from "inversify-logging";
+export { IRouterConfig } from "./navigation/IRouterConfig";
