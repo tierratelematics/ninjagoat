@@ -5,12 +5,14 @@ import * as _ from "lodash";
 import * as Area from "../registry/Area";
 import Dictionary from "../util/Dictionary";
 import {injectable, inject} from "inversify";
+import { IRouterConfig } from "../navigation/IRouterConfig";
 
 @injectable()
 class NavigationManager implements INavigationManager {
 
     constructor(@inject("ILocationHandler") private locationHandler:ILocationHandler,
-                @inject("IViewModelRegistry") private registry:IViewModelRegistry) {
+                @inject("IViewModelRegistry") private registry:IViewModelRegistry,
+                @inject("IRouterConfig") private routerConfig: IRouterConfig) {
     }
 
     navigate(area:string, viewmodelId?:string, parameters?:Dictionary<any>):void {
@@ -24,16 +26,17 @@ class NavigationManager implements INavigationManager {
     getNavigationPath(area:string, viewmodelId?:string, parameters?:Dictionary<any>):string {
         if (area === Area.Index) area = "";
         area = area.toLowerCase();
+        const basenameWithArea = `${this.routerConfig.basename}${area}`;
         if (!viewmodelId) {
-            return `/${area}`;
+            return `${basenameWithArea}`;
         } else {
             viewmodelId = viewmodelId.toLowerCase();
             if (!parameters)
-                return `/${area}/${viewmodelId}`;
+                return `${basenameWithArea}/${viewmodelId}`;
             else {
                 let entry = this.registry.getEntry(area, viewmodelId),
                     params = this.substituteParamsForPath(entry, parameters);
-                return `/${area}/${viewmodelId}/${params}`;
+                return `${basenameWithArea}/${viewmodelId}/${params}`;
             }
         }
     }
