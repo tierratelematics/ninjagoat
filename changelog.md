@@ -1,3 +1,5 @@
+# 4.1.1
+Add application prefix in NavigationManager
 # 4.1.0
 
 Add support for serving the application under a prefix
