@@ -17,14 +17,14 @@ describe("NavigationManager, given an area", () => {
     beforeEach(() => {
         registry = Mock.ofType<IViewModelRegistry>();
         locationHandler = Mock.ofType<ILocationHandler>();
-        subject = new NavigationManager(locationHandler.object, registry.object);
+        subject = new NavigationManager(locationHandler.object, registry.object, {basename: "/app/"});
     });
 
     context("when the area is the default one", () => {
         it("should navigate to the root page", () => {
             subject.navigate("Index");
 
-            locationHandler.verify(l => l.changeLocation("/"), Times.once());
+            locationHandler.verify(l => l.changeLocation("/app/"), Times.once());
         });
     });
 
@@ -32,14 +32,14 @@ describe("NavigationManager, given an area", () => {
         it("should navigate to the corresponding url", () => {
             subject.navigate("Users");
 
-            locationHandler.verify(l => l.changeLocation("/users"), Times.once());
+            locationHandler.verify(l => l.changeLocation("/app/users"), Times.once());
         });
 
         context("and a viewmodel identifier is provided", () => {
             it("should navigate to the specific page", () => {
                 subject.navigate("Users", "Bar");
 
-                locationHandler.verify(l => l.changeLocation("/users/bar"), Times.once());
+                locationHandler.verify(l => l.changeLocation("/app/users/bar"), Times.once());
             });
 
             context("and some parameters needs to be passed to this page", () => {
@@ -55,7 +55,7 @@ describe("NavigationManager, given an area", () => {
                         subCategory: "foo"
                     });
 
-                    locationHandler.verify(l => l.changeLocation("/users/bar/20/foo"), Times.once());
+                    locationHandler.verify(l => l.changeLocation("/app/users/bar/20/foo"), Times.once());
                 });
 
                 context("when a parameter is optional", () => {
@@ -70,7 +70,7 @@ describe("NavigationManager, given an area", () => {
                             bar: 20
                         });
 
-                        locationHandler.verify(l => l.changeLocation("/fake/bar/20"), Times.once());
+                        locationHandler.verify(l => l.changeLocation("/app/fake/bar/20"), Times.once());
                     });
                 });
 
@@ -86,7 +86,7 @@ describe("NavigationManager, given an area", () => {
                             id: 50
                         });
 
-                        locationHandler.verify(l => l.changeLocation("/fake/bar/50/"), Times.once());
+                        locationHandler.verify(l => l.changeLocation("/app/fake/bar/50/"), Times.once());
                     });
                 });
 
@@ -103,7 +103,7 @@ describe("NavigationManager, given an area", () => {
                             id: 50
                         });
 
-                        locationHandler.verify(l => l.changeLocation("/fake/bar/50/"), Times.once());
+                        locationHandler.verify(l => l.changeLocation("/app/fake/bar/50/"), Times.once());
                     });
                 });
             });
