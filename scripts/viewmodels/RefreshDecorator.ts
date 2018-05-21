@@ -3,8 +3,9 @@ function Refresh(target: any, propertyKey: string, descriptor: TypedPropertyDesc
     descriptor.value = function (...args: any[]) {
         let result = originalMethod.apply(this, args);
         if (result && result.then) {
-            return result.then(() => {
+            return result.then(data => {
                 if (this.notifyChanged) this.notifyChanged();
+                return data;
             });
         } else {
             if (this.notifyChanged) this.notifyChanged();

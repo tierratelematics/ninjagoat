@@ -2,9 +2,9 @@ language: node_js
 node_js:
   - "6"
 install:
-  - npm install smild@4.13.0 -g
-  - npm install react@16.2.0 react-dom@16.2.0
   - npm install
+  - npm install smild@4.13.0 -g
+  - npm install react@16.2.0 react-dom@16.2.0 --no-save
 script:
   - smild test
   - smild build
