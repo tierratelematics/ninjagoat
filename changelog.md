@@ -1,5 +1,11 @@
+# 4.1.2
+
+Fix return value of methods decorated with Refresh
+
 # 4.1.1
+
 Add application prefix in NavigationManager
+
 # 4.1.0
 
 Add support for serving the application under a prefix
