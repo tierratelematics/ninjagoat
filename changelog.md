@@ -1,3 +1,7 @@
+# 4.1.3
+
+Fix check for viewmodel existance
+
 # 4.1.2
 
 Fix return value of methods decorated with Refresh
