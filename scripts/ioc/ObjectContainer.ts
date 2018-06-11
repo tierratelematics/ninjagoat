@@ -21,12 +21,7 @@ export default class ObjectContainer implements IObjectContainer {
     }
 
     contains(key:string):boolean {
-        try {
-            this.container.get(key);
-        } catch (e) {
-            return false;
-        }
-        return true;
+        return this.container.isBound(key);
     }
 
     remove(key:string):void {
