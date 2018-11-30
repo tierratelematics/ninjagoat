@@ -47,28 +47,27 @@ class HttpClient implements IHttpClient {
                 headers[name.toString().toLowerCase()] = value;
             });
 
-            let binaryMimeTypes = ["application/octet-stream", "application/pdf", "application/zip", "application/x-", "image/", "video/"];
             let contentType = headers["content-type"] || "";
-
-            if(binaryMimeTypes.some(type => !!contentType.match(type))){
-                return response.blob().then(payload => {
-                    let httpResponse = new HttpResponse(payload, response.status, headers);
-                    
-                    if (response.status >= 400)
-                        throw httpResponse;
-                    return httpResponse;
-                });
+            if(this.isBinaryPayload(contentType)){
+                return response.blob().then(blob => [blob, response.status, response.headers]);
+            } else {
+                return response.text().then(text => [contentType.match("application/json") ? JSON.parse(text) : text, response.status, response.headers])
             }
-            return response.text().then(text => {
-                let payload = contentType.match("application/json") ? JSON.parse(text) : text;
-                let httpResponse = new HttpResponse(payload, response.status, headers);
+        }).then(data => {
+            let [payload, status, headers] = data;
+            let httpResponse = new HttpResponse(payload, status, headers);
 
-                if (response.status >= 400)
-                    throw httpResponse;
-                return httpResponse;
-            });
+            if (status >= 400)
+                throw httpResponse;
+            return httpResponse;
         });
+
         return Rx.Observable.fromPromise(promise);
+    }
+
+    private isBinaryPayload(contentType: string): boolean {
+        const binaryMimeTypes = ["application/octet-stream", "application/pdf", "application/zip", "application/x-", "image/", "video/"];
+        return binaryMimeTypes.some(type => !!contentType.match(type));
     }
 }
 
