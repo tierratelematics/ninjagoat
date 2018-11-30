@@ -46,8 +46,20 @@ class HttpClient implements IHttpClient {
             response.headers.forEach((value, name) => {
                 headers[name.toString().toLowerCase()] = value;
             });
+
+            let binaryMimeTypes = ["application/octet-stream", "application/pdf", "application/zip", "application/x-", "image/", "video/"];
+            let contentType = headers["content-type"] || "";
+
+            if(binaryMimeTypes.some(type => !!contentType.match(type))){
+                return response.blob().then(payload => {
+                    let httpResponse = new HttpResponse(payload, response.status, headers);
+                    
+                    if (response.status >= 400)
+                        throw httpResponse;
+                    return httpResponse;
+                });
+            }
             return response.text().then(text => {
-                let contentType = headers["content-type"] || "";
                 let payload = contentType.match("application/json") ? JSON.parse(text) : text;
                 let httpResponse = new HttpResponse(payload, response.status, headers);
 
