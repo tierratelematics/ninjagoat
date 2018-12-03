@@ -6,6 +6,8 @@ import {injectable} from "inversify";
 import Dictionary from "../util/Dictionary";
 import * as _ from "lodash";
 
+const binaryMimeTypes = ["application/octet-stream", "application/pdf", "application/zip", "application/x-", "image/", "video/"];
+
 @injectable()
 class HttpClient implements IHttpClient {
 
@@ -41,22 +43,26 @@ class HttpClient implements IHttpClient {
             method: method,
             body: body,
             headers: <any>headers
-        }).then(response => {
+        }).then(async response => {
             let headers: Dictionary<string> = {};
             response.headers.forEach((value, name) => {
                 headers[name.toString().toLowerCase()] = value;
             });
-            return response.text().then(text => {
-                let contentType = headers["content-type"] || "";
-                let payload = contentType.match("application/json") ? JSON.parse(text) : text;
-                let httpResponse = new HttpResponse(payload, response.status, headers);
 
-                if (response.status >= 400)
-                    throw httpResponse;
-                return httpResponse;
-            });
+            let contentType = headers["content-type"] || "";
+            let payload: string | Blob = await (this.isBinaryPayload(contentType) ? response.blob() : response.text());
+            let parsedPayload: object | string | Blob = contentType.match("application/json") ? JSON.parse(payload.toString()) : payload;
+
+            const httpResponse = new HttpResponse(parsedPayload, response.status, headers);
+            if(response.status >= 400)
+                throw httpResponse;
+            return httpResponse;
         });
         return Rx.Observable.fromPromise(promise);
+    }
+
+    private isBinaryPayload(contentType: string): boolean {
+        return binaryMimeTypes.some(type => !!contentType.match(type));
     }
 }
 
