@@ -1,3 +1,7 @@
+# 4.2.0
+
+Add support for Blob types on http response
+
 # 4.1.3
 
 Fix check for viewmodel existance
