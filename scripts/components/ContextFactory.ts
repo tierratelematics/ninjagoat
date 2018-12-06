@@ -19,9 +19,9 @@ class ContextFactory implements IContextFactory {
                 @inject("QuerySerializer") private serializer: ISerializer<Dictionary<string>, string>) {
     }
 
-    contextFor<T extends IViewModel<any>>(uri: string, parameters?: any): { view: interfaces.Newable<View<T>>, viewmodel: T } {
+    async contextFor<T extends IViewModel<any>>(uri: string, parameters?: any): Promise<{ view: interfaces.Newable<View<T>>, viewmodel: T }> {
         let context = this.uriResolver.resolve<T>(uri);
-        let view = this.viewResolver.resolve<T>(context.area, context.viewmodel.id);
+        let view = await this.viewResolver.resolve<T>(context.area, context.viewmodel.id);
         let contextParameters = _.assign({}, parameters, this.serializer.deserialize(uri.split("?")[1]));
         let viewModelContext = new ViewModelContext(context.area, context.viewmodel.id, contextParameters);
         let viewModel = context.viewmodel;

@@ -27,8 +27,8 @@ class PageComponent extends React.Component<IPageComponentProps> {
     componentWillUnmount() {
         if (this.viewmodel) this.viewmodel.dispose();
     }
-    setupPage(props: any) {
-        let context = props.contextFactory.contextFor(
+    async setupPage(props: any) {
+        let context = await props.contextFactory.contextFor(
             window.location.pathname + window.location.search,
             props.params
         );
@@ -39,6 +39,7 @@ class PageComponent extends React.Component<IPageComponentProps> {
     }
 
     render() {
+        if (!this.view) return <div></div>
         let ViewComponent = this.view;
         let ViewModel = this.viewmodel;
         let key = JSON.stringify(this.props.params);

@@ -9,7 +9,7 @@ import MasterView from "./fixtures/views/Master";
 import * as Area from "../scripts/registry/Area";
 import NotFound from "./fixtures/views/NotFound";
 
-describe("ViewResolver,given a viewmodel identifier", () => {
+describe("ViewResolver, given a viewmodel identifier", () => {
 
     let subject:IViewResolver;
 
@@ -18,15 +18,15 @@ describe("ViewResolver,given a viewmodel identifier", () => {
     });
 
     context("when it's registered under a specific area", () => {
-        it("should return the correct view", () => {
-            let view = subject.resolve<any>("Foo", "Bar");
+        it("should return the correct view", async () => {
+            let view = await subject.resolve<any>("Foo", "Bar");
 
             expect(view).to.be(Bar);
         });
 
         context("and the area is lowercase", () => {
-            it("should return the correct view", () => {
-                let view = subject.resolve<any>("tools", "Bar");
+            it("should return the correct view", async () => {
+                let view = await subject.resolve<any>("tools", "Bar");
 
                 expect(view).to.be(Bar);
             })
@@ -34,42 +34,55 @@ describe("ViewResolver,given a viewmodel identifier", () => {
     });
 
     context("when a view that is not registered needs to be resolved", () => {
-        it("should return a null result", () => {
-            let view = subject.resolve<any>("Inexistent");
+        it("should return a null result", async () => {
+            let view = await subject.resolve<any>("Inexistent");
 
             expect(view).to.be(null);
         });
     });
 
     context("when it's the root of an area", () => {
-        it("should return the area index view", () => {
-            let view = subject.resolve<any>("Foo");
+        it("should return the area index view", async () => {
+            let view = await subject.resolve<any>("Foo");
 
             expect(view).to.be(FooIndex);
         });
     });
 
     context("when it's the application root", () => {
-        it("should return the root view", () => {
-            let view = subject.resolve<any>("Index");
+        it("should return the root view", async () => {
+            let view = await subject.resolve<any>("Index");
 
             expect(view).to.be(RootIndex);
         });
     });
 
     context("when it's the master application container", () => {
-        it("should return the master view", () => {
-            let view = subject.resolve<any>(Area.Master);
+        it("should return the master view", async () => {
+            let view = await subject.resolve<any>(Area.Master);
 
             expect(view).to.be(MasterView);
         });
     });
 
     context("when a page is not found", () => {
-        it("should the not found view", () => {
-            let view = subject.resolve<any>(Area.NotFound);
+        it("should the not found view", async () => {
+            let view = await subject.resolve<any>(Area.NotFound);
 
             expect(view).to.be(NotFound);
+        });
+    });
+
+    context("when a view is lazy loaded with a dynamic import", () => {
+        it("should resolve correctly like all the other pages", async () => {
+            subject = new ViewResolver({
+                "Foo": {
+                    "FooIndex": import("./fixtures/views/foo/FooIndex")
+                }
+            });
+
+            let view = await subject.resolve<any>("Foo");
+            expect(view).to.be(FooIndex);
         });
     });
 });

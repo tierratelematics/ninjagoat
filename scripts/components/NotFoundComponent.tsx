@@ -15,8 +15,8 @@ class NotFoundComponent extends React.Component<INotFoundComponentProps> {
     viewmodel: IObservable<any>;
     view: interfaces.Newable<View<any>>;
 
-    componentWillMount() {
-        let context = this.props.contextFactory.contextFor(Area.NotFound);
+    async componentWillMount() {
+        let context = await this.props.contextFactory.contextFor(Area.NotFound);
         this.view = context.view;
         this.viewmodel = context.viewmodel;
         this.setState(this.viewmodel);
@@ -25,6 +25,7 @@ class NotFoundComponent extends React.Component<INotFoundComponentProps> {
     }
 
     render() {
+        if (!this.view) return <div></div>
         let ViewComponent = this.view;
         let ViewModel = this.viewmodel;
         return <ViewComponent viewmodel={ViewModel} children={this.props.children} />;
