@@ -30,6 +30,10 @@ export class Application {
     private featureChecker = new FeatureChecker();
 
     constructor() {
+        container = new Container();
+        decorators = getDecorators(container);
+        lazyInject = decorators.lazyInject;
+        lazyMultiInject = decorators.lazyMultiInject;
         this.register(new NinjaGoatModule());
         this.container.bind<IFeatureChecker>("IFeatureChecker").toConstantValue(this.featureChecker);
     }

@@ -1,3 +1,8 @@
+# 4.3.0
+
+- Add support for dynamic import on Views
+- Fix some bugs for HMR
+
 # 4.2.0
 
 Add support for Blob types on http response

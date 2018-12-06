@@ -51,8 +51,8 @@ describe("ContextFactory, given an URI", () => {
                 return viewmodel;
             });
         });
-        it("should return the correct view and associated viewmodel", () => {
-            let context = subject.contextFor<BarViewModel>("/foo/bar/25", {id: 25});
+        it("should return the correct view and associated viewmodel", async () => {
+            let context = await subject.contextFor<BarViewModel>("/foo/bar/25", {id: 25});
 
             expect(context.view).to.be(BarView);
             expect(context.viewmodel.models).to.eql([25]);
@@ -65,8 +65,8 @@ describe("ContextFactory, given an URI", () => {
                 });
             });
 
-            it("should forward those parameters to the viewmodel", () => {
-                let context = subject.contextFor<BarViewModel>("/foo/bar/?id=30");
+            it("should forward those parameters to the viewmodel", async () => {
+                let context = await subject.contextFor<BarViewModel>("/foo/bar/?id=30");
 
                 expect(context.viewmodel.models).to.eql(["30"]);
             });
@@ -84,8 +84,8 @@ describe("ContextFactory, given an URI", () => {
             });
             factory.setup(f => f.create(It.isAny(), It.isAny(), It.isAny())).returns(() => new FooIndexViewModel());
         });
-        it("should return the correct area view and the associated viewmodel", () => {
-            let context = subject.contextFor("/foo", {});
+        it("should return the correct area view and the associated viewmodel", async () => {
+            let context = await subject.contextFor("/foo", {});
 
             expect(context.view).to.be(FooIndex);
             expect(context.viewmodel instanceof FooIndexViewModel).to.be(true);
@@ -104,8 +104,8 @@ describe("ContextFactory, given an URI", () => {
             factory.setup(f => f.create(It.isAny(), It.isAny(), It.isAny())).returns(() => new IndexViewModel());
         });
         context("but a factory function was not supplied to the viewmodel registration", () => {
-            it("should not construct the dependencies", () => {
-                let context = subject.contextFor("/");
+            it("should not construct the dependencies", async () => {
+                let context = await subject.contextFor("/");
 
                 expect(context.view).to.be(RootView);
                 expect(context.viewmodel instanceof IndexViewModel).to.be(true);
@@ -124,8 +124,8 @@ describe("ContextFactory, given an URI", () => {
             });
             factory.setup(f => f.create(It.isAny(), It.isAny(), It.isAny())).returns(() => new RootViewModel());
         });
-        it("should return the master context", () => {
-            let context = subject.contextFor(Area.Master);
+        it("should return the master context", async () => {
+            let context = await subject.contextFor(Area.Master);
 
             expect(context.view).to.be(MasterView);
             expect(context.viewmodel instanceof RootViewModel).to.be(true);
