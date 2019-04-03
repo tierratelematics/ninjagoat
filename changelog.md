@@ -1,3 +1,8 @@
+# 4.4.0
+
+- Notify initial location when starting the application
+- Dispose resources on MasterComponent's unmount
+
 # 4.3.0
 
 - Add support for dynamic import on Views
