@@ -65,6 +65,8 @@ export class Application {
         const history = useBasename(() => browserHistory)(routerConfig);
 
         history.listen(event => locationListener.pushLocation(event.pathname));
-        return <Router history={history} routes={this.routingAdapter.routes()}/>
+        locationListener.pushLocation(history.getCurrentLocation().pathname);
+
+        return <Router history={history} routes={this.routingAdapter.routes()}/>;
     }
 }
