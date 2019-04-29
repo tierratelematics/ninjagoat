@@ -1,10 +1,10 @@
 import { interfaces } from "inversify";
 import { isEqual } from "lodash";
 import * as React from "react";
-import { IObservable } from "rx";
 
 import View from "../views/View";
 import IContextFactory from "./IContextFactory";
+import IViewModel from "../viewmodels/IViewModel";
 
 export interface IPageComponentProps {
     contextFactory: IContextFactory;
@@ -12,7 +12,8 @@ export interface IPageComponentProps {
 }
 
 class PageComponent extends React.Component<IPageComponentProps> {
-    viewmodel: IObservable<any>;    view: interfaces.Newable<View<any>>;
+    viewmodel: IViewModel<any>;
+    view: interfaces.Newable<View<any>>;
 
     componentWillMount() {
         this.setupPage(this.props);

@@ -1,20 +1,20 @@
 import "reflect-metadata";
 import expect = require("expect.js");
-import * as Rx from "rx";
 import BarViewModel from "../fixtures/viewmodels/BarViewModel";
 import CrashViewModel from "../fixtures/viewmodels/CrashViewModel";
+import {Subject, Subscription} from "rxjs";
 
 describe("Given an ObservableViewModel", () => {
 
     let subject: BarViewModel;
-    let modelSubject;
+    let modelSubject: Subject<number>;
     let notifications: void[];
     let notificationError: any;
     let notificationsCompleted;
-    let subscription: Rx.IDisposable;
+    let subscription: Subscription;
 
     beforeEach(() => {
-        modelSubject = new Rx.Subject<number>();
+        modelSubject = new Subject<number>();
         subject = new BarViewModel();
         subject.observe(modelSubject);
 
@@ -26,7 +26,7 @@ describe("Given an ObservableViewModel", () => {
 
     context("when it receives a new model", () => {
         beforeEach(() => {
-            modelSubject.onNext(10);
+            modelSubject.next(10);
         });
 
         it("should notify that new data is available", () => {
@@ -39,7 +39,7 @@ describe("Given an ObservableViewModel", () => {
 
         context("and there is an error while processing it", () => {
             beforeEach(() => {
-                subscription.dispose();
+                subscription.unsubscribe();
                 notifications = [];
                 let crashViewModel = new CrashViewModel();
                 crashViewModel.observe(modelSubject);
@@ -48,13 +48,13 @@ describe("Given an ObservableViewModel", () => {
 
             it("the error should be propagated to the system", () => {
                 expect(() => {
-                    modelSubject.onNext(10);
+                    modelSubject.next(10);
                 }).to.throwError();
             });
 
             it("should not notify that data has been changed", () => {
                 try {
-                    modelSubject.onNext(10);
+                    modelSubject.next(10);
                 } catch (error) {
                     expect(notifications).to.be.empty();
                 }
@@ -64,7 +64,7 @@ describe("Given an ObservableViewModel", () => {
 
     context("when it is not needed anymore", () => {
         beforeEach(() => {
-            modelSubject.onNext(10);
+            modelSubject.next(10);
             subject.dispose();
         });
 
@@ -75,7 +75,7 @@ describe("Given an ObservableViewModel", () => {
         context("and subsequent notifications are sent", () => {
             it("should ignore them", () => {
                 expect(() => {
-                    modelSubject.onNext(20);
+                    modelSubject.next(20);
                     expect(notifications.length).to.be(1);
                 }).not.to.throwError();
             });
@@ -84,7 +84,7 @@ describe("Given an ObservableViewModel", () => {
 
     context("when it receives an error from the model", () => {
         it("should notify the error to the subscribers", () => {
-            modelSubject.onError(new Error());
+            modelSubject.error(new Error());
 
             expect(notificationError).not.to.be(null);
         });

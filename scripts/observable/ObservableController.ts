@@ -1,4 +1,4 @@
-import {Observable} from "rx";
+import {Observable} from "rxjs";
 import ViewModelContext from "../registry/ViewModelContext";
 
 export interface IModelController {

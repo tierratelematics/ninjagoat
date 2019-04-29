@@ -1,33 +1,34 @@
+import {Observable} from "rxjs";
 import IHttpClient from "./IHttpClient";
-import * as Rx from "rx";
 import "whatwg-fetch";
 import HttpResponse from "./HttpResponse";
 import {injectable} from "inversify";
 import Dictionary from "../util/Dictionary";
 import * as _ from "lodash";
 
+
 const binaryMimeTypes = ["application/octet-stream", "application/pdf", "application/zip", "application/x-", "image/", "video/"];
 
 @injectable()
 class HttpClient implements IHttpClient {
 
-    get(url: string, headers?: Dictionary<string>): Rx.Observable<HttpResponse> {
+    get(url: string, headers?: Dictionary<string>): Observable<HttpResponse> {
         return this.performNetworkCall(url, "get", undefined, headers);
     }
 
-    post(url: string, body: {}|FormData, headers?: Dictionary<string>): Rx.Observable<HttpResponse> {
+    post(url: string, body: {} | FormData, headers?: Dictionary<string>): Observable<HttpResponse> {
         return this.performNetworkCall(url, "post", this.getJsonBody(body), this.addJsonHeaders(headers));
     }
 
-    put(url: string, body: {}, headers?: Dictionary<string>): Rx.Observable<HttpResponse> {
+    put(url: string, body: {}, headers?: Dictionary<string>): Observable<HttpResponse> {
         return this.performNetworkCall(url, "put", this.getJsonBody(body), this.addJsonHeaders(headers));
     }
 
-    delete(url: string, headers?: Dictionary<string>): Rx.Observable<HttpResponse> {
+    delete(url: string, headers?: Dictionary<string>): Observable<HttpResponse> {
         return this.performNetworkCall(url, "delete", undefined, headers);
     }
 
-    private getJsonBody(body: {}|FormData) {
+    private getJsonBody(body: {} | FormData) {
         return !(body instanceof FormData) ? JSON.stringify(body) : body;
     }
 
@@ -38,7 +39,7 @@ class HttpClient implements IHttpClient {
         }, headers);
     };
 
-    private performNetworkCall(url: string, method: string, body?: any, headers?: Dictionary<string>): Rx.Observable<HttpResponse> {
+    private performNetworkCall(url: string, method: string, body?: any, headers?: Dictionary<string>): Observable<HttpResponse> {
         let promise = window.fetch(url, {
             method: method,
             body: body,
@@ -54,11 +55,11 @@ class HttpClient implements IHttpClient {
             let parsedPayload: object | string | Blob = contentType.match("application/json") ? JSON.parse(payload.toString()) : payload;
 
             const httpResponse = new HttpResponse(parsedPayload, response.status, headers);
-            if(response.status >= 400)
+            if (response.status >= 400)
                 throw httpResponse;
             return httpResponse;
         });
-        return Rx.Observable.fromPromise(promise);
+        return Observable.fromPromise(promise);
     }
 
     private isBinaryPayload(contentType: string): boolean {
@@ -66,4 +67,4 @@ class HttpClient implements IHttpClient {
     }
 }
 
-export default HttpClient
+export default HttpClient;

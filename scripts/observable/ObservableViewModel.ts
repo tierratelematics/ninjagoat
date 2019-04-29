@@ -1,19 +1,20 @@
-import * as Rx from "rx";
-import IViewModel from "../viewmodels/IViewModel";
 import {injectable} from "inversify";
+import {Observable, Observer, Subject, Subscription} from "rxjs";
+import IViewModel from "../viewmodels/IViewModel";
+
 
 @injectable()
 abstract class ObservableViewModel<T> implements IViewModel<T> {
     "force nominal type for IViewModel": T;
 
-    private subject = new Rx.Subject<void>();
-    private subscription: Rx.IDisposable;
+    private subject = new Subject<void>();
+    private subscription: Subscription;
 
-    observe(observable: Rx.IObservable<T>) {
+    observe(observable: Observable<T>) {
         this.subscription = observable.subscribe(
             model => {
                 this.onData(model);
-                this.subject.onNext(undefined);
+                this.subject.next(undefined);
             },
             error => this.onError(error)
         );
@@ -21,9 +22,9 @@ abstract class ObservableViewModel<T> implements IViewModel<T> {
 
     protected abstract onData(data: T): void;
 
-    subscribe(observer: Rx.IObserver<void>): Rx.IDisposable
-    subscribe(onNext?: (value: void) => void, onError?: (exception: any) => void, onCompleted?: () => void): Rx.IDisposable
-    subscribe(observerOrOnNext?: (Rx.IObserver<void>) | ((value: void) => void), onError?: (exception: any) => void, onCompleted?: () => void): Rx.IDisposable {
+    subscribe(observer: Observer<void>): Subscription;
+    subscribe(onNext?: (value: void) => void, onError?: (exception: any) => void, onCompleted?: () => void): Subscription;
+    subscribe(observerOrOnNext?: (Observer<void>) | ((value: void) => void), onError?: (exception: any) => void, onCompleted?: () => void): Subscription {
         if (isObserver(observerOrOnNext))
             return this.subject.subscribe(observerOrOnNext);
         else
@@ -31,22 +32,22 @@ abstract class ObservableViewModel<T> implements IViewModel<T> {
     }
 
     protected onError(error: any) {
-        this.subscription.dispose();
-        this.subject.onError(error);
+        this.subscription.unsubscribe();
+        this.subject.error(error);
     }
 
     dispose(): void {
-        if (this.subscription) this.subscription.dispose();
-        this.subject.onCompleted();
+        if (this.subscription) this.subscription.unsubscribe();
+        this.subject.complete();
     }
 
     private notifyChanged() {
-        this.subject.onNext(undefined);
+        this.subject.next(undefined);
     }
 }
 
-function isObserver<T>(observerOrOnNext: (Rx.IObserver<T>) | ((value: T) => void)): observerOrOnNext is Rx.IObserver<T> {
-    return (<Rx.IObserver<T>>observerOrOnNext).onNext !== undefined;
+function isObserver<T>(observerOrOnNext: (Observer<T>) | ((value: T) => void)): observerOrOnNext is Observer<T> {
+    return (<Observer<T>>observerOrOnNext).next !== undefined;
 }
 
 export default ObservableViewModel;

@@ -6,7 +6,7 @@ import {IViewModelFactoryExtender, ViewModelFactory} from "../../scripts/viewmod
 import ViewModelContext from "../../scripts/registry/ViewModelContext";
 import BarViewModel from "../fixtures/viewmodels/BarViewModel";
 import ObservableViewModel from "../../scripts/observable/ObservableViewModel";
-import {Observable} from "rx";
+import {Observable} from "rxjs";
 
 describe("Given a viewmodel factory", () => {
 
@@ -25,7 +25,11 @@ describe("Given a viewmodel factory", () => {
             subject = new ViewModelFactory(objectContainer.object, [extender.object]);
         });
         it("should apply those extensions to the created viewmodel", () => {
-            let viewmodel = subject.create(new ViewModelContext("Admin", "Bar"), BarViewModel, () => Observable.empty());
+            let controller = {
+                model: null,
+                refresh: () => null
+            };
+            let viewmodel = subject.create(new ViewModelContext("Admin", "Bar"), BarViewModel, () => controller);
 
             extender.verify(e => e.extend(It.isValue(viewmodel), It.isValue(new ViewModelContext("Admin", "Bar")), It.isAny()), Times.once());
         });
@@ -36,7 +40,11 @@ describe("Given a viewmodel factory", () => {
             subject = new ViewModelFactory(objectContainer.object, []);
         });
         it("should create the viewmodel as is", () => {
-            let viewmodel = subject.create(new ViewModelContext("Admin", "Bar"), BarViewModel, () => Observable.empty());
+            let controller = {
+                model: null,
+                refresh: () => null
+            };
+            let viewmodel = subject.create(new ViewModelContext("Admin", "Bar"), BarViewModel, () => controller);
 
             expect(viewmodel instanceof ObservableViewModel).to.be(true);
         });

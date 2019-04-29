@@ -1,10 +1,12 @@
 import { interfaces } from "inversify";
 import * as React from "react";
-import { IObservable, Disposable } from "rx";
+import {AnonymousSubscription} from "rxjs/Subscription";
 
 import * as Area from "../registry/Area";
 import View from "../views/View";
 import IContextFactory from "./IContextFactory";
+import IViewModel from "../viewmodels/IViewModel";
+
 
 export interface IMasterComponentProps {
     contextFactory: IContextFactory;
@@ -12,9 +14,9 @@ export interface IMasterComponentProps {
 }
 
 class MasterComponent extends React.Component<IMasterComponentProps> {
-    viewmodel: IObservable<any>;
+    viewmodel: IViewModel<any>;
     view: interfaces.Newable<View<any>>;
-    private subscription: Disposable;
+    private subscription: AnonymousSubscription;
 
     async componentWillMount() {
         let context = await this.props.contextFactory.contextFor(Area.Master);
@@ -34,7 +36,7 @@ class MasterComponent extends React.Component<IMasterComponentProps> {
 
     componentWillUnmount(): void {
         if (this.subscription) {
-            this.subscription.dispose();
+            this.subscription.unsubscribe();
         }
 
         if (this.viewmodel && this.viewmodel.dispose) {

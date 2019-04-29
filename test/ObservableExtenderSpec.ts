@@ -1,6 +1,6 @@
 import "reflect-metadata";
 import {IMock, Mock, Times, It} from "typemoq";
-import {Observable} from "rx";
+import {Observable} from "rxjs";
 import ObservableFactoryExtender from "../scripts/observable/ObservableFactoryExtender";
 import ObservableViewModel from "../scripts/observable/ObservableViewModel";
 

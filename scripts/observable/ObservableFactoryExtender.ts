@@ -12,4 +12,4 @@ class ObservableFactoryExtender implements IViewModelFactoryExtender {
     }
 }
 
-export default ObservableFactoryExtender
+export default ObservableFactoryExtender;

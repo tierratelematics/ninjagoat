@@ -5,21 +5,23 @@ import Refresh from "./RefreshDecorator";
 
 @injectable()
 abstract class PresentationViewModel<T> extends ObservableViewModel<T> {
-    public presentation:string;
+    public presentation: string;
 
-    constructor(@inject("ILocationListener") locationListener:ILocationListener) {
+    constructor(@inject("ILocationListener") locationListener: ILocationListener) {
         super();
         locationListener.pushLocation(location.pathname); //Push initial location
         locationListener.changes()
             .map(data => Reflect.getMetadata("ninjagoat:presentation", data.viewmodel.construct))
             .distinctUntilChanged()
-            .subscribe(presentation => { this.updatePresentation(presentation); });
+            .subscribe(presentation => {
+                this.updatePresentation(presentation);
+            });
     }
 
     @Refresh
-    protected updatePresentation(presentation:string) {
+    protected updatePresentation(presentation: string) {
         this.presentation = presentation;
     }
 }
 
-export default PresentationViewModel
+export default PresentationViewModel;

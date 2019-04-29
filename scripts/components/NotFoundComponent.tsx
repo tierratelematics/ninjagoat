@@ -1,10 +1,10 @@
 import { interfaces } from "inversify";
 import * as React from "react";
-import { IObservable } from "rx";
 
 import * as Area from "../registry/Area";
 import View from "../views/View";
 import IContextFactory from "./IContextFactory";
+import IViewModel from "../viewmodels/IViewModel";
 
 export interface INotFoundComponentProps {
     contextFactory: IContextFactory;
@@ -12,7 +12,7 @@ export interface INotFoundComponentProps {
 }
 
 class NotFoundComponent extends React.Component<INotFoundComponentProps> {
-    viewmodel: IObservable<any>;
+    viewmodel: IViewModel<any>;
     view: interfaces.Newable<View<any>>;
 
     async componentWillMount() {

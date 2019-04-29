@@ -1,6 +1,6 @@
 import "reflect-metadata";
 import expect = require("expect.js");
-import {IMock, Mock, It, Times} from "typemoq";
+import {IMock, Mock, It} from "typemoq";
 import IContextFactory from "../scripts/components/IContextFactory";
 import ContextFactory from "../scripts/components/ContextFactory";
 import BarView from "./fixtures/views/foo/Bar";
@@ -12,7 +12,7 @@ import BarViewModel from "./fixtures/viewmodels/BarViewModel";
 import FooIndexViewModel from "./fixtures/viewmodels/FooIndexViewModel";
 import RootViewModel from "./fixtures/viewmodels/RootViewModel";
 import IndexViewModel from "./fixtures/viewmodels/IndexViewModel";
-import {Observable} from "rx";
+import {Observable} from "rxjs";
 import * as Area from "../scripts/registry/Area";
 import MasterView from "./fixtures/views/Master";
 import ISerializer from "../scripts/io/ISerializer";
@@ -32,7 +32,7 @@ describe("ContextFactory, given an URI", () => {
         factory = Mock.ofType<IViewModelFactory>();
         uriResolver = Mock.ofType<IUriResolver>();
         viewResolver = Mock.ofType<IViewResolver>();
-        serializer = Mock.ofType<ISerializer<Dictionary<string>,string>>();
+        serializer = Mock.ofType<ISerializer<Dictionary<string>, string>>();
         subject = new ContextFactory(uriResolver.object, viewResolver.object, factory.object, serializer.object);
     });
 
@@ -43,11 +43,11 @@ describe("ContextFactory, given an URI", () => {
                 return {
                     area: "Foo",
                     viewmodel: new RegistryEntry(BarViewModel, "Bar", null, null)
-                }
+                };
             });
             factory.setup(f => f.create(It.isAny(), It.isAny(), It.isAny())).returns((context) => {
                 let viewmodel = new BarViewModel();
-                viewmodel.observe(Observable.just(context.parameters.id));
+                viewmodel.observe(Observable.of(context.parameters.id));
                 return viewmodel;
             });
         });
@@ -61,7 +61,7 @@ describe("ContextFactory, given an URI", () => {
         context("and there are some parameters in the query string", () => {
             beforeEach(() => {
                 serializer.setup(s => s.deserialize("id=30")).returns(() => {
-                    return {id: "30"}
+                    return {id: "30"};
                 });
             });
 
@@ -80,7 +80,7 @@ describe("ContextFactory, given an URI", () => {
                 return {
                     area: "Foo",
                     viewmodel: new RegistryEntry(FooIndexViewModel, "FooIndex", null, null)
-                }
+                };
             });
             factory.setup(f => f.create(It.isAny(), It.isAny(), It.isAny())).returns(() => new FooIndexViewModel());
         });
@@ -99,7 +99,7 @@ describe("ContextFactory, given an URI", () => {
                 return {
                     area: "Index",
                     viewmodel: new RegistryEntry(IndexViewModel, "Index", null, null)
-                }
+                };
             });
             factory.setup(f => f.create(It.isAny(), It.isAny(), It.isAny())).returns(() => new IndexViewModel());
         });
@@ -120,7 +120,7 @@ describe("ContextFactory, given an URI", () => {
                 return {
                     area: "Master",
                     viewmodel: new RegistryEntry(RootViewModel, "Root", null, null)
-                }
+                };
             });
             factory.setup(f => f.create(It.isAny(), It.isAny(), It.isAny())).returns(() => new RootViewModel());
         });
