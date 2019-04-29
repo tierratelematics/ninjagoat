@@ -13,8 +13,12 @@ abstract class ObservableViewModel<T> implements IViewModel<T> {
     observe(observable: Observable<T>) {
         this.subscription = observable.subscribe(
             model => {
-                this.onData(model);
-                this.subject.next(undefined);
+                try {
+                    this.onData(model);
+                    this.notifyChanged();
+                } catch (error) {
+                    this.onError(error);
+                }
             },
             error => this.onError(error)
         );

@@ -12,7 +12,7 @@ import BarViewModel from "./fixtures/viewmodels/BarViewModel";
 import FooIndexViewModel from "./fixtures/viewmodels/FooIndexViewModel";
 import RootViewModel from "./fixtures/viewmodels/RootViewModel";
 import IndexViewModel from "./fixtures/viewmodels/IndexViewModel";
-import {Observable} from "rxjs";
+import {Observable, of} from "rxjs";
 import * as Area from "../scripts/registry/Area";
 import MasterView from "./fixtures/views/Master";
 import ISerializer from "../scripts/io/ISerializer";
@@ -47,7 +47,7 @@ describe("ContextFactory, given an URI", () => {
             });
             factory.setup(f => f.create(It.isAny(), It.isAny(), It.isAny())).returns((context) => {
                 let viewmodel = new BarViewModel();
-                viewmodel.observe(Observable.of(context.parameters.id));
+                viewmodel.observe(of(context.parameters.id));
                 return viewmodel;
             });
         });

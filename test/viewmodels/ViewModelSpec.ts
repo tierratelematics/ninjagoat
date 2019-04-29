@@ -47,17 +47,13 @@ describe("Given an ObservableViewModel", () => {
             });
 
             it("the error should be propagated to the system", () => {
-                expect(() => {
-                    modelSubject.next(10);
-                }).to.throwError();
+                modelSubject.next(15);
+                expect(notificationError).not.to.be(null);
             });
 
             it("should not notify that data has been changed", () => {
-                try {
-                    modelSubject.next(10);
-                } catch (error) {
-                    expect(notifications).to.be.empty();
-                }
+                modelSubject.next(10);
+                expect(notifications).to.be.empty();
             });
         });
     });
@@ -99,7 +95,7 @@ describe("Given an ObservableViewModel", () => {
             });
         });
         context("and the method is async", () => {
-            it("should notify that the model has been changed correctly", async() => {
+            it("should notify that the model has been changed correctly", async () => {
                 await subject.asyncOperation();
 
                 expect(subject.async).to.be(true);

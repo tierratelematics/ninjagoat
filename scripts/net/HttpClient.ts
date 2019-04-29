@@ -1,4 +1,4 @@
-import {Observable} from "rxjs";
+import {Observable, from} from "rxjs";
 import IHttpClient from "./IHttpClient";
 import "whatwg-fetch";
 import HttpResponse from "./HttpResponse";
@@ -59,7 +59,7 @@ class HttpClient implements IHttpClient {
                 throw httpResponse;
             return httpResponse;
         });
-        return Observable.fromPromise(promise);
+        return from(promise);
     }
 
     private isBinaryPayload(contentType: string): boolean {

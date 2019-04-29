@@ -1,4 +1,5 @@
 import {Observable, ReplaySubject, Subject} from "rxjs";
+import {map} from "rxjs/operators";
 import ILocationListener from "./ILocationListener";
 import RegistryEntry from "../registry/RegistryEntry";
 import {inject, injectable} from "inversify";
@@ -18,7 +19,9 @@ class LocationListener implements ILocationListener {
     }
 
     changes(): Observable<{ area: string, viewmodel: RegistryEntry<any> }> {
-        return this.subject.map(location => this.uriResolver.resolve(location));
+        return this.subject.pipe(
+            map(location => this.uriResolver.resolve(location))
+        );
     }
 
 }

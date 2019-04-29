@@ -1,6 +1,6 @@
 import "reflect-metadata";
 import {IMock, Mock, Times, It} from "typemoq";
-import {Observable} from "rxjs";
+import {EMPTY} from "rxjs";
 import ObservableFactoryExtender from "../scripts/observable/ObservableFactoryExtender";
 import ObservableViewModel from "../scripts/observable/ObservableViewModel";
 
@@ -16,7 +16,7 @@ describe("Given an observable extender", () => {
 
     context("when a controller is provided", () => {
         it("should pass the data to the viewmodel", () => {
-            let obs = Observable.empty();
+            let obs = EMPTY;
             subject.extend(viewmodel.object, null, {
                 model: obs,
                 refresh: () => null

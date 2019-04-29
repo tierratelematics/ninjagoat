@@ -1,11 +1,10 @@
 import "reflect-metadata";
 
-import {IMock, Mock, Times, It} from "typemoq";
+import {Mock, Times, It} from "typemoq";
 import ObservableViewModel from "../scripts/observable/ObservableViewModel";
 import ControllerFactoryExtender from "../scripts/observable/ControllerFactoryExtender";
 import {ControllableViewModel} from "../scripts/observable/ObservableController";
-import {Observable} from "rxjs";
-import {EmptyObservable} from "rxjs/observable/EmptyObservable";
+
 
 type ControllableModel = ObservableViewModel<any> & ControllableViewModel;
 

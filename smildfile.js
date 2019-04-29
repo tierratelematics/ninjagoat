@@ -1,3 +1,4 @@
 module.exports = {
-    "projectType": "module"
+    "projectType": "module",
+    "typescriptPath": require.resolve("typescript")
 };

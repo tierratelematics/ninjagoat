@@ -1,3 +1,4 @@
+import {map, distinctUntilChanged} from "rxjs/operators";
 import ObservableViewModel from "../observable/ObservableViewModel";
 import {injectable, inject} from "inversify";
 import ILocationListener from "../navigation/ILocationListener";
@@ -11,8 +12,10 @@ abstract class PresentationViewModel<T> extends ObservableViewModel<T> {
         super();
         locationListener.pushLocation(location.pathname); //Push initial location
         locationListener.changes()
-            .map(data => Reflect.getMetadata("ninjagoat:presentation", data.viewmodel.construct))
-            .distinctUntilChanged()
+            .pipe(
+                map(data => Reflect.getMetadata("ninjagoat:presentation", data.viewmodel.construct)),
+                distinctUntilChanged()
+            )
             .subscribe(presentation => {
                 this.updatePresentation(presentation);
             });

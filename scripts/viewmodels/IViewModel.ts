@@ -1,4 +1,4 @@
-import {Subscribable} from "rxjs/Observable";
+import {Subscribable} from "rxjs";
 import {IDisposable} from "./IDisposable";
 
 interface IViewModel<T> extends IDisposable, Subscribable<void> {

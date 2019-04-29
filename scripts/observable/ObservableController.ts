@@ -1,4 +1,4 @@
-import {Observable} from "rxjs";
+import {Observable, EMPTY} from "rxjs";
 import ViewModelContext from "../registry/ViewModelContext";
 
 export interface IModelController {
@@ -22,6 +22,6 @@ export function controllerFromObservable<T>(observable: Observable<T>): Observab
     return {
         model: observable,
         refresh: parameters => null,
-        updates: () => Observable.empty()
+        updates: () => EMPTY
     };
 }

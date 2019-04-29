@@ -1,6 +1,6 @@
 import { interfaces } from "inversify";
 import * as React from "react";
-import {AnonymousSubscription} from "rxjs/Subscription";
+import {Unsubscribable as AnonymousSubscription} from "rxjs";
 
 import * as Area from "../registry/Area";
 import View from "../views/View";
