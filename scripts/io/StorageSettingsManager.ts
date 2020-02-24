@@ -13,6 +13,10 @@ class StorageSettingsManager implements ISettingsManager, ISettingsManagerAsync 
         window.localStorage.setItem(key, JSON.stringify(value));
     }
 
+    removeValue(key:string):void {
+        window.localStorage.removeItem(key);
+    }
+
     getValueAsync<T>(key: string, fallback?: T): Promise<T> {
         return Promise.resolve(this.getValue(key, fallback));
     }
@@ -21,6 +25,9 @@ class StorageSettingsManager implements ISettingsManager, ISettingsManagerAsync 
         return Promise.resolve(this.setValue(key, value));
     }
 
+    removeValueAsync(key: string): Promise<void> {
+        return Promise.resolve(this.removeValue(key));
+    }
 }
 
 export default StorageSettingsManager
