@@ -1,3 +1,7 @@
+# 4.5.0
+
+Add method to remove a value from storage 
+
 # 4.4.0
 
 - Notify initial location when starting the application
