@@ -1,3 +1,7 @@
+# 3.0.1
+
+Avoid content-type forcing for multipart
+
 # 3.0.0
 
 Keep only the controller registrations
