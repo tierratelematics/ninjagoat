@@ -14,11 +14,11 @@ class HttpClient implements IHttpClient {
     }
 
     post(url: string, body: {}|FormData, headers?: Dictionary<string>): Rx.Observable<HttpResponse> {
-        return this.performNetworkCall(url, "post", this.getJsonBody(body), this.addJsonHeaders(headers));
+        return this.performNetworkCall(url, "post", this.getJsonBody(body), this.addJsonHeaders(headers, body));
     }
 
     put(url: string, body: {}, headers?: Dictionary<string>): Rx.Observable<HttpResponse> {
-        return this.performNetworkCall(url, "put", this.getJsonBody(body), this.addJsonHeaders(headers));
+        return this.performNetworkCall(url, "put", this.getJsonBody(body), this.addJsonHeaders(headers, body));
     }
 
     delete(url: string, headers?: Dictionary<string>): Rx.Observable<HttpResponse> {
@@ -26,14 +26,16 @@ class HttpClient implements IHttpClient {
     }
 
     private getJsonBody(body: {}|FormData) {
-        return !(body instanceof FormData) ? JSON.stringify(body) : body;
+        return !(this.isFormData(body)) ? JSON.stringify(body) : body;
     }
 
-    private addJsonHeaders(headers: Dictionary<string>) {
-        return _.merge({}, {
-            "Accept": "application/json",
-            "Content-Type": "application/json"
-        }, headers);
+    private addJsonHeaders(headers: Dictionary<string>, body: {}|FormData) {
+        return this.isFormData(body)
+            ? headers
+            : _.merge({}, {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            }, headers);
     };
 
     private performNetworkCall(url: string, method: string, body?: any, headers?: Dictionary<string>): Rx.Observable<HttpResponse> {
@@ -57,6 +59,10 @@ class HttpClient implements IHttpClient {
             });
         });
         return Rx.Observable.fromPromise(promise);
+    }
+
+    private isFormData(data: any): boolean {
+        return data instanceof FormData;
     }
 }
 
