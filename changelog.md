@@ -1,3 +1,7 @@
+# 4.5.2
+
+Avoid content-type forcing for multipart
+
 # 4.5.0
 
 Add method to remove a value from storage 
