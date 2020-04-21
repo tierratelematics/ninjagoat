@@ -1,7 +1,7 @@
 language: node_js
 version: 1.0
 node_js:
-  - "6"
+  - "10"
 install:
   - npm ci
   - npm install smild@4.13.0 -g
