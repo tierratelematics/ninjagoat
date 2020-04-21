@@ -28,6 +28,14 @@ class StorageSettingsManager implements ISettingsManager, ISettingsManagerAsync 
     removeValueAsync(key: string): Promise<void> {
         return Promise.resolve(this.removeValue(key));
     }
+
+    clear():void {
+        window.localStorage.clear();
+    }
+
+    clearAsync(): Promise<void> {
+        return Promise.resolve(this.clear());
+    }
 }
 
 export default StorageSettingsManager
