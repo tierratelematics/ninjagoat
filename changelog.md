@@ -1,3 +1,7 @@
+# 4.6.1 
+
+Fix dependency version and use npm ci instead of npm i
+
 # 4.6.0
 
 Add clear method to settings manager
