@@ -1,3 +1,7 @@
+# 4.6.0
+
+Add clear method to settings manager
+
 # 4.5.2
 
 Avoid content-type forcing for multipart
