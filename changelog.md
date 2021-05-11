@@ -1,3 +1,19 @@
+# 4.6.1 
+
+Fix dependency version and use npm ci instead of npm i
+
+# 4.6.0
+
+Add clear method to settings manager
+
+# 4.5.2
+
+Avoid content-type forcing for multipart
+
+# 4.5.0
+
+Add method to remove a value from storage 
+
 # 4.4.0
 
 - Notify initial location when starting the application
