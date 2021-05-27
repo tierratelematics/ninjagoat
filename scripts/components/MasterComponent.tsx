@@ -1,6 +1,6 @@
 import { interfaces } from "inversify";
 import * as React from "react";
-import {Unsubscribable as AnonymousSubscription} from "rxjs";
+import {Unsubscribable} from "rxjs";
 
 import * as Area from "../registry/Area";
 import View from "../views/View";
@@ -16,7 +16,7 @@ export interface IMasterComponentProps {
 class MasterComponent extends React.Component<IMasterComponentProps> {
     viewmodel: IViewModel<any>;
     view: interfaces.Newable<View<any>>;
-    private subscription: AnonymousSubscription;
+    private subscription: Unsubscribable;
 
     async componentWillMount() {
         let context = await this.props.contextFactory.contextFor(Area.Master);

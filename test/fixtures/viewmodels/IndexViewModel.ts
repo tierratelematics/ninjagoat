@@ -1,6 +1,6 @@
 import IViewModel from "../../../scripts/viewmodels/IViewModel";
 import {ViewModel} from "../../../scripts/viewmodels/ViewModelDecorator";
-import {Observer, Subscription} from "rxjs";
+import {Observer, Unsubscribable} from "rxjs";
 
 @ViewModel("Index")
 class IndexViewModel implements IViewModel<number> {
@@ -9,9 +9,9 @@ class IndexViewModel implements IViewModel<number> {
     dispose(): void {
     }
 
-    subscribe(observer: Observer<void>): Subscription;
-    subscribe(onNext?: (value: void) => void, onError?: (exception: any) => void, onCompleted?: () => void): Subscription;
-    subscribe(observerOrOnNext?: (Observer<void>) | ((value: void) => void), onError?: (exception: any) => void, onCompleted?: () => void): Subscription {
+    subscribe(observer: Observer<void>): Unsubscribable;
+    subscribe(onNext?: (value: void) => void, onError?: (exception: any) => void, onCompleted?: () => void): Unsubscribable;
+    subscribe(observerOrOnNext?: (Observer<void>) | ((value: void) => void), onError?: (exception: any) => void, onCompleted?: () => void): Unsubscribable {
         return null;
     }
 }

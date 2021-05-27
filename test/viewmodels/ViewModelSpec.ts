@@ -2,7 +2,7 @@ import "reflect-metadata";
 import expect = require("expect.js");
 import BarViewModel from "../fixtures/viewmodels/BarViewModel";
 import CrashViewModel from "../fixtures/viewmodels/CrashViewModel";
-import {Subject, Subscription} from "rxjs";
+import {Subject, Unsubscribable} from "rxjs";
 
 describe("Given an ObservableViewModel", () => {
 
@@ -11,7 +11,7 @@ describe("Given an ObservableViewModel", () => {
     let notifications: void[];
     let notificationError: any;
     let notificationsCompleted;
-    let subscription: Subscription;
+    let subscription: Unsubscribable;
 
     beforeEach(() => {
         modelSubject = new Subject<number>();
