@@ -1,3 +1,7 @@
+# 5.0.0-rc1
+
+Update to rxjs v6
+
 # 4.6.1 
 
 Fix dependency version and use npm ci instead of npm i
