@@ -20,7 +20,7 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
 
       - name: Install smild
-        run: npm install smild@4.13.0 -g
+        run: npm install smild@4.16.1 -g
 
       - name: Install dependencies
         run: npm ci
