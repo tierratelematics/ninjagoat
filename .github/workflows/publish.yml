@@ -3,7 +3,7 @@ name: Publish
 on:
   push:
     tags:
-      - '*'
+      - '*-rc*'
 
 jobs:
 
@@ -35,7 +35,7 @@ jobs:
         run: smild build
 
       - name: Publish
-        run: npm publish
+        run: npm publish --tag next
         env:
           NODE_AUTH_TOKEN: ${{ secrets.TIERRATELEMATICS_NPM }}
 
