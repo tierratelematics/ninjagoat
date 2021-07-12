@@ -10,7 +10,7 @@ jobs:
       - name: Use Node.js v10
         uses: actions/setup-node@v2
         with:
-          node-version: '12.x'
+          node-version: '10.21.0'
 
       - name: Install smild
         run: npm install smild@4.13.0 -g
