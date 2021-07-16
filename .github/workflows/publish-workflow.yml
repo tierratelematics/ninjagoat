@@ -19,30 +19,10 @@ jobs:
           node-version: '10.21.0'
           registry-url: 'https://registry.npmjs.org'
 
-      - name: Install smild
-        run: npm install smild@4.16.1 -g
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Install peer dependencies
-        run: npm install react@16.2.0 react-dom@16.2.0 --no-save
-
-      - name: Test
-        run: smild test
-
-      - name: Build
-        run: smild build
+      - name: Use Build action
+        uses: ./.github/actions/build
 
       - name: Publish
         run: npm publish --tag next
         env:
           NODE_AUTH_TOKEN: ${{ secrets.TIERRATELEMATICS_NPM }}
-
-
-
-
-
-
-
-

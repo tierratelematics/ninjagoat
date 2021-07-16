@@ -1,0 +1,25 @@
+name: "Build"
+description: "Build"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Install smild
+      run: npm install smild@4.16.1 npm-install-peers -g
+      shell: bash
+
+    - name: Install dependencies
+      run: npm ci
+      shell: bash
+
+    - name: Install peer dependencies
+      run: npm-install-peers
+      shell: bash
+
+    - name: Test
+      run: smild test
+      shell: bash
+
+    - name: Build
+      run: smild build
+      shell: bash
